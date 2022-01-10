@@ -1,19 +1,19 @@
 .container {
-  padding: 0 2rem;
 }
 
 .header {
   position: fixed;
   top: 0;
   right: 0;
-  height: 2em;
   width: 100%;
+  height: 60px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   background: black;
   opacity: 0.8;
-  .title {
+  z-index: 900;
+  .headerTitle {
     font-size: medium;
     color: whitesmoke;
     margin-left: 1em;
@@ -33,15 +33,43 @@
 
 
 .main {
-  min-height: 100vh;
-  padding: 4rem 0;
+  width: 100%;
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  .mainTitle {
+    height: 100vh;
+    width: 100%;
+    background-image: url("../public/sample_header_background.png");
+    background-size: cover;
+    text-align: center;
+    vertical-align: center;
+    .myLogo {
+      width: 80%;
+      height: 80%;
+      mix-blend-mode: difference;
+      border: 0;
+      text-align: center;
+    }
+  }
   section {
-    height: 500px;
+    height: 40vh;
+  }
+  .section {
+
+    width: 100%;
+    .sectionHeader {
+      background: transparent;
+      height: 100px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
+    .sectionContainer {
+      background: red;
+    }
   }
 }
 

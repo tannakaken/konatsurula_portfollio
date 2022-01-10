@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import { Link as Scroll } from 'react-scroll';
 import styles from '../styles/Home.module.scss'
 
 const Home = () => {
@@ -11,28 +12,48 @@ const Home = () => {
       </Head>
 
       <header className={styles.header}>
-        <h1 id="title" className={styles.title}>
+        <h1 id="title" className={styles.headerTitle}>
             粉鶴亀のポートフォリオ
         </h1>
           <nav id="global-navi">
             <ul>
-              <li><a href="#works-section">WORKS</a></li>
-              <li><a href="#concept-section">CONCEPT</a></li>
-              <li><a href="#news-section">NEWS</a></li>
+              <li><Scroll to="works-section" smooth={true}>WORKS</Scroll></li>
+              <li><Scroll to="concept-section" smooth={true}>CONCEPT</Scroll></li>
+              <li><Scroll to="news-section" smooth={true}>NEWS</Scroll></li>
             </ul>
           </nav>
         </header>
 
       <main className={styles.main}>
-
-        <section id="works-section">
-          <p>WORKS</p>
+        <div className={styles.mainTitle}>
+          <img className={styles.myLogo} src="./sample_logotype.svg" />
+        </div>
+        <section>
+          ABOUT
         </section>
-        <section id="concept-section">
-          <p>WORKS</p>
+        <section className={styles.section} id="works-section">
+          <header className={styles.sectionHeader}>
+            <h1>WORKS</h1>
+          </header>
+          <div className={styles.sectionContainer}>
+            <p>WORKS</p>
+          </div>
         </section>
-        <section id="news-section">
-          <p>WORKS</p>
+        <section className={styles.section} id="concept-section">
+          <header className={styles.sectionHeader}>
+            <h1>CONCEPT</h1>
+          </header>
+          <div className={styles.sectionContainer}>
+            <p>CONCEPT</p>
+          </div>
+        </section>
+        <section className={styles.section} id="news-section">
+          <header className={styles.sectionHeader}>
+            <h1>NEWS</h1>
+          </header>
+          <div className={styles.sectionContainer}>
+            <p>NEWS</p>
+          </div>
         </section>
       </main>
 
