@@ -89,7 +89,7 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  background: orange;
+  background: white;
   .iconContainer {
     text-align: center;
     vertical-align: center;
@@ -103,6 +103,7 @@
     width: 50%;
     display: flex;
     flex-direction: row;
+    background: orange;
     .description {
       font-size: small;
       text-align: left;
@@ -118,7 +119,7 @@
   background-attachment: fixed;
 }
 
-#conceptHeader {
+#illustHeader {
   background-image: url("../public/sample_titleback.png");
   background-size: cover;
   background-attachment: fixed;

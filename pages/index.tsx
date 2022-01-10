@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { Link as Scroll } from 'react-scroll';
 import styles from '../styles/Home.module.scss';
+import {useEffect} from "react";
 
 const works = [] as string[];
 for (let i = 0; i < 18; i++) {
@@ -9,6 +10,28 @@ for (let i = 0; i < 18; i++) {
 }
 
 const Home = () => {
+  useEffect(() => {
+    const animate = async () => {
+      const sr = (await import("scrollreveal")).default()
+      sr.reveal(".works-image", {reset: true});
+      sr.reveal(".left-about", {
+        reset: true,
+        opacity: 1,
+        origin: "left",
+        delay: 400,
+        distance: "50%"
+      });
+      sr.reveal(".right-about", {
+        reset: true,
+        opacity: 1,
+        origin: "right",
+        delay: 400,
+        distance: "50%"
+      });
+    };
+    animate().then(() => console.log("animate")).catch((error) => console.warn(error));
+  }, []);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -24,7 +47,7 @@ const Home = () => {
           <nav id="global-navi">
             <ul>
               <li className={styles.navItem}><Scroll to="works-section" smooth={true}>WORKS</Scroll></li>
-              <li className={styles.navItem}><Scroll to="concept-section" smooth={true}>CONCEPT</Scroll></li>
+              <li className={styles.navItem}><Scroll to="illust-section" smooth={true}>ILLUST</Scroll></li>
               <li className={styles.navItem}><Scroll to="news-section" smooth={true}>NEWS</Scroll></li>
             </ul>
           </nav>
@@ -36,10 +59,10 @@ const Home = () => {
         </div>
         <section id="about-section">
           <div id={styles.aboutContainer}>
-            <div className={styles.iconContainer}>
+            <div className={styles.iconContainer + " left-about"}>
               <img className={styles.icon} src="./icon.jpeg"/>
             </div>
-            <div className={styles.descriptionContainer}>
+            <div className={styles.descriptionContainer + " right-about"}>
               <div className={styles.description}>
                 <p>粉鶴亀（こなつるか）</p>
                 <p>アニメーター</p>
@@ -64,16 +87,16 @@ const Home = () => {
           </header>
           <div className={styles.sectionContainer}>
             {works.map((source) => (<figure className={styles.work} key={source}>
-              <img src={source}/>
+              <img className="works-image" src={source}/>
             </figure>))}
           </div>
         </section>
-        <section className={styles.section} id="concept-section">
-          <header className={styles.sectionHeader} id={styles.conceptHeader}>
-            <h1>CONCEPT</h1>
+        <section className={styles.section} id="illust-section">
+          <header className={styles.sectionHeader} id={styles.illustHeader}>
+            <h1>ILLUST</h1>
           </header>
           <div className={styles.sectionContainer}>
-            <p>CONCEPT</p>
+            <p>ILLUST</p>
           </div>
         </section>
         <section className={styles.section} id="news-section">
