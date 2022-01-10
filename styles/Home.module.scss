@@ -17,6 +17,7 @@
     font-size: medium;
     color: whitesmoke;
     margin-left: 1em;
+    cursor: pointer;
   }
   nav {
     ul {
@@ -26,11 +27,12 @@
         margin-right: 3em;
         color: whitesmoke;
       }
+      .navItem {
+        cursor: pointer;
+      }
     }
   }
 }
-
-
 
 .main {
   width: 100%;
@@ -44,6 +46,7 @@
     width: 100%;
     background-image: url("../public/sample_header_background.png");
     background-size: cover;
+    background-attachment: fixed;
     text-align: center;
     vertical-align: center;
     .myLogo {
@@ -55,22 +58,76 @@
     }
   }
   section {
-    height: 40vh;
-  }
-  .section {
-
     width: 100%;
+
     .sectionHeader {
-      background: transparent;
-      height: 100px;
+      height: 40vh;
       display: flex;
       flex-direction: row;
       justify-content: center;
+      align-items: center;
+      color: whitesmoke;
+      font-size: xxx-large;
+      text-decoration: underline;
     }
     .sectionContainer {
-      background: red;
+      width: 100%;
+      .work {
+        width: 25%;
+        display: inline-block;
+        margin: -3px 0;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
     }
   }
+}
+
+#aboutContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  background: orange;
+  .iconContainer {
+    text-align: center;
+    vertical-align: center;
+    background: black;
+    width: 50%;
+    .icon {
+
+    }
+  }
+  .descriptionContainer {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    .description {
+      font-size: small;
+      text-align: left;
+      width: 40%;
+      padding-left: 5%;
+    }
+  }
+}
+
+#worksHeader {
+  background-image: url("../public/sample_titleback.png");
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+#conceptHeader {
+  background-image: url("../public/sample_titleback.png");
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+#newsHeader {
+  background-image: url("../public/sample_titleback.png");
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 .footer {

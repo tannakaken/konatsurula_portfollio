@@ -1,6 +1,12 @@
-import Head from 'next/head'
+import Head from 'next/head';
+import Link from 'next/link';
 import { Link as Scroll } from 'react-scroll';
-import styles from '../styles/Home.module.scss'
+import styles from '../styles/Home.module.scss';
+
+const works = [] as string[];
+for (let i = 0; i < 18; i++) {
+  works.push("/sample_image.png");
+}
 
 const Home = () => {
   return (
@@ -13,13 +19,13 @@ const Home = () => {
 
       <header className={styles.header}>
         <h1 id="title" className={styles.headerTitle}>
-            粉鶴亀のポートフォリオ
+          <Link href="/">粉鶴亀のポートフォリオ</Link>
         </h1>
           <nav id="global-navi">
             <ul>
-              <li><Scroll to="works-section" smooth={true}>WORKS</Scroll></li>
-              <li><Scroll to="concept-section" smooth={true}>CONCEPT</Scroll></li>
-              <li><Scroll to="news-section" smooth={true}>NEWS</Scroll></li>
+              <li className={styles.navItem}><Scroll to="works-section" smooth={true}>WORKS</Scroll></li>
+              <li className={styles.navItem}><Scroll to="concept-section" smooth={true}>CONCEPT</Scroll></li>
+              <li className={styles.navItem}><Scroll to="news-section" smooth={true}>NEWS</Scroll></li>
             </ul>
           </nav>
         </header>
@@ -28,19 +34,42 @@ const Home = () => {
         <div className={styles.mainTitle}>
           <img className={styles.myLogo} src="./sample_logotype.svg" />
         </div>
-        <section>
-          ABOUT
+        <section id="about-section">
+          <div id={styles.aboutContainer}>
+            <div className={styles.iconContainer}>
+              <img className={styles.icon} src="./icon.jpeg"/>
+            </div>
+            <div className={styles.descriptionContainer}>
+              <div className={styles.description}>
+                <p>粉鶴亀（こなつるか）</p>
+                <p>アニメーター</p>
+                <p>MP・TVアニメ</p>
+                <p>イラスト・マンガ</p>
+              </div>
+              <div className={styles.description}>
+                <p>主な仕事：<br />
+                  <a href="https://www.youtube.com/watch?v=ENcnYh79dUY">ヨルシカ「思想犯」</a><br />
+                  <a href="https://www.youtube.com/watch?v=kzdJkT4kp-A">YOASOBI「ハルジオン」</a>
+                </p>
+                <p>連絡先：...@gmail.com</p>
+                <p>Twitter:<a href="https://twitter.com/sashimi0404">@sashimi</a></p>
+              </div>
+            </div>
+          </div>
+
         </section>
         <section className={styles.section} id="works-section">
-          <header className={styles.sectionHeader}>
+          <header className={styles.sectionHeader} id={styles.worksHeader}>
             <h1>WORKS</h1>
           </header>
           <div className={styles.sectionContainer}>
-            <p>WORKS</p>
+            {works.map((source) => (<figure className={styles.work} key={source}>
+              <img src={source}/>
+            </figure>))}
           </div>
         </section>
         <section className={styles.section} id="concept-section">
-          <header className={styles.sectionHeader}>
+          <header className={styles.sectionHeader} id={styles.conceptHeader}>
             <h1>CONCEPT</h1>
           </header>
           <div className={styles.sectionContainer}>
@@ -48,7 +77,7 @@ const Home = () => {
           </div>
         </section>
         <section className={styles.section} id="news-section">
-          <header className={styles.sectionHeader}>
+          <header className={styles.sectionHeader} id={styles.newsHeader}>
             <h1>NEWS</h1>
           </header>
           <div className={styles.sectionContainer}>
