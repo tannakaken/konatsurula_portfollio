@@ -3,13 +3,34 @@ import Link from 'next/link';
 import { Link as Scroll } from 'react-scroll';
 import styles from '../styles/Home.module.scss';
 import {useEffect} from "react";
+import {createClient} from "microcms-js-sdk";
 
 const works = [] as string[];
 for (let i = 0; i < 18; i++) {
   works.push("/sample_image.png");
 }
 
-const Home = () => {
+type Work = {
+  title: string;
+}
+
+type Props = {
+  works: Work[];
+}
+
+export const getStaticProps = async (context) => {
+  const client = createClient({
+    serviceDomain: "konatsuruka",
+    apiKey: "c13f9e56bac0488f8c4dd33995f60b6f8488",
+  });
+  const works = await client.get({endpoint: "works"});
+  return { props: {
+      works: works.contents
+    }
+  }
+};
+
+const Home = ({works}: Props) => {
   useEffect(() => {
     const animate = async () => {
       const sr = (await import("scrollreveal")).default()
@@ -86,8 +107,9 @@ const Home = () => {
             <h1>WORKS</h1>
           </header>
           <div className={styles.sectionContainer}>
-            {works.map((source) => (<figure className={styles.work} key={source}>
-              <img className="works-image" src={source}/>
+            {works.map((source) => (<figure className={styles.work} key={source.title}>
+              <figcaption>{source.title}</figcaption>
+              <img className="works-image" src={"/sample_image.png"}/>
             </figure>))}
           </div>
         </section>
