@@ -21,10 +21,10 @@
   }
   nav {
     ul {
-      margin: 0;
+      padding: 0;
       li {
         display: inline-block;
-        margin-right: 3em;
+        padding-right: 3em;
         color: whitesmoke;
       }
       .navItem {
@@ -71,11 +71,7 @@
       text-decoration: underline;
     }
     .sectionContainer {
-      width: 100%;
-      .work {
-        width: 80%;
-        display: inline-block;
-      }
+      text-align: center;
     }
   }
 }
@@ -154,7 +150,7 @@
 }
 
 .title {
-  margin: 0;
+  padding: 0;
   line-height: 1.15;
   font-size: 4rem;
 }
@@ -165,7 +161,7 @@
 }
 
 .description {
-  margin: 4rem 0;
+  padding: 4rem 0;
   line-height: 1.5;
   font-size: 1.5rem;
 }
@@ -188,8 +184,7 @@
 }
 
 .card {
-  margin: 1rem;
-  padding: 1.5rem;
+  padding: 2.5rem;
   text-align: left;
   color: inherit;
   text-decoration: none;
@@ -207,19 +202,19 @@
 }
 
 .card h2 {
-  margin: 0 0 1rem 0;
+  padding: 0 0 1rem 0;
   font-size: 1.5rem;
 }
 
 .card p {
-  margin: 0;
+  padding: 0;
   font-size: 1.25rem;
   line-height: 1.5;
 }
 
 .logo {
   height: 1em;
-  margin-left: 0.5rem;
+  padding-left: 0.5rem;
 }
 
 @media (max-width: 600px) {

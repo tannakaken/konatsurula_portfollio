@@ -5,6 +5,8 @@ import styles from '../styles/Home.module.scss';
 import {useEffect} from "react";
 import {createClient} from "microcms-js-sdk";
 import YouTube from "react-youtube";
+import youTubeStyles from  '../styles/YouTube.module.scss';
+import * as React from "react";
 
 const works = [] as string[];
 for (let i = 0; i < 18; i++) {
@@ -112,7 +114,11 @@ const Home = ({works}: Props) => {
           <div className={styles.sectionContainer}>
             {works.map((source) => (<figure className={styles.work} key={source.title}>
               <figcaption>{source.title}</figcaption>
-              <YouTube videoId={source.youtubeId} />
+              <YouTube
+                  loading="lazy"
+                  className={youTubeStyles.iframe}
+                  containerClassName={youTubeStyles.youtube}
+                  videoId={source.youtubeId} />
             </figure>))}
           </div>
         </section>
