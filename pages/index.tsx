@@ -2,11 +2,14 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { Link as Scroll } from 'react-scroll';
 import styles from '../styles/Home.module.scss';
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {createClient} from "microcms-js-sdk";
 import YouTube from "react-youtube";
 import youTubeStyles from  '../styles/YouTube.module.scss';
+import ReactModal from "react-modal"
 import * as React from "react";
+import {ParsedUrlQuery} from "querystring";
+import {GetStaticProps} from "next";
 
 const works = [] as string[];
 for (let i = 0; i < 18; i++) {
@@ -14,16 +17,20 @@ for (let i = 0; i < 18; i++) {
 }
 
 type Work = {
+  id: string,
   title: string;
   youtubeId: string;
   description: string;
+}
+
+interface Params extends ParsedUrlQuery {
 }
 
 type Props = {
   works: Work[];
 }
 
-export const getStaticProps = async (context) => {
+export const getStaticProps: GetStaticProps<Props, Params> = async (context) => {
   const client = createClient({
     serviceDomain: "konatsuruka",
     apiKey: "c13f9e56bac0488f8c4dd33995f60b6f8488",
@@ -35,7 +42,12 @@ export const getStaticProps = async (context) => {
   }
 };
 
+ReactModal.setAppElement('#__next')
+
 const Home = ({works}: Props) => {
+  const [selectedWork, setSelectedWork] = useState<Work | undefined>(undefined);
+  const isModalOpen = selectedWork !== undefined;
+
   useEffect(() => {
     const animate = async () => {
       const sr = (await import("scrollreveal")).default()
@@ -112,14 +124,13 @@ const Home = ({works}: Props) => {
             <h1>WORKS</h1>
           </header>
           <div className={styles.sectionContainer}>
-            {works.map((source) => (<figure className={styles.work} key={source.title}>
-              <figcaption>{source.title}</figcaption>
-              <YouTube
-                  loading="lazy"
-                  className={youTubeStyles.iframe}
-                  containerClassName={youTubeStyles.youtube}
-                  videoId={source.youtubeId} />
-            </figure>))}
+            {works.map((source) => (
+              <img
+                  onClick={() => setSelectedWork(source)}
+                  key={source.id}
+                  className={styles.work + " works-image"}
+                  alt={source.title}
+                  src={`https://img.youtube.com/vi/${source.youtubeId}/default.jpg`} />))}
           </div>
         </section>
         <section className={styles.section} id="illust-section">
@@ -152,6 +163,25 @@ const Home = ({works}: Props) => {
           </span>
         </a>
       </footer>
+      <ReactModal
+          contentLabel="YouTube Modal"
+          isOpen={isModalOpen}
+          onRequestClose={() => setSelectedWork(undefined)}
+      >
+        <div className={youTubeStyles.header}>
+          <h2>{selectedWork?.title}</h2>
+          <a className={youTubeStyles.closeButton} onClick={() => setSelectedWork(undefined)}>×close</a>
+        </div>
+        {selectedWork !== undefined && (
+            <YouTube
+              opts={{playerVars: {autoplay: 1}}}
+              loading="lazy"
+              className={youTubeStyles.iframe}
+              containerClassName={youTubeStyles.youtube}
+              videoId={selectedWork?.youtubeId} />
+        )}
+        <p className={youTubeStyles.description}>{selectedWork?.description}</p>
+      </ReactModal>
     </div>
   )
 }

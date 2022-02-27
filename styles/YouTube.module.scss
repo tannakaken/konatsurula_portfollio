@@ -13,3 +13,17 @@
   height: 100%;
 }
 
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-button {
+  cursor: pointer;
+}
+
+.description {
+  white-space: pre;
+}
