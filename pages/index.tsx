@@ -4,6 +4,7 @@ import { Link as Scroll } from 'react-scroll';
 import styles from '../styles/Home.module.scss';
 import {useEffect} from "react";
 import {createClient} from "microcms-js-sdk";
+import YouTube from "react-youtube";
 
 const works = [] as string[];
 for (let i = 0; i < 18; i++) {
@@ -12,6 +13,8 @@ for (let i = 0; i < 18; i++) {
 
 type Work = {
   title: string;
+  youtubeId: string;
+  description: string;
 }
 
 type Props = {
@@ -109,7 +112,7 @@ const Home = ({works}: Props) => {
           <div className={styles.sectionContainer}>
             {works.map((source) => (<figure className={styles.work} key={source.title}>
               <figcaption>{source.title}</figcaption>
-              <img className="works-image" src={"/sample_image.png"}/>
+              <YouTube videoId={source.youtubeId} />
             </figure>))}
           </div>
         </section>
