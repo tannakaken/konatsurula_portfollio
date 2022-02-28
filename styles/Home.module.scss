@@ -72,6 +72,11 @@
     }
     .sectionContainer {
       text-align: center;
+
+      ul {
+        list-style: none;
+        text-align: left;
+      }
       .work {
         width: 25%;
       }

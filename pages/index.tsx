@@ -23,11 +23,19 @@ type Work = {
   description: string;
 }
 
+type News = {
+  id: string;
+  title: string;
+  content: string;
+  isNew: boolean;
+}
+
 interface Params extends ParsedUrlQuery {
 }
 
 type Props = {
   works: Work[];
+  news: News[];
 }
 
 export const getStaticProps: GetStaticProps<Props, Params> = async (context) => {
@@ -35,16 +43,19 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (context) => 
     serviceDomain: "konatsuruka",
     apiKey: "c13f9e56bac0488f8c4dd33995f60b6f8488",
   });
-  const works = await client.get({endpoint: "works"});
+  const works = (await client.get<{contents: Work[]}>({endpoint: "works"})).contents;
+  const news = (await client.get<{contents: News[]}>({endpoint: "news"})).contents
+
   return { props: {
-      works: works.contents
+      works,
+      news,
     }
   }
 };
 
 ReactModal.setAppElement('#__next')
 
-const Home = ({works}: Props) => {
+const Home = ({works, news}: Props) => {
   const [selectedWork, setSelectedWork] = useState<Work | undefined>(undefined);
   const isModalOpen = selectedWork !== undefined;
 
@@ -100,7 +111,11 @@ const Home = ({works}: Props) => {
             <h1>NEWS</h1>
           </header>
           <div className={styles.sectionContainer}>
-            <p>NEWS</p>
+            <ul>{news.map((newsContent) => (
+                <li key={newsContent.id}>
+                  {newsContent.isNew && (<img alt="it's new" src="./new.gif" />)}{newsContent.title}
+                </li>
+            ))}</ul>
           </div>
         </section>
         <section id="about-section">
