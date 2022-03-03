@@ -1,6 +1,8 @@
-import '../styles/globals.scss'
+import '../styles/globals.scss';
+import '../styles/modal.scss';
+import {AppProps} from "next/app";
 
-const MyApp = ({ Component, pageProps }) => {
+const MyApp = ({ Component, pageProps }: AppProps) => {
   return <Component {...pageProps} />
 }
 

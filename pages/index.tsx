@@ -6,17 +6,13 @@ import {useEffect, useState} from "react";
 import {createClient} from "microcms-js-sdk";
 import YouTube from "react-youtube";
 import youTubeStyles from  '../styles/YouTube.module.scss';
+import '../styles/YouTube.module.scss';
 import ReactModal from "react-modal"
 import * as React from "react";
 import {ParsedUrlQuery} from "querystring";
 import {GetStaticProps} from "next";
 
-const works = [] as string[];
-for (let i = 0; i < 18; i++) {
-  works.push("/sample_image.png");
-}
-
-type Work = {
+export type Work = {
   id: string,
   title: string;
   youtubeId: string;
@@ -136,11 +132,10 @@ const Home = ({works, news}: Props) => {
                   <a href="https://www.youtube.com/watch?v=kzdJkT4kp-A">YOASOBI「ハルジオン」</a>
                 </p>
                 <p>連絡先：...@gmail.com</p>
-                <p>Twitter:<a href="https://twitter.com/sashimi0404">@sashimi</a></p>
+                <p>Twitter:<a href="https://twitter.com/sashimi0404">@sashimi0404</a></p>
               </div>
             </div>
           </div>
-
         </section>
         <section className={styles.section} id="works-section">
           <header className={styles.sectionHeader} id={styles.worksHeader}>
@@ -164,9 +159,7 @@ const Home = ({works, news}: Props) => {
             <p>ILLUST</p>
           </div>
         </section>
-
       </main>
-
       <footer className={styles.footer}>
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
@@ -182,7 +175,9 @@ const Home = ({works, news}: Props) => {
       <ReactModal
           contentLabel="YouTube Modal"
           isOpen={isModalOpen}
+          shouldCloseOnEsc={true}
           onRequestClose={() => setSelectedWork(undefined)}
+          closeTimeoutMS={500}
       >
         <div className={youTubeStyles.header}>
           <h2>{selectedWork?.title}</h2>
