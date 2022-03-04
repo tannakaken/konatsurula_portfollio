@@ -75,6 +75,7 @@ const Home = ({works, news, illusts}: Props) => {
     const animate = async () => {
       const sr = (await import("scrollreveal")).default()
       sr.reveal(".works-image", {reset: true});
+      sr.reveal(".illusts-image", {reset: true});
       sr.reveal(".left-about", {
         reset: true,
         opacity: 1,
@@ -109,7 +110,7 @@ const Home = ({works, news, illusts}: Props) => {
               <li className={styles.navItem}><Scroll to="news-section" smooth={true}>NEWS</Scroll></li>
               <li className={styles.navItem}><Scroll to="about-section" smooth={true}>ABOUT</Scroll></li>
               <li className={styles.navItem}><Scroll to="works-section" smooth={true}>WORKS</Scroll></li>
-              <li className={styles.navItem}><Scroll to="illust-section" smooth={true}>ILLUST</Scroll></li>
+              <li className={styles.navItem}><Scroll to="illusts-section" smooth={true}>ILLUST</Scroll></li>
             </ul>
           </nav>
         </header>
@@ -167,7 +168,7 @@ const Home = ({works, news, illusts}: Props) => {
                   src={`https://img.youtube.com/vi/${work.youtubeId}/default.jpg`} />))}
           </div>
         </section>
-        <section className={styles.section} id="illust-section">
+        <section className={styles.section} id="illusts-section">
           <header className={styles.sectionHeader} id={styles.illustHeader}>
             <h1>ILLUST</h1>
           </header>
@@ -175,6 +176,7 @@ const Home = ({works, news, illusts}: Props) => {
             <div className={styles.illusts}>
               {illusts.map((illust) => (
               <img
+                  className={"illusts-image"}
                   key={illust.id}
                   alt={illust.title}
                   src={illust.image.url} />
