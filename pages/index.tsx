@@ -12,7 +12,7 @@ import * as React from "react";
 import {ParsedUrlQuery} from "querystring";
 import {GetStaticProps} from "next";
 
-export type Work = {
+type Work = {
   id: string,
   title: string;
   youtubeId: string;
@@ -26,12 +26,26 @@ type News = {
   isNew: boolean;
 }
 
+type ImageData = {
+  url: string;
+  height: number;
+  width: number;
+}
+
+type Illust = {
+  id: string;
+  title: string;
+  image: ImageData;
+  description: string;
+}
+
 interface Params extends ParsedUrlQuery {
 }
 
 type Props = {
   works: Work[];
   news: News[];
+  illusts: Illust[];
 }
 
 export const getStaticProps: GetStaticProps<Props, Params> = async (context) => {
@@ -41,17 +55,19 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (context) => 
   });
   const works = (await client.get<{contents: Work[]}>({endpoint: "works"})).contents;
   const news = (await client.get<{contents: News[]}>({endpoint: "news"})).contents
+  const illusts = (await client.get<{contents: Illust[]}>({endpoint: "illusts"})).contents
 
   return { props: {
       works,
       news,
+      illusts,
     }
   }
 };
 
 ReactModal.setAppElement('#__next')
 
-const Home = ({works, news}: Props) => {
+const Home = ({works, news, illusts}: Props) => {
   const [selectedWork, setSelectedWork] = useState<Work | undefined>(undefined);
   const isModalOpen = selectedWork !== undefined;
 
@@ -100,7 +116,7 @@ const Home = ({works, news}: Props) => {
 
       <main className={styles.main}>
         <div className={styles.mainTitle}>
-          <img className={styles.myLogo} src="./sample_logotype.svg" />
+          <img className={styles.myLogo} src="./sample_logotype.svg" alt={"logo"} />
         </div>
         <section className={styles.section} id="news-section">
           <header className={styles.sectionHeader} id={styles.newsHeader}>
@@ -117,7 +133,7 @@ const Home = ({works, news}: Props) => {
         <section id="about-section">
           <div id={styles.aboutContainer}>
             <div className={styles.iconContainer + " left-about"}>
-              <img className={styles.icon} src="./icon.jpeg"/>
+              <img className={styles.icon} src="./icon.jpeg" alt={"粉鶴亀のアイコン"}/>
             </div>
             <div className={styles.descriptionContainer + " right-about"}>
               <div className={styles.description}>
@@ -142,13 +158,13 @@ const Home = ({works, news}: Props) => {
             <h1>WORKS</h1>
           </header>
           <div className={styles.sectionContainer}>
-            {works.map((source) => (
+            {works.map((work) => (
               <img
-                  onClick={() => setSelectedWork(source)}
-                  key={source.id}
+                  onClick={() => setSelectedWork(work)}
+                  key={work.id}
                   className={styles.work + " works-image"}
-                  alt={source.title}
-                  src={`https://img.youtube.com/vi/${source.youtubeId}/default.jpg`} />))}
+                  alt={work.title}
+                  src={`https://img.youtube.com/vi/${work.youtubeId}/default.jpg`} />))}
           </div>
         </section>
         <section className={styles.section} id="illust-section">
@@ -156,7 +172,14 @@ const Home = ({works, news}: Props) => {
             <h1>ILLUST</h1>
           </header>
           <div className={styles.sectionContainer}>
-            <p>ILLUST</p>
+            <div className={styles.illusts}>
+              {illusts.map((illust) => (
+              <img
+                  key={illust.id}
+                  alt={illust.title}
+                  src={illust.image.url} />
+            ))}
+            </div>
           </div>
         </section>
       </main>
