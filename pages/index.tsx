@@ -11,6 +11,7 @@ import ReactModal from "react-modal"
 import * as React from "react";
 import {ParsedUrlQuery} from "querystring";
 import {GetStaticProps} from "next";
+import {json} from "stream/consumers";
 
 type Work = {
   id: string,
@@ -93,6 +94,8 @@ const Home = ({works, news, illusts}: Props) => {
     };
     animate().then(() => console.log("animate")).catch((error) => console.warn(error));
   }, []);
+  const [email, setEmail] = useState("");
+  const [body, setBody] = useState("");
 
   return (
     <div className={styles.container}>
@@ -111,6 +114,7 @@ const Home = ({works, news, illusts}: Props) => {
               <li className={styles.navItem}><Scroll to="about-section" smooth={true}>ABOUT</Scroll></li>
               <li className={styles.navItem}><Scroll to="works-section" smooth={true}>WORKS</Scroll></li>
               <li className={styles.navItem}><Scroll to="illusts-section" smooth={true}>ILLUST</Scroll></li>
+              <li className={styles.navItem}><Scroll to="contact-section" smooth={true}>CONTACT</Scroll></li>
             </ul>
           </nav>
         </header>
@@ -183,6 +187,52 @@ const Home = ({works, news, illusts}: Props) => {
             ))}
             </div>
           </div>
+        </section>
+        <section id="contact-section" style={{display: "flex", flexDirection: "column", alignItems: "center", width: "100%"}}>
+          <h1>CONTACT</h1>
+          <div>
+            <label>メールアドレス:</label>
+            <input type={"email"}
+                 value={email}
+                 onChange={(event) => setEmail(event.target.value)}
+                   style={{
+                     width: "300px"
+                   }}
+          />
+          </div>
+          <div>
+            <label>本文：</label><br />
+            <textarea
+                value={body}
+                onChange={(event) => setBody(event.target.value)}
+                style={{
+                  width: "410px",
+                  height: "80px",
+                }}
+
+          />
+          </div>
+          <div style={{display: "flex", flexDirection: "column", justifyContent: "end", width: "410px"}}>
+            <button style={{width: "80px"}}
+                onClick={() => {
+            fetch("https://8ikmquk2i4.execute-api.ap-northeast-1.amazonaws.com/send-mail-SES", {
+              method: "POST",
+              mode: 'cors',
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                email,
+                body
+              })
+            }).then(() => {
+              console.warn("送信しました");
+            }).catch((error) => {
+              console.warn(error);
+            })
+          }}>送信</button>
+          </div>
+
         </section>
       </main>
       <footer className={styles.footer}>
