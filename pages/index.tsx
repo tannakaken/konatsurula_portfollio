@@ -97,6 +97,7 @@ const Home = ({works, news, illusts}: Props) => {
   }, []);
   const [email, setEmail] = useState("");
   const [body, setBody] = useState("");
+  const [sending, setSending] = useState(false);
 
   return (
     <div className={styles.container}>
@@ -192,8 +193,10 @@ const Home = ({works, news, illusts}: Props) => {
         <section id="contact-section" style={{display: "flex", flexDirection: "column", alignItems: "center", width: "100%"}}>
           <h1>CONTACT</h1>
           <div>
-            <label>メールアドレス:</label>
-            <input type={"email"}
+            <label htmlFor={"email"}>メールアドレス:</label>
+            <input
+                name={"email"}
+                type={"email"}
                  value={email}
                  onChange={(event) => setEmail(event.target.value)}
                    style={{
@@ -202,8 +205,9 @@ const Home = ({works, news, illusts}: Props) => {
           />
           </div>
           <div>
-            <label>本文：</label><br />
+            <label htmlFor={"body"}>本文：</label><br />
             <textarea
+                name={"body"}
                 value={body}
                 onChange={(event) => setBody(event.target.value)}
                 style={{
@@ -214,33 +218,44 @@ const Home = ({works, news, illusts}: Props) => {
           />
           </div>
           <div style={{display: "flex", flexDirection: "column", justifyContent: "end", width: "410px"}}>
-            <button style={{width: "80px"}}
+            <button style={{width: "80px"}} id={"contact-button"}
                 onClick={async () => {
+                  if (sending) {
+                    return;
+                  }
+                  if (email.length === 0 || body.length === 0) {
+                    return;
+                  }
                   if (executeRecaptcha === undefined) {
                     console.warn("undefined");
                     return;
                   }
-                  const reCaptchaToken = await executeRecaptcha('contactPage');
-                  console.warn(reCaptchaToken);
-                  return;
-            fetch("https://8ikmquk2i4.execute-api.ap-northeast-1.amazonaws.com/send-mail-SES", {
-              method: "POST",
-              mode: 'cors',
-              headers: {
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify({
-                email,
-                body
-              })
-            }).then(() => {
-              console.warn("送信しました");
-            }).catch((error) => {
-              console.warn(error);
-            })
-          }}>送信</button>
+                  const recaptchaToken = await executeRecaptcha('contactPage');
+                  setSending(true);
+                  fetch("https://8ikmquk2i4.execute-api.ap-northeast-1.amazonaws.com/send-mail-SES", {
+                    method: "POST",
+                    mode: 'cors',
+                    headers: {
+                      "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                      email,
+                      body,
+                      recaptchaToken,
+                    })
+                  }).then(() => {
+                    setBody("");
+                    setEmail("");
+                    alert('送信しました');
+                    setSending(false);
+                  }).catch((error) => {
+                    alert(error);
+                    setSending(false);
+                  })
+                }}>
+              送信
+            </button>
           </div>
-
         </section>
       </main>
       <footer className={styles.footer}>
