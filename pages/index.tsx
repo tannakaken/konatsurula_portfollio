@@ -11,7 +11,7 @@ import ReactModal from "react-modal"
 import * as React from "react";
 import {ParsedUrlQuery} from "querystring";
 import {GetStaticProps} from "next";
-import {json} from "stream/consumers";
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
 type Work = {
   id: string,
@@ -69,6 +69,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (context) => 
 ReactModal.setAppElement('#__next')
 
 const Home = ({works, news, illusts}: Props) => {
+  const { executeRecaptcha } = useGoogleReCaptcha();
   const [selectedWork, setSelectedWork] = useState<Work | undefined>(undefined);
   const isModalOpen = selectedWork !== undefined;
 
@@ -214,7 +215,14 @@ const Home = ({works, news, illusts}: Props) => {
           </div>
           <div style={{display: "flex", flexDirection: "column", justifyContent: "end", width: "410px"}}>
             <button style={{width: "80px"}}
-                onClick={() => {
+                onClick={async () => {
+                  if (executeRecaptcha === undefined) {
+                    console.warn("undefined");
+                    return;
+                  }
+                  const reCaptchaToken = await executeRecaptcha('contactPage');
+                  console.warn(reCaptchaToken);
+                  return;
             fetch("https://8ikmquk2i4.execute-api.ap-northeast-1.amazonaws.com/send-mail-SES", {
               method: "POST",
               mode: 'cors',
