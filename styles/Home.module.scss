@@ -81,7 +81,11 @@
         width: 25%;
       }
       .illusts {
-        width: 100%;
+        width: 80%;
+        @media (max-width: 600px) {
+          width: 100%;
+        }
+        margin: auto;
       }
     }
   }

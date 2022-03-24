@@ -62,29 +62,21 @@ const decideStyles = (illusts: Illust[]) => {
   const styles = [] as any[];
   let heightLimit = 0;
   let heightSum = 0;
-  let float: Float = "right";
-
+  let float: Float = "left";
   for (const illust of illusts) {
     const height = illust.image.height / illust.image.width;
-    if (height <= 1) {
-      styles.push({
-        width: "100%",
-        display: "block",
-        clear: "both",
-      });
-      heightSum = 0;
-      heightLimit = 0;
-    } else {
-      styles.push({
-        width: "50%",
-        display: "block",
-        float: float,
-      })
-      if (heightSum >= heightLimit) {
-        heightLimit = heightSum + height - heightLimit;
-        heightSum = heightLimit - height;
-        float = changeFloat(float);
-      }
+    styles.push({
+      width: "50%",
+      display: "block",
+      objectFit: "contain",
+      maxHeight: "90vh",
+      float: float,
+    })
+    heightSum += height
+    if (heightSum >= heightLimit) {
+      heightLimit = heightSum + height - heightLimit;
+      heightSum = heightLimit - height;
+      float = changeFloat(float);
     }
   }
   return styles;
