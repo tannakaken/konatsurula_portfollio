@@ -12,6 +12,7 @@ import * as React from "react";
 import {ParsedUrlQuery} from "querystring";
 import {GetStaticProps} from "next";
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+import {images} from "next/dist/build/webpack/config/blocks/images";
 
 type Work = {
   id: string,
@@ -48,11 +49,51 @@ type Props = {
   news: News[];
   illusts: Illust[];
 }
+type Float = "left" | "right"
+
+const changeFloat = (float: Float): Float => {
+  if (float == "left") {
+    return "right";
+  }
+  return "left";
+};
+
+const decideStyles = (illusts: Illust[]) => {
+  const styles = [] as any[];
+  let heightLimit = 0;
+  let heightSum = 0;
+  let float: Float = "right";
+
+  for (const illust of illusts) {
+    const height = illust.image.height / illust.image.width;
+    if (height <= 1) {
+      styles.push({
+        width: "100%",
+        display: "block",
+        clear: "both",
+      });
+      heightSum = 0;
+      heightLimit = 0;
+    } else {
+      styles.push({
+        width: "50%",
+        display: "block",
+        float: float,
+      })
+      if (heightSum >= heightLimit) {
+        heightLimit = heightSum + height - heightLimit;
+        heightSum = heightLimit - height;
+        float = changeFloat(float);
+      }
+    }
+  }
+  return styles;
+}
 
 export const getStaticProps: GetStaticProps<Props, Params> = async (context) => {
   const client = createClient({
     serviceDomain: "konatsuruka",
-    apiKey: "c13f9e56bac0488f8c4dd33995f60b6f8488",
+    apiKey: process.env.NEXT_PUBLIC_MICRO_CMS_API_KEY || "",
   });
   const works = (await client.get<{contents: Work[]}>({endpoint: "works"})).contents;
   const news = (await client.get<{contents: News[]}>({endpoint: "news"})).contents
@@ -98,6 +139,7 @@ const Home = ({works, news, illusts}: Props) => {
   const [email, setEmail] = useState("");
   const [body, setBody] = useState("");
   const [sending, setSending] = useState(false);
+  const illustsStyles = decideStyles(illusts);
 
   return (
     <div className={styles.container}>
@@ -123,7 +165,7 @@ const Home = ({works, news, illusts}: Props) => {
 
       <main className={styles.main}>
         <div className={styles.mainTitle}>
-          <img className={styles.myLogo} src="./sample_logotype.svg" alt={"logo"} />
+          {/*<img className={styles.myLogo} src="./sample_logotype.svg" alt={"logo"} />*/}
         </div>
         <section className={styles.section} id="news-section">
           <header className={styles.sectionHeader} id={styles.newsHeader}>
@@ -180,8 +222,9 @@ const Home = ({works, news, illusts}: Props) => {
           </header>
           <div className={styles.sectionContainer}>
             <div className={styles.illusts}>
-              {illusts.map((illust) => (
+              {illusts.map((illust, index) => (
               <img
+                  style={illustsStyles[index]}
                   className={"illusts-image"}
                   key={illust.id}
                   alt={illust.title}
