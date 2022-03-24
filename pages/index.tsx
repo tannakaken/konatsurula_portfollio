@@ -331,7 +331,13 @@ const Home = ({works, news, illustrations, illustrationStyles}: Props) => {
                 }}>
               送信
             </button>
+            <p className={styles.googleRecaptchaNotice}>
+          このサイトはreCAPTCHAとGoogleとによって保護されています。
+          <a className={styles.linkStyle} href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">プライバシーポリシー</a>と
+          <a className={styles.linkStyle} href="https://policies.google.com/terms" target="_blank" rel="noreferrer">利用規約</a>が適用されます。
+        </p>
           </div>
+
         </section>
       </main>
       <footer className={styles.footer}>
