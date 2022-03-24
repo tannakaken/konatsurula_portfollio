@@ -19,7 +19,10 @@
     margin-left: 1em;
     cursor: pointer;
   }
-  nav {
+  .globalNavi {
+    @media (max-width: 600px) {
+      display: none;
+    }
     ul {
       padding: 0;
       li {
@@ -34,6 +37,32 @@
   }
 }
 
+.globalNaviPhone {
+    display: none;
+  }
+
+#drawerInput:checked ~ .globalNaviPhone {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  position: fixed;
+  top: 60px;
+  background: black;
+  opacity: 0.8;
+  z-index: 900;
+  width: 100%;
+  ul {
+      padding: 0;
+      li {
+        display: flex;
+        color: whitesmoke;
+      }
+      .navItem {
+        cursor: pointer;
+      }
+    }
+}
+
 .main {
   width: 100%;
   flex: 1;
@@ -41,21 +70,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  .mainTitle {
-    height: 100vh;
-    width: 100%;
-    background-image: url("../public/header.png");
-    background-size: cover;
-    background-attachment: fixed;
-    text-align: center;
-    vertical-align: center;
-    .myLogo {
-      width: 80%;
-      height: 80%;
-      mix-blend-mode: difference;
-      border: 0;
-      text-align: center;
-    }
+  .mainHeader {
+    margin-top: 60px;
+    width: 100vw;
+    object-fit: contain;
   }
   section {
     width: 100%;
@@ -79,6 +97,9 @@
       }
       .work {
         width: 25%;
+        @media (max-width: 600px) {
+          width: 100%;
+        }
       }
       .illusts {
         width: 80%;
@@ -92,6 +113,9 @@
 }
 
 #aboutContainer {
+  @media (max-width: 600px) {
+    display: none;
+  }
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -118,6 +142,37 @@
     }
   }
 }
+
+#aboutContainerPhone {
+  display: none;
+  @media (max-width: 600px) {
+    display: flex;
+  }
+  width: 100%;
+  flex-direction: column;
+  .iconContainer {
+    text-align: center;
+    vertical-align: center;
+    background: black;
+    width: 100%;
+    .icon {
+
+    }
+  }
+  .descriptionContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    background: orange;
+    .description {
+      font-size: small;
+      text-align: left;
+      width: 40%;
+      padding-left: 5%;
+    }
+  }
+}
+
 
 #worksHeader {
   background-image: url("../public/sample_titleback.png");
@@ -237,4 +292,63 @@
     width: 100%;
     flex-direction: column;
   }
+}
+
+.drawerHidden {
+  display: none;
+}
+
+/* ハンバーガーアイコンの設置スペース */
+.drawerOpen {
+  display: none;
+  @media (max-width: 600px) {
+    display: flex;
+  }
+  height: 60px;
+  width: 60px;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 100;/* 重なり順を一番上にする */
+  cursor: pointer;
+}
+
+/* ハンバーガーメニューのアイコン */
+.drawerOpen span,
+.drawerOpen span:before,
+.drawerOpen span:after {
+  content: '';
+  display: block;
+  height: 3px;
+  width: 25px;
+  border-radius: 3px;
+  background: #333;
+  transition: 0.5s;
+  position: absolute;
+}
+
+/* 三本線の一番上の棒の位置調整 */
+.drawerOpen span:before {
+  bottom: 8px;
+}
+
+/* 三本線の一番下の棒の位置調整 */
+.drawerOpen span:after {
+  top: 8px;
+}
+
+/* アイコンがクリックされたら真ん中の線を透明にする */
+#drawerInput:checked ~ .header .drawerOpen span {
+  background: rgba(255, 255, 255, 0);
+}
+
+/* アイコンがクリックされたらアイコンが×印になように上下の線を回転 */
+#drawerInput:checked ~ .header .drawerOpen span::before {
+  bottom: 0;
+  transform: rotate(45deg);
+}
+
+#drawerInput:checked ~ .header .drawerOpen span::after {
+  top: 0;
+  transform: rotate(-45deg);
 }
