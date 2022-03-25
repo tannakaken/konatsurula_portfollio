@@ -341,16 +341,10 @@ const Home = ({works, news, illustrations, illustrationStyles}: Props) => {
         </section>
       </main>
       <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
+          Copyright(c)2022 粉鶴亀(KONATSURUKA). All Rights Reserved{' '}
           <span className={styles.logo}>
-            <img src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
+            <img src="/favicon.png" alt="ebi logo" width={32} height={32} />
           </span>
-        </a>
       </footer>
       <ReactModal
           contentLabel="YouTube Modal"
