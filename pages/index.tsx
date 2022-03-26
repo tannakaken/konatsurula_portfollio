@@ -104,8 +104,12 @@ ReactModal.setAppElement('#__next')
 
 const Home = ({works, news, illustrations, illustrationStyles}: Props) => {
   const { executeRecaptcha } = useGoogleReCaptcha();
+  const [selectedNews, setSelectedNews] = useState<News | undefined>(undefined);
+  const isNewsModalOpen = selectedNews !== undefined;
+  const [selectedIllustration, setSelectedIllustration] = useState<Illustration | undefined>(undefined);
+  const isIllustrationModalOpen = selectedIllustration !== undefined;
   const [selectedWork, setSelectedWork] = useState<Work | undefined>(undefined);
-  const isModalOpen = selectedWork !== undefined;
+  const isYoutubeModalOpen = selectedWork !== undefined;
 
   useEffect(() => {
     const animate = async () => {
@@ -182,7 +186,7 @@ const Home = ({works, news, illustrations, illustrationStyles}: Props) => {
           <div className={styles.newsContainer} id={styles.newsHeader}>
             <h2>NEWS</h2>
             <ul>{news.map((newsContent) => (
-              <li key={newsContent.id}>
+              <li key={newsContent.id} onClick={() => setSelectedNews(newsContent)}>
                 <img className={newsContent.isNew ? undefined : styles.oldNews} alt="it's new" src="./new.gif" />{newsContent.title}
               </li>
             ))}</ul>
@@ -254,13 +258,14 @@ const Home = ({works, news, illustrations, illustrationStyles}: Props) => {
           </header>
           <div className={styles.sectionContainer}>
             <div className={styles.illustrations}>
-              {illustrations.map((illust, index) => (
+              {illustrations.map((illustration, index) => (
               <img
+                  onClick={() => setSelectedIllustration(illustration)}
                   style={illustrationStyles[index]}
                   className={"illustration-image"}
-                  key={illust.id}
-                  alt={illust.title}
-                  src={illust.image.url} />
+                  key={illustration.id}
+                  alt={illustration.title}
+                  src={illustration.image.url} />
             ))}
             </div>
           </div>
@@ -346,8 +351,41 @@ const Home = ({works, news, illustrations, illustrationStyles}: Props) => {
         <p>Created By <a href={"https://twitter.com/tannakaken"}>Tannakaken</a></p>
       </footer>
       <ReactModal
+          contentLabel="News Modal"
+          isOpen={isNewsModalOpen}
+          shouldCloseOnEsc={true}
+          onRequestClose={() => setSelectedNews(undefined)}
+          closeTimeoutMS={500}
+      >
+        <div className={youTubeStyles.header}>
+          <h2>{selectedNews?.title}</h2>
+        </div>
+        <div style={{display: "flex", flexDirection: "row", justifyContent: "flex-end"}}>
+          <a className={youTubeStyles.closeButton} onClick={() => setSelectedNews(undefined)}>×close</a>
+        </div>
+        {selectedNews !== undefined && (
+            <p style={{whiteSpace: "pre"}}>{selectedNews.content}</p>
+        )}
+      </ReactModal>
+      <ReactModal
+          contentLabel="Illustration Modal"
+          isOpen={isIllustrationModalOpen}
+          shouldCloseOnEsc={true}
+          onRequestClose={() => setSelectedIllustration(undefined)}
+          closeTimeoutMS={500}
+      >
+        <div className={youTubeStyles.header}>
+          <h2>{selectedIllustration?.title}</h2>
+          <a className={youTubeStyles.closeButton} onClick={() => setSelectedIllustration(undefined)}>×close</a>
+        </div>
+        {selectedIllustration !== undefined && (
+            <img src={selectedIllustration.image.url} width="100%"/>
+        )}
+        <p className={youTubeStyles.description}>{selectedIllustration?.description}</p>
+      </ReactModal>
+      <ReactModal
           contentLabel="YouTube Modal"
-          isOpen={isModalOpen}
+          isOpen={isYoutubeModalOpen}
           shouldCloseOnEsc={true}
           onRequestClose={() => setSelectedWork(undefined)}
           closeTimeoutMS={500}
