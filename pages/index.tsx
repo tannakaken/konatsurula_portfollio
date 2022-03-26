@@ -1,57 +1,56 @@
-import Head from 'next/head';
-import Link from 'next/link';
-import CSS from 'csstype';
-import { Link as ScrollLink } from 'react-scroll';
-import * as Scroll from 'react-scroll';
-import styles from '../styles/Home.module.scss';
-import {useEffect, useState} from "react";
-import {createClient} from "microcms-js-sdk";
+import Head from "next/head";
+import Link from "next/link";
+import CSS from "csstype";
+import { Link as ScrollLink } from "react-scroll";
+import * as Scroll from "react-scroll";
+import styles from "../styles/Home.module.scss";
+import { useEffect, useState } from "react";
+import { createClient } from "microcms-js-sdk";
 import YouTube from "react-youtube";
-import youTubeStyles from  '../styles/YouTube.module.scss';
-import '../styles/YouTube.module.scss';
-import ReactModal from "react-modal"
+import youTubeStyles from "../styles/YouTube.module.scss";
+import "../styles/YouTube.module.scss";
+import ReactModal from "react-modal";
 import * as React from "react";
-import {ParsedUrlQuery} from "querystring";
-import {GetStaticProps} from "next";
-import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+import { ParsedUrlQuery } from "querystring";
+import { GetStaticProps } from "next";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
 type Work = {
-  id: string,
+  id: string;
   title: string;
   youtubeId: string;
   description: string;
-}
+};
 
 type News = {
   id: string;
   title: string;
   content: string;
   isNew: boolean;
-}
+};
 
 type ImageData = {
   url: string;
   height: number;
   width: number;
-}
+};
 
 type Illustration = {
   id: string;
   title: string;
   image: ImageData;
   description: string;
-}
+};
 
-interface Params extends ParsedUrlQuery {
-}
+interface Params extends ParsedUrlQuery {}
 
 type Props = {
   works: Work[];
   news: News[];
   illustrations: Illustration[];
   illustrationStyles: CSS.Properties[];
-}
-type Float = "left" | "right"
+};
+type Float = "left" | "right";
 
 const changeFloat = (float: Float): Float => {
   if (float == "left") {
@@ -71,8 +70,8 @@ const decideStyles = (illustrations: Illustration[]): CSS.Properties[] => {
       width: "50%",
       display: "block",
       float: float,
-    })
-    heightSum += height
+    });
+    heightSum += height;
     if (heightSum >= heightLimit) {
       heightLimit = heightSum + height - heightLimit;
       heightSum = heightLimit - height;
@@ -80,58 +79,69 @@ const decideStyles = (illustrations: Illustration[]): CSS.Properties[] => {
     }
   }
   return styles;
-}
+};
 
-export const getStaticProps: GetStaticProps<Props, Params> = async (context) => {
+export const getStaticProps: GetStaticProps<Props, Params> = async (
+  context
+) => {
   const client = createClient({
     serviceDomain: "konatsuruka",
     apiKey: process.env.NEXT_PUBLIC_MICRO_CMS_API_KEY || "",
   });
-  const works = (await client.get<{contents: Work[]}>({endpoint: "works"})).contents;
-  const news = (await client.get<{contents: News[]}>({endpoint: "news"})).contents
-  const illustrations = (await client.get<{contents: Illustration[]}>({endpoint: "illusts"})).contents
+  const works = (await client.get<{ contents: Work[] }>({ endpoint: "works" }))
+    .contents;
+  const news = (await client.get<{ contents: News[] }>({ endpoint: "news" }))
+    .contents;
+  const illustrations = (
+    await client.get<{ contents: Illustration[] }>({ endpoint: "illusts" })
+  ).contents;
 
-  return { props: {
+  return {
+    props: {
       works,
       news,
       illustrations,
       illustrationStyles: decideStyles(illustrations),
-    }
-  }
+    },
+  };
 };
 
-ReactModal.setAppElement('#__next')
+ReactModal.setAppElement("#__next");
 
-const Home = ({works, news, illustrations, illustrationStyles}: Props) => {
+const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
   const { executeRecaptcha } = useGoogleReCaptcha();
   const [selectedNews, setSelectedNews] = useState<News | undefined>(undefined);
   const isNewsModalOpen = selectedNews !== undefined;
-  const [selectedIllustration, setSelectedIllustration] = useState<Illustration | undefined>(undefined);
+  const [selectedIllustration, setSelectedIllustration] = useState<
+    Illustration | undefined
+  >(undefined);
   const isIllustrationModalOpen = selectedIllustration !== undefined;
   const [selectedWork, setSelectedWork] = useState<Work | undefined>(undefined);
   const isYoutubeModalOpen = selectedWork !== undefined;
 
   useEffect(() => {
     const animate = async () => {
-      const sr = (await import("scrollreveal")).default()
-      sr.reveal(".works-image", {reset: true});
-      sr.reveal(".illusts-image", {reset: true});
+      const sr = (await import("scrollreveal")).default();
+      sr.reveal(".works-image", { reset: true });
+      sr.reveal(".illusts-image", { reset: true });
       sr.reveal(".left-about", {
         reset: true,
         opacity: 1,
         origin: "left",
         delay: 400,
-        distance: "50%"
+        distance: "50%",
       });
       sr.reveal(".right-about", {
         reset: true,
         opacity: 1,
         origin: "right",
         delay: 400,
-        distance: "50%"
+        distance: "50%",
       });
     };
-    animate().then(() => console.log("animate")).catch((error) => console.warn(error));
+    animate()
+      .then(() => console.log("animate"))
+      .catch((error) => console.warn(error));
   }, []);
   const [checked, setChecked] = useState(false);
   useEffect(() => {
@@ -141,7 +151,7 @@ const Home = ({works, news, illustrations, illustrationStyles}: Props) => {
     });
     return () => {
       Events.scrollEvent.remove("end");
-    }
+    };
   }, []);
   const [email, setEmail] = useState("");
   const [body, setBody] = useState("");
@@ -151,33 +161,88 @@ const Home = ({works, news, illustrations, illustrationStyles}: Props) => {
     <div className={styles.container}>
       <Head>
         <title>粉鶴亀のポートフォリオサイト</title>
-        <meta name="description" content="アニメーター粉鶴亀（こなつるか）のポートフォリオサイトです。関わったアニメ作品へのリンクやイラストなどが含まれています。このサイトから仕事の依頼をすることもできます。" />
+        <meta
+          name="description"
+          content="アニメーター粉鶴亀（こなつるか）のポートフォリオサイトです。関わったアニメ作品へのリンクやイラストなどが含まれています。このサイトから仕事の依頼をすることもできます。"
+        />
         <meta name="author" content="tannakaken" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <input id={styles.drawerInput} className={styles.drawerHidden} type="checkbox" checked={checked} onChange={() => setChecked(!checked)} />
+      <input
+        id={styles.drawerInput}
+        className={styles.drawerHidden}
+        type="checkbox"
+        checked={checked}
+        onChange={() => setChecked(!checked)}
+      />
       <header className={styles.header}>
         <h1 id="title" className={styles.headerTitle}>
           <Link href="/">粉鶴亀のポートフォリオサイト</Link>
         </h1>
         <nav className={styles.globalNavi}>
           <ul>
-            <li className={styles.navItem}><ScrollLink to="news-section" smooth={true}>NEWS</ScrollLink></li>
-            <li className={styles.navItem}><ScrollLink to="about-section" smooth={true}>ABOUT</ScrollLink></li>
-            <li className={styles.navItem}><ScrollLink to="works-section" smooth={true}>WORKS</ScrollLink></li>
-            <li className={styles.navItem}><ScrollLink to="illusts-section" smooth={true}>ILLUST</ScrollLink></li>
-            <li className={styles.navItem}><ScrollLink to="contact-section" smooth={true}>CONTACT</ScrollLink></li>
+            <li className={styles.navItem}>
+              <ScrollLink to="news-section" smooth={true}>
+                NEWS
+              </ScrollLink>
+            </li>
+            <li className={styles.navItem}>
+              <ScrollLink to="about-section" smooth={true}>
+                ABOUT
+              </ScrollLink>
+            </li>
+            <li className={styles.navItem}>
+              <ScrollLink to="works-section" smooth={true}>
+                WORKS
+              </ScrollLink>
+            </li>
+            <li className={styles.navItem}>
+              <ScrollLink to="illusts-section" smooth={true}>
+                ILLUST
+              </ScrollLink>
+            </li>
+            <li className={styles.navItem}>
+              <ScrollLink to="contact-section" smooth={true}>
+                CONTACT
+              </ScrollLink>
+            </li>
           </ul>
         </nav>
-        <label htmlFor={styles.drawerInput} className={styles.drawerOpen}><span /></label>
+        <label htmlFor={styles.drawerInput} className={styles.drawerOpen}>
+          <span />
+        </label>
       </header>
       <nav className={styles.globalNaviPhone}>
         <ul>
-          <li className={styles.navItem}><ScrollLink to="news-section" smooth={true} onSetActive={() => console.warn("hello")} >NEWS</ScrollLink></li>
-          <li className={styles.navItem}><ScrollLink to="about-section" smooth={true}>ABOUT</ScrollLink></li>
-          <li className={styles.navItem}><ScrollLink to="works-section" smooth={true}>WORKS</ScrollLink></li>
-          <li className={styles.navItem}><ScrollLink to="illusts-section" smooth={true}>ILLUST</ScrollLink></li>
-          <li className={styles.navItem}><ScrollLink to="contact-section" smooth={true}>CONTACT</ScrollLink></li>
+          <li className={styles.navItem}>
+            <ScrollLink
+              to="news-section"
+              smooth={true}
+              onSetActive={() => console.warn("hello")}
+            >
+              NEWS
+            </ScrollLink>
+          </li>
+          <li className={styles.navItem}>
+            <ScrollLink to="about-section" smooth={true}>
+              ABOUT
+            </ScrollLink>
+          </li>
+          <li className={styles.navItem}>
+            <ScrollLink to="works-section" smooth={true}>
+              WORKS
+            </ScrollLink>
+          </li>
+          <li className={styles.navItem}>
+            <ScrollLink to="illusts-section" smooth={true}>
+              ILLUST
+            </ScrollLink>
+          </li>
+          <li className={styles.navItem}>
+            <ScrollLink to="contact-section" smooth={true}>
+              CONTACT
+            </ScrollLink>
+          </li>
         </ul>
       </nav>
       <main className={styles.main}>
@@ -185,17 +250,31 @@ const Home = ({works, news, illustrations, illustrationStyles}: Props) => {
         <section className={styles.section} id="news-section">
           <div className={styles.newsContainer} id={styles.newsHeader}>
             <h2>NEWS</h2>
-            <ul>{news.map((newsContent) => (
-              <li key={newsContent.id} onClick={() => setSelectedNews(newsContent)}>
-                <img className={newsContent.isNew ? undefined : styles.oldNews} alt="it's new" src="./new.gif" />{newsContent.title}
-              </li>
-            ))}</ul>
+            <ul>
+              {news.map((newsContent) => (
+                <li
+                  key={newsContent.id}
+                  onClick={() => setSelectedNews(newsContent)}
+                >
+                  <img
+                    className={newsContent.isNew ? undefined : styles.oldNews}
+                    alt="it's new"
+                    src="./new.gif"
+                  />
+                  {newsContent.title}
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
         <section id="about-section">
           <div id={styles.aboutContainer}>
             <div className={styles.iconContainer + " left-about"}>
-              <img className={styles.icon} src="./icon.jpeg" alt={"粉鶴亀のアイコン"}/>
+              <img
+                className={styles.icon}
+                src="./icon.jpeg"
+                alt={"粉鶴亀のアイコン"}
+              />
             </div>
             <div className={styles.descriptionContainer + " right-about"}>
               <div className={styles.description}>
@@ -205,35 +284,121 @@ const Home = ({works, news, illustrations, illustrationStyles}: Props) => {
                 <p>イラスト・マンガ（海老蔵名義）</p>
               </div>
               <div className={styles.link}>
-                <p>主な仕事：<br />
-                  <a href="https://www.youtube.com/watch?v=ENcnYh79dUY">ヨルシカ「思想犯」</a><br />
-                  <a href="https://www.youtube.com/watch?v=kzdJkT4kp-A">YOASOBI「ハルジオン」</a>
+                <p>
+                  主な仕事：
+                  <br />
+                  <a href="https://www.youtube.com/watch?v=ENcnYh79dUY">
+                    ヨルシカ「思想犯」
+                  </a>
+                  <br />
+                  <a href="https://www.youtube.com/watch?v=kzdJkT4kp-A">
+                    YOASOBI「ハルジオン」
+                  </a>
                 </p>
-                <p>連絡先:<a className={styles.linkStyle} href={"mailti:ebizosui2017wishrimp@gmail.com"}>ebizosui2017wishrimp@gmail.com</a></p>
-                <p>Twitter<img alt="twitter account" src={"./Twitter.png"} width={"15px"} height={"15px"} />:<a className={styles.linkStyle} href="https://twitter.com/sashimi0404">@sashimi0404</a></p>
-                <p>Pixiv（版権絵置き場）:<a className={styles.linkStyle}  href="https://www.pixiv.net/users/2157406">海老蔵</a></p>
+                <p>
+                  連絡先:
+                  <a
+                    className={styles.linkStyle}
+                    href={"mailti:ebizosui2017wishrimp@gmail.com"}
+                  >
+                    ebizosui2017wishrimp@gmail.com
+                  </a>
+                </p>
+                <p>
+                  Twitter
+                  <img
+                    alt="twitter account"
+                    src={"./Twitter.png"}
+                    width={"15px"}
+                    height={"15px"}
+                  />
+                  :
+                  <a
+                    className={styles.linkStyle}
+                    href="https://twitter.com/sashimi0404"
+                  >
+                    @sashimi0404
+                  </a>
+                </p>
+                <p>
+                  Pixiv（版権絵置き場）:
+                  <a
+                    className={styles.linkStyle}
+                    href="https://www.pixiv.net/users/2157406"
+                  >
+                    海老蔵
+                  </a>
+                </p>
               </div>
             </div>
           </div>
           <div id={styles.aboutContainerPhone}>
             <div className={styles.iconContainer}>
-              <img className={styles.icon} src="./icon.jpeg" alt={"粉鶴亀のアイコン"}/>
+              <img
+                className={styles.icon}
+                src="./icon.jpeg"
+                alt={"粉鶴亀のアイコン"}
+              />
             </div>
             <div className={styles.descriptionContainer}>
               <div className={styles.description}>
                 <p>粉鶴亀（こなつるか）</p>
                 <p>アニメーター</p>
                 <p>MP・TVアニメ</p>
-                <p>イラスト・マンガ<br />（海老蔵名義）</p>
+                <p>
+                  イラスト・マンガ
+                  <br />
+                  （海老蔵名義）
+                </p>
               </div>
               <div className={styles.link}>
-                <p>主な仕事：<br />
-                  <a href="https://www.youtube.com/watch?v=ENcnYh79dUY">ヨルシカ「思想犯」</a><br />
-                  <a href="https://www.youtube.com/watch?v=kzdJkT4kp-A">YOASOBI「ハルジオン」</a>
+                <p>
+                  主な仕事：
+                  <br />
+                  <a href="https://www.youtube.com/watch?v=ENcnYh79dUY">
+                    ヨルシカ「思想犯」
+                  </a>
+                  <br />
+                  <a href="https://www.youtube.com/watch?v=kzdJkT4kp-A">
+                    YOASOBI「ハルジオン」
+                  </a>
                 </p>
-                <p>連絡先:<br /><a className={styles.linkStyle} href={"mailti:ebizosui2017wishrimp@gmail.com"}>ebizosui2017wishrimp@gmail.com</a></p>
-                <p>Twitter<img alt="twitter account" src={"./Twitter.png"} width={"15px"} height={"15px"} />:<br /><a className={styles.linkStyle} href="https://twitter.com/sashimi0404">@sashimi0404</a></p>
-                <p>Pixiv（版権絵置き場）:<br /><a className={styles.linkStyle}  href="https://www.pixiv.net/users/2157406">海老蔵</a></p>
+                <p>
+                  連絡先:
+                  <br />
+                  <a
+                    className={styles.linkStyle}
+                    href={"mailti:ebizosui2017wishrimp@gmail.com"}
+                  >
+                    ebizosui2017wishrimp@gmail.com
+                  </a>
+                </p>
+                <p>
+                  Twitter
+                  <img
+                    alt="twitter account"
+                    src={"./Twitter.png"}
+                    width={"15px"}
+                    height={"15px"}
+                  />
+                  :<br />
+                  <a
+                    className={styles.linkStyle}
+                    href="https://twitter.com/sashimi0404"
+                  >
+                    @sashimi0404
+                  </a>
+                </p>
+                <p>
+                  Pixiv（版権絵置き場）:
+                  <br />
+                  <a
+                    className={styles.linkStyle}
+                    href="https://www.pixiv.net/users/2157406"
+                  >
+                    海老蔵
+                  </a>
+                </p>
               </div>
             </div>
           </div>
@@ -245,11 +410,13 @@ const Home = ({works, news, illustrations, illustrationStyles}: Props) => {
           <div className={styles.sectionContainer}>
             {works.map((work) => (
               <img
-                  onClick={() => setSelectedWork(work)}
-                  key={work.id}
-                  className={styles.work + " works-image"}
-                  alt={work.title}
-                  src={`https://img.youtube.com/vi/${work.youtubeId}/default.jpg`} />))}
+                onClick={() => setSelectedWork(work)}
+                key={work.id}
+                className={styles.work + " works-image"}
+                alt={work.title}
+                src={`https://img.youtube.com/vi/${work.youtubeId}/default.jpg`}
+              />
+            ))}
           </div>
         </section>
         <section className={styles.section} id="illusts-section">
@@ -259,153 +426,215 @@ const Home = ({works, news, illustrations, illustrationStyles}: Props) => {
           <div className={styles.sectionContainer}>
             <div className={styles.illustrations}>
               {illustrations.map((illustration, index) => (
-              <img
+                <img
                   onClick={() => setSelectedIllustration(illustration)}
                   style={illustrationStyles[index]}
                   className={"illustration-image"}
                   key={illustration.id}
                   alt={illustration.title}
-                  src={illustration.image.url} />
-            ))}
+                  src={illustration.image.url}
+                />
+              ))}
             </div>
           </div>
         </section>
-        <section id="contact-section" style={{display: "flex", flexDirection: "column", alignItems: "center", width: "100%"}}>
+        <section
+          id="contact-section"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
           <h1>CONTACT</h1>
           <div>
             <label htmlFor={"email"}>メールアドレス:</label>
             <input
-                name={"email"}
-                type={"email"}
-                 value={email}
-                 onChange={(event) => setEmail(event.target.value)}
-                   style={{
-                     width: "300px"
-                   }}
-          />
+              name={"email"}
+              type={"email"}
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              style={{
+                width: "300px",
+              }}
+            />
           </div>
           <div>
-            <label htmlFor={"body"}>本文：</label><br />
+            <label htmlFor={"body"}>本文：</label>
+            <br />
             <textarea
-                name={"body"}
-                value={body}
-                onChange={(event) => setBody(event.target.value)}
-                style={{
-                  maxWidth: "410px",
-                  height: "200px",
-                }}
-                className={styles.contactBody}
-          />
+              name={"body"}
+              value={body}
+              onChange={(event) => setBody(event.target.value)}
+              style={{
+                maxWidth: "410px",
+                height: "200px",
+              }}
+              className={styles.contactBody}
+            />
           </div>
           <div className={styles.contactButtonContainer}>
-            <button style={{width: "80px"}} id={"contact-button"}
-                onClick={async () => {
-                  if (sending) {
-                    return;
-                  }
-                  if (email.length === 0 || body.length === 0) {
-                    return;
-                  }
-                  if (executeRecaptcha === undefined) {
-                    console.warn("undefined");
-                    return;
-                  }
-                  const recaptchaToken = await executeRecaptcha('contactPage');
-                  setSending(true);
-                  fetch("https://8ikmquk2i4.execute-api.ap-northeast-1.amazonaws.com/send-mail-SES", {
+            <button
+              style={{ width: "80px" }}
+              id={"contact-button"}
+              onClick={async () => {
+                if (sending) {
+                  return;
+                }
+                if (email.length === 0 || body.length === 0) {
+                  return;
+                }
+                if (executeRecaptcha === undefined) {
+                  console.warn("undefined");
+                  return;
+                }
+                const recaptchaToken = await executeRecaptcha("contactPage");
+                setSending(true);
+                fetch(
+                  "https://8ikmquk2i4.execute-api.ap-northeast-1.amazonaws.com/send-mail-SES",
+                  {
                     method: "POST",
-                    mode: 'cors',
+                    mode: "cors",
                     headers: {
-                      "Content-Type": "application/json"
+                      "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
                       email,
                       body,
                       recaptchaToken,
-                    })
-                  }).then(() => {
+                    }),
+                  }
+                )
+                  .then(() => {
                     setBody("");
                     setEmail("");
-                    alert('送信しました');
-                    setSending(false);
-                  }).catch((error) => {
-                    alert(error);
+                    alert("送信しました");
                     setSending(false);
                   })
-                }}>
+                  .catch((error) => {
+                    alert(error);
+                    setSending(false);
+                  });
+              }}
+            >
               送信
             </button>
             <p className={styles.googleRecaptchaNotice}>
-          このサイトはreCAPTCHAとGoogleとによって保護されています。
-          <a className={styles.linkStyle} href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">プライバシーポリシー</a>と
-          <a className={styles.linkStyle} href="https://policies.google.com/terms" target="_blank" rel="noreferrer">利用規約</a>が適用されます。
-        </p>
+              このサイトはreCAPTCHAとGoogleとによって保護されています。
+              <a
+                className={styles.linkStyle}
+                href="https://policies.google.com/privacy"
+                target="_blank"
+                rel="noreferrer"
+              >
+                プライバシーポリシー
+              </a>
+              と
+              <a
+                className={styles.linkStyle}
+                href="https://policies.google.com/terms"
+                target="_blank"
+                rel="noreferrer"
+              >
+                利用規約
+              </a>
+              が適用されます。
+            </p>
           </div>
         </section>
       </main>
       <footer className={styles.footer}>
-          <p>Copyright(c)2022 粉鶴亀(KONATSURUKA). All Rights Reserved{' '}
+        <p>
+          Copyright(c)2022 粉鶴亀(KONATSURUKA). All Rights Reserved{" "}
           <span className={styles.logo}>
             <img src="/favicon.png" alt="ebi logo" width={32} height={32} />
-          </span></p>
-        <p>Created By <a href={"https://twitter.com/tannakaken"}>Tannakaken</a></p>
+          </span>
+        </p>
+        <p>
+          Created By <a href={"https://twitter.com/tannakaken"}>Tannakaken</a>
+        </p>
       </footer>
       <ReactModal
-          contentLabel="News Modal"
-          isOpen={isNewsModalOpen}
-          shouldCloseOnEsc={true}
-          onRequestClose={() => setSelectedNews(undefined)}
-          closeTimeoutMS={500}
+        contentLabel="News Modal"
+        isOpen={isNewsModalOpen}
+        shouldCloseOnEsc={true}
+        onRequestClose={() => setSelectedNews(undefined)}
+        closeTimeoutMS={500}
       >
         <div className={youTubeStyles.header}>
           <h2>{selectedNews?.title}</h2>
         </div>
-        <div style={{display: "flex", flexDirection: "row", justifyContent: "flex-end"}}>
-          <a className={youTubeStyles.closeButton} onClick={() => setSelectedNews(undefined)}>×close</a>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "flex-end",
+          }}
+        >
+          <a
+            className={youTubeStyles.closeButton}
+            onClick={() => setSelectedNews(undefined)}
+          >
+            ×close
+          </a>
         </div>
         {selectedNews !== undefined && (
-            <p style={{whiteSpace: "pre"}}>{selectedNews.content}</p>
+          <p style={{ whiteSpace: "pre" }}>{selectedNews.content}</p>
         )}
       </ReactModal>
       <ReactModal
-          contentLabel="Illustration Modal"
-          isOpen={isIllustrationModalOpen}
-          shouldCloseOnEsc={true}
-          onRequestClose={() => setSelectedIllustration(undefined)}
-          closeTimeoutMS={500}
+        contentLabel="Illustration Modal"
+        isOpen={isIllustrationModalOpen}
+        shouldCloseOnEsc={true}
+        onRequestClose={() => setSelectedIllustration(undefined)}
+        closeTimeoutMS={500}
       >
         <div className={youTubeStyles.header}>
           <h2>{selectedIllustration?.title}</h2>
-          <a className={youTubeStyles.closeButton} onClick={() => setSelectedIllustration(undefined)}>×close</a>
+          <a
+            className={youTubeStyles.closeButton}
+            onClick={() => setSelectedIllustration(undefined)}
+          >
+            ×close
+          </a>
         </div>
         {selectedIllustration !== undefined && (
-            <img src={selectedIllustration.image.url} width="100%"/>
+          <img src={selectedIllustration.image.url} width="100%" />
         )}
-        <p className={youTubeStyles.description}>{selectedIllustration?.description}</p>
+        <p className={youTubeStyles.description}>
+          {selectedIllustration?.description}
+        </p>
       </ReactModal>
       <ReactModal
-          contentLabel="YouTube Modal"
-          isOpen={isYoutubeModalOpen}
-          shouldCloseOnEsc={true}
-          onRequestClose={() => setSelectedWork(undefined)}
-          closeTimeoutMS={500}
+        contentLabel="YouTube Modal"
+        isOpen={isYoutubeModalOpen}
+        shouldCloseOnEsc={true}
+        onRequestClose={() => setSelectedWork(undefined)}
+        closeTimeoutMS={500}
       >
         <div className={youTubeStyles.header}>
           <h2>{selectedWork?.title}</h2>
-          <a className={youTubeStyles.closeButton} onClick={() => setSelectedWork(undefined)}>×close</a>
+          <a
+            className={youTubeStyles.closeButton}
+            onClick={() => setSelectedWork(undefined)}
+          >
+            ×close
+          </a>
         </div>
         {selectedWork !== undefined && (
-            <YouTube
-              opts={{playerVars: {autoplay: 1}}}
-              loading="lazy"
-              className={youTubeStyles.iframe}
-              containerClassName={youTubeStyles.youtube}
-              videoId={selectedWork?.youtubeId} />
+          <YouTube
+            opts={{ playerVars: { autoplay: 1 } }}
+            loading="lazy"
+            className={youTubeStyles.iframe}
+            containerClassName={youTubeStyles.youtube}
+            videoId={selectedWork?.youtubeId}
+          />
         )}
         <p className={youTubeStyles.description}>{selectedWork?.description}</p>
       </ReactModal>
     </div>
-  )
-}
+  );
+};
 
 export default Home;
