@@ -154,6 +154,8 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
     };
   }, []);
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [requestType, setRequestType] = useState("MV");
   const [body, setBody] = useState("");
   const [sending, setSending] = useState(false);
 
@@ -459,6 +461,24 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
                 width: "300px",
               }}
             />
+          </div>
+          <div>
+            <label htmlFor={"email"}>{"　　　　"}お名前:</label>
+            <input
+              name={"name"}
+              type={"name"}
+              value={name}
+              onChange={(event) => setName(event.target.value)}
+              style={{
+                width: "300px",
+              }}
+            />
+          </div>
+          <div>
+            <span>お仕事内容:</span>
+            <input type="radio" id="MV" name="MV" value="MV" checked={requestType === "MV"} onClick={() => setRequestType("MV")} /><label htmlFor="MV">MV</label>
+            <input type="radio" id="TV" name="TV" value="TV" checked={requestType === "TV"} onClick={() => setRequestType("TV")} /><label htmlFor="TV">TVアニメ</label>
+            <input type="radio" id="illustration" name="illustration" value="illustration" checked={requestType === "illustration"} onClick={() => setRequestType("illustration")} /><label htmlFor="illustration">イラスト・漫画</label>
           </div>
           <div>
             <label htmlFor={"body"}>本文：</label>
