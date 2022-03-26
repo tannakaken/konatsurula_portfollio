@@ -20,7 +20,7 @@
     cursor: pointer;
   }
   .globalNavi {
-    @media (max-width: 600px) {
+    @media (max-width: 768px) {
       display: none;
     }
     ul {
@@ -73,13 +73,22 @@
   .mainHeader {
     margin-top: 60px;
     width: 100vw;
+    height: 45.4vw;
     object-fit: contain;
+    background-image: url("../public/header.png");
+    background-size: contain;
+    background-attachment: fixed;
+    background-position: top 60px left 0;
+    background-repeat: no-repeat;
   }
   section {
     width: 100%;
 
     .sectionHeader {
       height: 40vh;
+      @media (max-width: 768px) {
+          height: 20vh;
+        }
       display: flex;
       flex-direction: row;
       justify-content: center;
@@ -88,22 +97,41 @@
       font-size: xxx-large;
       text-decoration: underline;
     }
-    .sectionContainer {
-      text-align: center;
-
+    .newsContainer {
+      height: 25vh;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      color: whitesmoke;
+      h2 {
+        text-decoration: underline;
+      }
       ul {
         list-style: none;
         text-align: left;
+        li {
+          line-height: 2em;
+          @media (max-width: 768px) {
+            font-size: small;
+          }
+          .oldNews {
+            opacity: 0;
+          }
+        }
       }
+    }
+    .sectionContainer {
+      text-align: center;
       .work {
         width: 25%;
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
           width: 100%;
         }
       }
-      .illusts {
-        width: 80%;
-        @media (max-width: 600px) {
+      .illustrations {
+        width: 60%;
+        @media (max-width: 768px) {
           width: 100%;
         }
         margin: auto;
@@ -113,7 +141,7 @@
 }
 
 #aboutContainer {
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
     display: none;
   }
   width: 100%;
@@ -133,19 +161,31 @@
     width: 50%;
     display: flex;
     flex-direction: row;
-    background: orange;
+    align-items: center;
+    background: #f7e9ba;
     .description {
-      font-size: small;
+      font-size: medium;
+      @media (max-width: 1024px) {
+        font-size: small;
+      }
       text-align: left;
-      width: 40%;
+      width: 45%;
       padding-left: 5%;
+    }
+    .link {
+      font-size: medium;
+      @media (max-width: 1024px) {
+        font-size: small;
+      }
+      text-align: left;
+      width: 50%;
     }
   }
 }
 
 #aboutContainerPhone {
   display: none;
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
     display: flex;
   }
   width: 100%;
@@ -163,34 +203,47 @@
     width: 100%;
     display: flex;
     flex-direction: row;
-    background: orange;
+    align-items: center;
+    background: #f7e9ba;
     .description {
       font-size: small;
       text-align: left;
-      width: 40%;
+      width: 45%;
       padding-left: 5%;
+    }
+    .link {
+      font-size: small;
+      text-align: left;
+      width: 50%;
+      a {
+        font-size: x-small;
+      }
     }
   }
 }
 
+#newsHeader {
+  background-image: url("../public/header_nega.png");
+  background-size: contain;
+  background-attachment: fixed;
+  background-color: black;
+  background-position: top 60px left 0;
+  background-repeat: no-repeat;
+}
 
 #worksHeader {
-  background-image: url("../public/sample_titleback.png");
+  background-image: url("../public/header_gray.png");
   background-size: cover;
   background-attachment: fixed;
 }
 
 #illustHeader {
-  background-image: url("../public/sample_titleback.png");
+  background-image: url("../public/header_nega.png");
   background-size: cover;
   background-attachment: fixed;
 }
 
-#newsHeader {
-  background-image: url("../public/sample_titleback.png");
-  background-size: cover;
-  background-attachment: fixed;
-}
+
 
 .footer {
   display: flex;
@@ -201,6 +254,9 @@
   align-items: center;
   img {
     margin-top: -8px;
+  }
+  @media (max-width: 768px) {
+    font-size: x-small;
   }
 }
 
@@ -283,14 +339,14 @@
   padding-left: 0.5rem;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .grid {
     width: 100%;
     flex-direction: column;
   }
 }
 
-.link-style {
+.linkStyle {
   cursor: pointer;
   border: none;
   background: none;
@@ -312,7 +368,7 @@
 /* ハンバーガーアイコンの設置スペース */
 .drawerOpen {
   display: none;
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
     display: flex;
   }
   height: 60px;

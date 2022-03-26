@@ -177,18 +177,14 @@ const Home = ({works, news, illustrations, illustrationStyles}: Props) => {
         </ul>
       </nav>
       <main className={styles.main}>
-        <div>
-          <img className={styles.mainHeader} src="./header.png" alt={"粉鶴亀のポートフォリオサイト"} />
-        </div>
+        <div className={styles.mainHeader} />
         <section className={styles.section} id="news-section">
-          <header className={styles.sectionHeader} id={styles.newsHeader}>
-            <h1>NEWS</h1>
-          </header>
-          <div className={styles.sectionContainer}>
+          <div className={styles.newsContainer} id={styles.newsHeader}>
+            <h2>NEWS</h2>
             <ul>{news.map((newsContent) => (
-                <li key={newsContent.id}>
-                  {newsContent.isNew && (<img alt="it's new" src="./new.gif" />)}{newsContent.title}
-                </li>
+              <li key={newsContent.id}>
+                <img className={newsContent.isNew ? undefined : styles.oldNews} alt="it's new" src="./new.gif" />{newsContent.title}
+              </li>
             ))}</ul>
           </div>
         </section>
@@ -201,16 +197,17 @@ const Home = ({works, news, illustrations, illustrationStyles}: Props) => {
               <div className={styles.description}>
                 <p>粉鶴亀（こなつるか）</p>
                 <p>アニメーター</p>
-                <p>MP・TVアニメ</p>
-                <p>イラスト・マンガ</p>
+                <p>MV・TVアニメ</p>
+                <p>イラスト・マンガ（海老蔵名義）</p>
               </div>
-              <div className={styles.description}>
+              <div className={styles.link}>
                 <p>主な仕事：<br />
                   <a href="https://www.youtube.com/watch?v=ENcnYh79dUY">ヨルシカ「思想犯」</a><br />
                   <a href="https://www.youtube.com/watch?v=kzdJkT4kp-A">YOASOBI「ハルジオン」</a>
                 </p>
-                <p>連絡先：...@gmail.com</p>
-                <p>Twitter:<a href="https://twitter.com/sashimi0404">@sashimi0404</a></p>
+                <p>連絡先:<a className={styles.linkStyle} href={"mailti:ebizosui2017wishrimp@gmail.com"}>ebizosui2017wishrimp@gmail.com</a></p>
+                <p>Twitter<img alt="twitter account" src={"./Twitter.png"} width={"15px"} height={"15px"} />:<a className={styles.linkStyle} href="https://twitter.com/sashimi0404">@sashimi0404</a></p>
+                <p>Pixiv:<a className={styles.linkStyle}  href="https://www.pixiv.net/users/2157406">海老蔵</a></p>
               </div>
             </div>
           </div>
@@ -223,15 +220,16 @@ const Home = ({works, news, illustrations, illustrationStyles}: Props) => {
                 <p>粉鶴亀（こなつるか）</p>
                 <p>アニメーター</p>
                 <p>MP・TVアニメ</p>
-                <p>イラスト・マンガ</p>
+                <p>イラスト・マンガ<br />（海老蔵名義）</p>
               </div>
-              <div className={styles.description}>
+              <div className={styles.link}>
                 <p>主な仕事：<br />
                   <a href="https://www.youtube.com/watch?v=ENcnYh79dUY">ヨルシカ「思想犯」</a><br />
                   <a href="https://www.youtube.com/watch?v=kzdJkT4kp-A">YOASOBI「ハルジオン」</a>
                 </p>
-                <p>連絡先：...@gmail.com</p>
-                <p>Twitter:<a href="https://twitter.com/sashimi0404">@sashimi0404</a></p>
+                <p>連絡先:<br /><a className={styles.linkStyle} href={"mailti:ebizosui2017wishrimp@gmail.com"}>ebizosui2017wishrimp@gmail.com</a></p>
+                <p>Twitter<img alt="twitter account" src={"./Twitter.png"} width={"15px"} height={"15px"} />:<br /><a className={styles.linkStyle} href="https://twitter.com/sashimi0404">@sashimi0404</a></p>
+                <p>Pixiv:<br /><a className={styles.linkStyle}  href="https://www.pixiv.net/users/2157406">海老蔵</a></p>
               </div>
             </div>
           </div>
@@ -255,7 +253,7 @@ const Home = ({works, news, illustrations, illustrationStyles}: Props) => {
             <h1>ILLUST</h1>
           </header>
           <div className={styles.sectionContainer}>
-            <div className={styles.illusts}>
+            <div className={styles.illustrations}>
               {illustrations.map((illust, index) => (
               <img
                   style={illustrationStyles[index]}
