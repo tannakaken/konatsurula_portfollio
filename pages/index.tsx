@@ -207,7 +207,7 @@ const Home = ({works, news, illustrations, illustrationStyles}: Props) => {
                 </p>
                 <p>連絡先:<a className={styles.linkStyle} href={"mailti:ebizosui2017wishrimp@gmail.com"}>ebizosui2017wishrimp@gmail.com</a></p>
                 <p>Twitter<img alt="twitter account" src={"./Twitter.png"} width={"15px"} height={"15px"} />:<a className={styles.linkStyle} href="https://twitter.com/sashimi0404">@sashimi0404</a></p>
-                <p>Pixiv:<a className={styles.linkStyle}  href="https://www.pixiv.net/users/2157406">海老蔵</a></p>
+                <p>Pixiv（版権絵置き場）:<a className={styles.linkStyle}  href="https://www.pixiv.net/users/2157406">海老蔵</a></p>
               </div>
             </div>
           </div>
@@ -229,7 +229,7 @@ const Home = ({works, news, illustrations, illustrationStyles}: Props) => {
                 </p>
                 <p>連絡先:<br /><a className={styles.linkStyle} href={"mailti:ebizosui2017wishrimp@gmail.com"}>ebizosui2017wishrimp@gmail.com</a></p>
                 <p>Twitter<img alt="twitter account" src={"./Twitter.png"} width={"15px"} height={"15px"} />:<br /><a className={styles.linkStyle} href="https://twitter.com/sashimi0404">@sashimi0404</a></p>
-                <p>Pixiv:<br /><a className={styles.linkStyle}  href="https://www.pixiv.net/users/2157406">海老蔵</a></p>
+                <p>Pixiv（版権絵置き場）:<br /><a className={styles.linkStyle}  href="https://www.pixiv.net/users/2157406">海老蔵</a></p>
               </div>
             </div>
           </div>
@@ -286,13 +286,13 @@ const Home = ({works, news, illustrations, illustrationStyles}: Props) => {
                 value={body}
                 onChange={(event) => setBody(event.target.value)}
                 style={{
-                  width: "410px",
+                  maxWidth: "410px",
                   height: "200px",
                 }}
-
+                className={styles.contactBody}
           />
           </div>
-          <div style={{display: "flex", flexDirection: "column", justifyContent: "end", width: "410px"}}>
+          <div className={styles.contactButtonContainer}>
             <button style={{width: "80px"}} id={"contact-button"}
                 onClick={async () => {
                   if (sending) {
@@ -339,10 +339,11 @@ const Home = ({works, news, illustrations, illustrationStyles}: Props) => {
         </section>
       </main>
       <footer className={styles.footer}>
-          Copyright(c)2022 粉鶴亀(KONATSURUKA). All Rights Reserved{' '}
+          <p>Copyright(c)2022 粉鶴亀(KONATSURUKA). All Rights Reserved{' '}
           <span className={styles.logo}>
             <img src="/favicon.png" alt="ebi logo" width={32} height={32} />
-          </span>
+          </span></p>
+        <p>Created By <a href={"https://twitter.com/tannakaken"}>Tannakaken</a></p>
       </footer>
       <ReactModal
           contentLabel="YouTube Modal"
