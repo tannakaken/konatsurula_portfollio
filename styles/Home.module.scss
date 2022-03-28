@@ -124,6 +124,7 @@
     .sectionContainer {
       text-align: center;
       .work {
+        cursor: pointer;
         width: 25%;
         @media (max-width: 768px) {
           width: 100%;
@@ -248,7 +249,6 @@
 .footer {
   display: flex;
   flex-direction: column;
-  //flex: 1;
   padding: 1rem 0;
   border-top: 1px solid #eaeaea;
   justify-content: center;

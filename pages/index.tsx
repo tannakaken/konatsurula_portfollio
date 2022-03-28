@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
+import Image from "next/image";
 import CSS from "csstype";
 import { Link as ScrollLink } from "react-scroll";
 import * as Scroll from "react-scroll";
@@ -13,7 +14,6 @@ import ReactModal from "react-modal";
 import * as React from "react";
 import { ParsedUrlQuery } from "querystring";
 import { GetStaticProps } from "next";
-import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import ContactForm from "./components/contact-form";
 
 type Work = {
@@ -70,6 +70,7 @@ const decideStyles = (illustrations: Illustration[]): CSS.Properties[] => {
     styles.push({
       width: "50%",
       display: "block",
+      cursor: "pointer",
       float: float,
     });
     heightSum += height;
@@ -82,9 +83,7 @@ const decideStyles = (illustrations: Illustration[]): CSS.Properties[] => {
   return styles;
 };
 
-export const getStaticProps: GetStaticProps<Props, Params> = async (
-  context
-) => {
+export const getStaticProps: GetStaticProps<Props, Params> = async (_) => {
   const client = createClient({
     serviceDomain: "konatsuruka",
     apiKey: process.env.NEXT_PUBLIC_MICRO_CMS_API_KEY || "",
@@ -123,7 +122,7 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
     const animate = async () => {
       const sr = (await import("scrollreveal")).default();
       sr.reveal(".works-image", { reset: true });
-      sr.reveal(".illusts-image", { reset: true });
+      sr.reveal(".illustration-image", { reset: true });
       sr.reveal(".left-about", {
         reset: true,
         opacity: 1,
@@ -423,14 +422,16 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
           <div className={styles.sectionContainer}>
             <div className={styles.illustrations}>
               {illustrations.map((illustration, index) => (
-                <img
-                  onClick={() => setSelectedIllustration(illustration)}
-                  style={illustrationStyles[index]}
-                  className={"illustration-image"}
-                  key={illustration.id}
-                  alt={illustration.title}
-                  src={illustration.image.url}
-                />
+                <div style={illustrationStyles[index]} key={illustration.id}>
+                  <Image
+                    onClick={() => setSelectedIllustration(illustration)}
+                    className={"illustration-image"}
+                    alt={illustration.title}
+                    src={illustration.image.url}
+                    width={illustration.image.width}
+                    height={illustration.image.height}
+                  />
+                </div>
               ))}
             </div>
           </div>
@@ -452,7 +453,7 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
         <p>
           Copyright(c)2022 粉鶴亀(KONATSURUKA). All Rights Reserved{" "}
           <span className={styles.logo}>
-            <img src="/favicon.png" alt="ebi logo" width={32} height={32} />
+            <Image src="/favicon.png" alt="ebi logo" width={32} height={32} />
           </span>
         </p>
         <p>
@@ -504,9 +505,13 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
           </a>
         </div>
         {selectedIllustration !== undefined && (
-            <div style={{textAlign: "center"}}>
-              <img src={selectedIllustration.image.url} style={{maxHeight: "85vh", maxWidth: "90vw"}} />
-            </div>
+          <div style={{ textAlign: "center" }}>
+            <img
+              src={selectedIllustration.image.url}
+              alt={selectedIllustration.title}
+              style={{ maxHeight: "85vh", maxWidth: "90vw" }}
+            />
+          </div>
         )}
         <p className={youTubeStyles.description}>
           {selectedIllustration?.description}

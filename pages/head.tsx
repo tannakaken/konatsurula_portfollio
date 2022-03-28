@@ -35,7 +35,6 @@ const head = ({
       <link rel="canonical" href={url} />
       <link rel="shortcut icon" href={"https://t-cr.jp/favicon.ico"} />
       <link rel="apple-touch-icon" href={"https://t-cr.jp/logo.png"} />
-      <script src="https://www.youtube.com/iframe_api"></script>
     </Head>
   );
 };
