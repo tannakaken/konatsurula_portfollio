@@ -301,7 +301,7 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
                   連絡先:
                   <a
                     className={styles.linkStyle}
-                    href={"mailti:ebizosui2017wishrimp@gmail.com"}
+                    href={"mailto:ebizosui2017wishrimp@gmail.com"}
                   >
                     ebizosui2017wishrimp@gmail.com
                   </a>
@@ -502,7 +502,9 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
                 if (sending) {
                   return;
                 }
-                if (email.length === 0 || body.length === 0) {
+                if (email.length === 0 ||
+                    name.length === 0 ||
+                    body.length === 0) {
                   return;
                 }
                 if (executeRecaptcha === undefined) {
@@ -521,6 +523,8 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
                     },
                     body: JSON.stringify({
                       email,
+                      name,
+                      requestType,
                       body,
                       recaptchaToken,
                     }),
@@ -528,6 +532,8 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
                 )
                   .then(() => {
                     setBody("");
+                    setName("")
+                    setRequestType("MV");
                     setEmail("");
                     alert("送信しました");
                     setSending(false);
@@ -620,7 +626,9 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
           </a>
         </div>
         {selectedIllustration !== undefined && (
-          <img src={selectedIllustration.image.url} width="100%" />
+            <div style={{textAlign: "center"}}>
+              <img src={selectedIllustration.image.url} style={{maxHeight: "85vh", maxWidth: "90vw"}} />
+            </div>
         )}
         <p className={youTubeStyles.description}>
           {selectedIllustration?.description}

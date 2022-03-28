@@ -5,7 +5,7 @@ import os
 import re
 
 SRC_MAIL = "tannakaken@gmail.com"
-DST_MAIL = "tannakaken@gmail.com"
+DST_MAIL = "ebizosui2017wishrimp@gmail.com"
 REGION = "ap-northeast-1"
 
 RECAPTCHA_API_URL = "https://www.google.com/recaptcha/api/siteverify"
@@ -34,6 +34,17 @@ def send_email(source, to, subject, body):
     )
 
     return response
+
+
+def request_type(type):
+    if type == "MV":
+        return "MV"
+    elif type == "TV":
+        return "TVアニメ"
+    elif type == "illustration":
+        return "イラスト・漫画"
+    else:
+        return "その他"
 
 
 def lambda_handler(event, context):
@@ -67,8 +78,9 @@ def lambda_handler(event, context):
         if success and hostname == checked_hostname and score > 0.6:
             message = "\n".join([
                 "[メールアドレス]" + data["email"],
+                "[お名前]" + data["name"],
+                "[お仕事内容]" + request_type(data["requestType"]),
                 "[本文]",
-                str(score),
                 data["body"],
             ])
             r = send_email(SRC_MAIL, DST_MAIL, subject, message)
