@@ -180,27 +180,27 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
           <ul>
             <li className={styles.navItem}>
               <ScrollLink to="news-section" smooth={true}>
-                NEWS
+                ニュース
               </ScrollLink>
             </li>
             <li className={styles.navItem}>
               <ScrollLink to="about-section" smooth={true}>
-                ABOUT
+                アバウト
               </ScrollLink>
             </li>
             <li className={styles.navItem}>
               <ScrollLink to="works-section" smooth={true}>
-                WORKS
+                お仕事
               </ScrollLink>
             </li>
             <li className={styles.navItem}>
               <ScrollLink to="illusts-section" smooth={true}>
-                ILLUST
+                イラスト
               </ScrollLink>
             </li>
             <li className={styles.navItem}>
               <ScrollLink to="contact-section" smooth={true}>
-                CONTACT
+                コンタクト
               </ScrollLink>
             </li>
           </ul>
@@ -217,27 +217,27 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
               smooth={true}
               onSetActive={() => console.warn("hello")}
             >
-              NEWS
+              ニュース
             </ScrollLink>
           </li>
           <li className={styles.navItem}>
             <ScrollLink to="about-section" smooth={true}>
-              ABOUT
+              アバウト
             </ScrollLink>
           </li>
           <li className={styles.navItem}>
             <ScrollLink to="works-section" smooth={true}>
-              WORKS
+              お仕事
             </ScrollLink>
           </li>
           <li className={styles.navItem}>
             <ScrollLink to="illusts-section" smooth={true}>
-              ILLUST
+              イラスト
             </ScrollLink>
           </li>
           <li className={styles.navItem}>
             <ScrollLink to="contact-section" smooth={true}>
-              CONTACT
+              コンタクト
             </ScrollLink>
           </li>
         </ul>
@@ -246,7 +246,7 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
         <div className={styles.mainHeader} />
         <section className={styles.section} id="news-section">
           <div className={styles.newsContainer} id={styles.newsHeader}>
-            <h2>NEWS</h2>
+            <h2>ニュース</h2>
             <ul>
               {news.map((newsContent) => (
                 <li
@@ -402,7 +402,7 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
         </section>
         <section className={styles.section} id="works-section">
           <header className={styles.sectionHeader} id={styles.worksHeader}>
-            <h1>WORKS</h1>
+            <h1>お仕事</h1>
           </header>
           <div className={styles.sectionContainer}>
             {works.map((work) => (
@@ -418,7 +418,7 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
         </section>
         <section className={styles.section} id="illusts-section">
           <header className={styles.sectionHeader} id={styles.illustHeader}>
-            <h1>ILLUST</h1>
+            <h1>イラスト</h1>
           </header>
           <div className={styles.sectionContainer}>
             <div className={styles.illustrations}>
@@ -444,7 +444,7 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
             width: "100%",
           }}
         >
-          <h1>CONTACT</h1>
+          <h1>コンタクト</h1>
           <ContactForm />
         </section>
       </main>
