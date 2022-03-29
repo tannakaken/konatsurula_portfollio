@@ -252,10 +252,12 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
                   key={newsContent.id}
                   onClick={() => setSelectedNews(newsContent)}
                 >
-                  <img
+                  <Image
                     className={newsContent.isNew ? undefined : styles.oldNews}
                     alt="it's new"
-                    src="./new.gif"
+                    src="/new.gif"
+                    width={"36px"}
+                    height={"13px"}
                   />
                   {newsContent.title}
                 </li>
@@ -266,10 +268,12 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
         <section id="about-section">
           <div id={styles.aboutContainer}>
             <div className={styles.iconContainer + " left-about"}>
-              <img
+              <Image
                 className={styles.icon}
-                src="./icon.jpeg"
+                src="/icon.png"
                 alt={"粉鶴亀のアイコン"}
+                width={"333px"}
+                height={"333px"}
               />
             </div>
             <div className={styles.descriptionContainer + " right-about"}>
@@ -302,9 +306,9 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
                 </p>
                 <p>
                   Twitter
-                  <img
+                  <Image
                     alt="twitter account"
-                    src={"./Twitter.png"}
+                    src={"/Twitter.png"}
                     width={"15px"}
                     height={"15px"}
                   />
@@ -330,10 +334,12 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
           </div>
           <div id={styles.aboutContainerPhone}>
             <div className={styles.iconContainer}>
-              <img
+              <Image
                 className={styles.icon}
-                src="./icon.jpeg"
+                src="/transparent_icon.png"
                 alt={"粉鶴亀のアイコン"}
+                width={"200px"}
+                height={"200px"}
               />
             </div>
             <div className={styles.descriptionContainer}>
@@ -371,9 +377,9 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
                 </p>
                 <p>
                   Twitter
-                  <img
+                  <Image
                     alt="twitter account"
-                    src={"./Twitter.png"}
+                    src={"/Twitter.png"}
                     width={"15px"}
                     height={"15px"}
                   />

@@ -194,7 +194,12 @@
   .iconContainer {
     text-align: center;
     vertical-align: center;
-    background: black;
+    background-image: url("../public/header_nega.png");
+    background-size: contain;
+    background-attachment: fixed;
+    background-color: black;
+    background-position: top 60px left 0;
+    background-repeat: no-repeat;
     width: 100%;
     .icon {
 
@@ -233,6 +238,7 @@
 }
 
 #worksHeader {
+  color: black;
   background-image: url("../public/header_gray.png");
   background-size: cover;
   background-attachment: fixed;

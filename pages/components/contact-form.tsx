@@ -44,6 +44,7 @@ const ContactForm = () => {
           name="MV"
           value="MV"
           checked={requestType === "MV"}
+          readOnly
           onClick={() => setRequestType("MV")}
         />
         <label htmlFor="MV">MV</label>
@@ -53,6 +54,7 @@ const ContactForm = () => {
           name="TV"
           value="TV"
           checked={requestType === "TV"}
+          readOnly
           onClick={() => setRequestType("TV")}
         />
         <label htmlFor="TV">TVアニメ</label>
@@ -62,6 +64,7 @@ const ContactForm = () => {
           name="illustration"
           value="illustration"
           checked={requestType === "illustration"}
+          readOnly
           onClick={() => setRequestType("illustration")}
         />
         <label htmlFor="illustration">イラスト・漫画</label>
