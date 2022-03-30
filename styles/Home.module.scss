@@ -124,10 +124,14 @@
     .sectionContainer {
       text-align: center;
       .work {
+        position: relative;
+        display: inline-block;
         cursor: pointer;
-        width: 25%;
+        width: 25vw;
+        height: 18.75vw;
         @media (max-width: 768px) {
-          width: 100%;
+          width: 100vw;
+          height: 75vw;
         }
       }
       .illustrations {
@@ -242,12 +246,14 @@
   background-image: url("../public/header_gray.png");
   background-size: cover;
   background-attachment: fixed;
+  font-size: medium;
 }
 
 #illustHeader {
   background-image: url("../public/header_nega.png");
   background-size: cover;
   background-attachment: fixed;
+  font-size: medium;
 }
 
 

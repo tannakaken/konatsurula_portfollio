@@ -1,6 +1,5 @@
 import Head from "next/head";
 import Link from "next/link";
-import Image from "next/image";
 import CSS from "csstype";
 import { Link as ScrollLink } from "react-scroll";
 import * as Scroll from "react-scroll";
@@ -252,7 +251,7 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
                   key={newsContent.id}
                   onClick={() => setSelectedNews(newsContent)}
                 >
-                  <Image
+                  <img
                     className={newsContent.isNew ? undefined : styles.oldNews}
                     alt="it's new"
                     src="/new.gif"
@@ -268,7 +267,7 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
         <section id="about-section">
           <div id={styles.aboutContainer}>
             <div className={styles.iconContainer + " left-about"}>
-              <Image
+              <img
                 className={styles.icon}
                 src="/icon.png"
                 alt={"粉鶴亀のアイコン"}
@@ -306,7 +305,7 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
                 </p>
                 <p>
                   Twitter
-                  <Image
+                  <img
                     alt="twitter account"
                     src={"/Twitter.png"}
                     width={"15px"}
@@ -334,7 +333,7 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
           </div>
           <div id={styles.aboutContainerPhone}>
             <div className={styles.iconContainer}>
-              <Image
+              <img
                 className={styles.icon}
                 src="/transparent_icon.png"
                 alt={"粉鶴亀のアイコン"}
@@ -377,7 +376,7 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
                 </p>
                 <p>
                   Twitter
-                  <Image
+                  <img
                     alt="twitter account"
                     src={"/Twitter.png"}
                     width={"15px"}
@@ -411,13 +410,13 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
           </header>
           <div className={styles.sectionContainer}>
             {works.map((work) => (
-              <img
-                onClick={() => setSelectedWork(work)}
-                key={work.id}
-                className={styles.work + " works-image"}
-                alt={work.title}
-                src={`https://img.youtube.com/vi/${work.youtubeId}/default.jpg`}
-              />
+                <img
+                  onClick={() => setSelectedWork(work)}
+                  alt={work.title}
+                  src={`https://img.youtube.com/vi/${work.youtubeId}/default.jpg`}
+                  key={work.id}
+                  className={styles.work + " works-image"}
+                />
             ))}
           </div>
         </section>
@@ -428,16 +427,14 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
           <div className={styles.sectionContainer}>
             <div className={styles.illustrations}>
               {illustrations.map((illustration, index) => (
-                <div style={illustrationStyles[index]} key={illustration.id}>
-                  <Image
-                    onClick={() => setSelectedIllustration(illustration)}
-                    className={"illustration-image"}
-                    alt={illustration.title}
-                    src={illustration.image.url}
-                    width={illustration.image.width}
-                    height={illustration.image.height}
-                  />
-                </div>
+                <img
+                  onClick={() => setSelectedIllustration(illustration)}
+                  className={"illustration-image"}
+                  alt={illustration.title}
+                  src={illustration.image.url}
+                  style={illustrationStyles[index]}
+                  key={illustration.id}
+                />
               ))}
             </div>
           </div>
@@ -459,7 +456,7 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
         <p>
           Copyright(c)2022 粉鶴亀(KONATSURUKA). All Rights Reserved{" "}
           <span className={styles.logo}>
-            <Image src="/favicon.png" alt="ebi logo" width={32} height={32} />
+            <img src="/favicon.png" alt="ebi logo" width={32} height={32} />
           </span>
         </p>
         <p>
