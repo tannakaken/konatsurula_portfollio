@@ -309,7 +309,7 @@
   font-size: 30pt;
   @media (max-width: 768px) {
     font-size: medium;
-    background-size: contain;
+    background-size: 100%;
     background-attachment: unset;
   }
 }
@@ -318,10 +318,10 @@
   background-image: url("../public/header_nega.png");
   background-size: cover;
   background-attachment: fixed;
-   font-size: 30pt;
+  font-size: 30pt;
   @media (max-width: 768px) {
     font-size: medium;
-    background-size: contain;
+    background-size: 100%;
     background-attachment: unset;
   }
 }
