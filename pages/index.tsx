@@ -151,6 +151,16 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
       Events.scrollEvent.remove("end");
     };
   }, []);
+  const [scrollY, setScrollY] = useState(0)
+
+  const handleScroll = () => {
+    setScrollY(window.scrollY)
+  }
+
+  useEffect(()=> {
+    window.addEventListener('scroll', handleScroll )
+  }, [])
+
 
   return (
     <div className={styles.container}>
@@ -241,7 +251,13 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
         </ul>
       </nav>
       <main className={styles.main}>
-        <div className={styles.mainHeader} />
+        <div className={styles.mainHeader}>
+          <div className={styles.mainHeaderPhone}>
+            <div className={styles.mainHeaderPhoneClip}>
+              <img src="./header.png" alt="" />
+            </div>
+          </div>
+        </div>
         <section className={styles.section} id="news-section">
           <div className={styles.newsContainer} id={styles.newsHeader}>
             <h2>ニュース</h2>
@@ -262,6 +278,17 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
                 </li>
               ))}
             </ul>
+            <div className={styles.newsContainerAttachment}>
+              <div className={styles.newsContainerClip}>
+                <img
+                    style={{
+                      top: 248 - scrollY,
+                      objectPosition: `0px ${scrollY-186}px`
+                    }}
+                    src={"./header_nega.png"}
+                    alt={""} />
+              </div>
+            </div>
           </div>
         </section>
         <section id="about-section">

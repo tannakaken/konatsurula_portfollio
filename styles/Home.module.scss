@@ -79,6 +79,36 @@
     background-attachment: fixed;
     background-position: top 60px left 0;
     background-repeat: no-repeat;
+    @media (max-width: 768px) {
+      background-image: none;
+    }
+    .mainHeaderPhone {
+      display: none;
+      @media (max-width: 768px) {
+        display: block;
+      }
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      left: 0;
+      right: 0;
+      z-index: -1;
+      .mainHeaderPhoneClip {
+        position: relative;
+        clip-path: inset(0 0 0 0);
+        height: 100%;
+      }
+      img {
+        position: fixed;
+        width: 100vw;
+        height: 45.4vw;
+        left: 0;
+        top: 60px;
+        z-index: -1;
+        pointer-events: none;
+        object-fit: contain;
+      }
+    }
   }
   section {
     width: 100%;
@@ -238,6 +268,37 @@
   background-color: black;
   background-position: top 60px left 0;
   background-repeat: no-repeat;
+  @media (max-width: 768px) {
+    background-image: none;
+    background-color: transparent;
+  }
+  .newsContainerAttachment {
+    display: none;
+    @media (max-width: 768px) {
+      display: block;
+    }
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    .newsContainerClip {
+      position: relative;
+      clip-path: inset(0 0 0 0);
+      height: 100%;
+    }
+    img {
+      position: fixed;
+      width: 100vw;
+      height: 100vw;
+      left: 0;
+      z-index: -1;
+      pointer-events: none;
+      object-fit: contain;
+      background-color: black;
+    }
+  }
 }
 
 #worksHeader {
@@ -245,14 +306,20 @@
   background-image: url("../public/header_gray.png");
   background-size: cover;
   background-attachment: fixed;
-  font-size: medium;
+  font-size: 30pt;
+  @media (max-width: 768px) {
+    font-size: medium;
+  }
 }
 
 #illustHeader {
   background-image: url("../public/header_nega.png");
   background-size: cover;
   background-attachment: fixed;
-  font-size: medium;
+   font-size: 30pt;
+  @media (max-width: 768px) {
+    font-size: medium;
+  }
 }
 
 
