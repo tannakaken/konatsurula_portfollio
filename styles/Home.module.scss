@@ -309,6 +309,8 @@
   font-size: 30pt;
   @media (max-width: 768px) {
     font-size: medium;
+    background-size: contain;
+    background-attachment: unset;
   }
 }
 
@@ -319,6 +321,8 @@
    font-size: 30pt;
   @media (max-width: 768px) {
     font-size: medium;
+    background-size: contain;
+    background-attachment: unset;
   }
 }
 
