@@ -164,9 +164,13 @@
         }
       }
       .illustrations {
+        line-height: 0;
+        column-count: 3;
+        column-gap: 0;
         width: 60%;
         @media (max-width: 768px) {
           width: 100%;
+          column-count: 2;
         }
         margin: auto;
       }
@@ -440,9 +444,13 @@
 }
 
 .contactBody {
+  background-color: #f7e9ba;
+  max-width: 410px;
+  height: 200px;
   width: 410px;
   @media (max-width: 768px) {
-    width: 100vw;
+    width: 92vw;
+
   }
 }
 
@@ -452,12 +460,13 @@
   justify-content: flex-end;
   width: 410px;
   @media (max-width: 768px) {
-    width: 100vw;
+    width: 90vw;
   }
 }
 
 .googleRecaptchaNotice {
   font-size: xx-small;
+  width: 90vw;
 }
 
 .drawerHidden {
@@ -517,4 +526,70 @@
 #drawerInput:checked ~ .header .drawerOpen span::after {
   top: 0;
   transform: rotate(-45deg);
+}
+
+.illustration {
+  width: 100%;
+  height: auto;
+}
+
+.information {
+  width: 200px;
+  @media (max-width: 768px) {
+    width: 20px;
+  }
+  text-align: right;
+  padding-top: 6em;
+}
+
+.tooltip {
+  div {
+    display: flex;
+    flex-direction: row;
+    p {
+      display: block;
+      text-align: left;
+    }
+    img {
+      display: none;
+      @media (max-width: 768px) {
+        display: block;
+        width: 70px;
+      }
+    }
+  }
+}
+
+.input {
+  background-color: #f7e9ba;
+  width: 290px;
+  @media (max-width: 768px) {
+    width: 270px;
+  }
+}
+
+.contactImage {
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.contactSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.contactForm {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  .contactMain {
+    @media (max-width: 768px) {
+      width: 95vw;
+    }
+  }
 }

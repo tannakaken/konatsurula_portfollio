@@ -1,6 +1,5 @@
 import Head from "next/head";
 import Link from "next/link";
-import CSS from "csstype";
 import { Link as ScrollLink } from "react-scroll";
 import * as Scroll from "react-scroll";
 import styles from "../styles/Home.module.scss";
@@ -48,38 +47,6 @@ type Props = {
   works: Work[];
   news: News[];
   illustrations: Illustration[];
-  illustrationStyles: CSS.Properties[];
-};
-type Float = "left" | "right";
-
-const changeFloat = (float: Float): Float => {
-  if (float == "left") {
-    return "right";
-  }
-  return "left";
-};
-
-const decideStyles = (illustrations: Illustration[]): CSS.Properties[] => {
-  const styles = [] as any[];
-  let heightLimit = 0;
-  let heightSum = 0;
-  let float: Float = "left";
-  for (const illustration of illustrations) {
-    const height = illustration.image.height / illustration.image.width;
-    styles.push({
-      width: "50%",
-      display: "block",
-      cursor: "pointer",
-      float: float,
-    });
-    heightSum += height;
-    if (heightSum >= heightLimit) {
-      heightLimit = heightSum + height - heightLimit;
-      heightSum = heightLimit - height;
-      float = changeFloat(float);
-    }
-  }
-  return styles;
 };
 
 export const getStaticProps: GetStaticProps<Props, Params> = async (_) => {
@@ -100,14 +67,13 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (_) => {
       works,
       news,
       illustrations,
-      illustrationStyles: decideStyles(illustrations),
     },
   };
 };
 
 ReactModal.setAppElement("#__next");
 
-const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
+const Home = ({ works, news, illustrations }: Props) => {
   const [selectedNews, setSelectedNews] = useState<News | undefined>(undefined);
   const isNewsModalOpen = selectedNews !== undefined;
   const [selectedIllustration, setSelectedIllustration] = useState<
@@ -151,16 +117,15 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
       Events.scrollEvent.remove("end");
     };
   }, []);
-  const [scrollY, setScrollY] = useState(0)
+  const [scrollY, setScrollY] = useState(0);
 
   const handleScroll = () => {
-    setScrollY(window.scrollY)
-  }
+    setScrollY(window.scrollY);
+  };
 
-  useEffect(()=> {
-    window.addEventListener('scroll', handleScroll )
-  }, [])
-
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -208,7 +173,7 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
             </li>
             <li className={styles.navItem}>
               <ScrollLink to="contact-section" smooth={true}>
-                コンタクト
+                お仕事相談所
               </ScrollLink>
             </li>
           </ul>
@@ -245,7 +210,7 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
           </li>
           <li className={styles.navItem}>
             <ScrollLink to="contact-section" smooth={true}>
-              コンタクト
+              お仕事相談所
             </ScrollLink>
           </li>
         </ul>
@@ -281,12 +246,13 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
             <div className={styles.newsContainerAttachment}>
               <div className={styles.newsContainerClip}>
                 <img
-                    style={{
-                      top: 248 - scrollY,
-                      objectPosition: `0px ${scrollY-186}px`
-                    }}
-                    src={"./header_nega.png"}
-                    alt={""} />
+                  style={{
+                    top: 248 - scrollY,
+                    objectPosition: `0px ${scrollY - 186}px`,
+                  }}
+                  src={"./header_nega.png"}
+                  alt={""}
+                />
               </div>
             </div>
           </div>
@@ -437,13 +403,13 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
           </header>
           <div className={styles.sectionContainer}>
             {works.map((work) => (
-                <img
-                  onClick={() => setSelectedWork(work)}
-                  alt={work.title}
-                  src={`https://img.youtube.com/vi/${work.youtubeId}/default.jpg`}
-                  key={work.id}
-                  className={styles.work + " works-image"}
-                />
+              <img
+                onClick={() => setSelectedWork(work)}
+                alt={work.title}
+                src={`https://img.youtube.com/vi/${work.youtubeId}/sddefault.jpg`}
+                key={work.id}
+                className={styles.work + " works-image"}
+              />
             ))}
           </div>
         </section>
@@ -456,10 +422,9 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
               {illustrations.map((illustration, index) => (
                 <img
                   onClick={() => setSelectedIllustration(illustration)}
-                  className={"illustration-image"}
+                  className={styles.illustration + " illustration-image"}
                   alt={illustration.title}
                   src={illustration.image.url}
-                  style={illustrationStyles[index]}
                   key={illustration.id}
                 />
               ))}
@@ -468,14 +433,9 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
         </section>
         <section
           id="contact-section"
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            width: "100%",
-          }}
+          className={styles.contactSection}
         >
-          <h1>コンタクト</h1>
+          <h1>☆お仕事相談所☆</h1>
           <ContactForm />
         </section>
       </main>
@@ -483,7 +443,7 @@ const Home = ({ works, news, illustrations, illustrationStyles }: Props) => {
         <p>
           Copyright(c)2022 粉鶴亀(KONATSURUKA). All Rights Reserved{" "}
           <span className={styles.logo}>
-            <img src="/favicon.png" alt="ebi logo" width={32} height={32} />
+            <img src="favicon.png" alt="ebi logo" width={32} height={32} />
           </span>
         </p>
         <p>

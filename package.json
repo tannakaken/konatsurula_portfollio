@@ -19,6 +19,7 @@
     "react-google-recaptcha-v3": "^1.9.7",
     "react-modal": "^3.14.4",
     "react-scroll": "^1.8.4",
+    "react-tooltip": "^4.2.21",
     "react-youtube": "^7.14.0"
   },
   "devDependencies": {
