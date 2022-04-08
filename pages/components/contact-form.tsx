@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useCallback, useState } from "react";
+import {useCallback, useRef, useState} from "react";
 import styles from "../../styles/Home.module.scss";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import ReactTooltip from 'react-tooltip';
@@ -19,6 +19,7 @@ const ContactForm = () => {
   const [body, setBody] = useState("");
   const [sending, setSending] = useState(false);
   const { executeRecaptcha } = useGoogleReCaptcha();
+  const tooltipRef = useRef<HTMLImageElement>(null);
 
   const toggleDetails = useCallback(
     (detail: Detail) => {
@@ -36,6 +37,7 @@ const ContactForm = () => {
     >
       <div className={styles.information}>
         <img
+          ref={tooltipRef}
           src={"information.png"}
           alt={"用途、予算、納品希望日、詳細……等をご入力ください。"}
           width={"20px"}
@@ -173,7 +175,11 @@ const ContactForm = () => {
           <label htmlFor="CleanUp">仕上げ</label>
         </div>
         <div>
-          <label htmlFor={"body"}>本文：</label>
+          <label htmlFor={"body"} onClick={() => {
+              if (tooltipRef.current) {
+                  ReactTooltip.show(tooltipRef.current);
+              }
+          }}>本文：</label>
           <br />
           <textarea
             name={"body"}

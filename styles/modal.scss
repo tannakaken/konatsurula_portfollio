@@ -1,18 +1,39 @@
 
 .ReactModal__Content {
   background-color: transparent;
-  inset: 400px !important;
   transition-property: background-color, inset;
   transition-duration: 400ms;
   transition-timing-function: ease-in-out;
+  @media (max-width: 768px) {
+    inset: 150px !important;
+  }
+  @media (min-width: 769px) {
+    inset: 400px !important;
+  }
 }
 
 .ReactModal__Content--after-open {
-  inset: 60px !important;
   background-color: rgba(250, 190, 190, 0.8);
+  @media (max-width: 768px) {
+    inset: 15px !important;
+  }
+  @media (min-width: 769px) {
+    inset: 60px !important;
+  }
 }
 
 .ReactModal__Content--before-close {
-  inset: 400px !important;
   background-color: transparent;
+  @media (max-width: 768px) {
+    inset: 150px !important;
+  }
+  @media (min-width: 769px) {
+    inset: 400px !important;
+  }
+}
+
+.ReactModal__Overlay {
+  @media (max-width: 768px) {
+    z-index: 1000;
+  }
 }

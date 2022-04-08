@@ -5,7 +5,7 @@
     "dev": "next dev",
     "build": "next build",
     "export": "next export",
-    "build:static": "next build && next export",
+    "build:static": "next build && next export && node scripts/filter.js",
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json,css}'",

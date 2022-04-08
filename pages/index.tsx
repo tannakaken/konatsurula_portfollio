@@ -499,7 +499,7 @@ const Home = ({ works, news, illustrations }: Props) => {
             <img
               src={selectedIllustration.image.url}
               alt={selectedIllustration.title}
-              style={{ maxHeight: "85vh", maxWidth: "90vw" }}
+              style={{ maxHeight: "85vh", maxWidth: "85vw" }}
             />
           </div>
         )}
