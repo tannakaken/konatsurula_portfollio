@@ -5,7 +5,7 @@ import styles from "../../styles/Contact.module.scss";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import ReactTooltip from "react-tooltip";
 
-type RequestType = "MV" | "TV" | "Illustration" | "Manga";
+type RequestType = "MV" | "TV" | "Illustration" | "Manga" | "Other";
 type Detail =
   | "CharacterDesign"
   | "KeyAnimation"
@@ -81,7 +81,7 @@ const ContactForm = () => {
             />
           </div>
           <div>
-            <span>{"　　"}お仕事内容:</span>
+            <span>内容:</span>
             <input
               type="radio"
               id="MV"
@@ -133,6 +133,19 @@ const ContactForm = () => {
               }}
             />
             <label htmlFor="Manga">マンガ</label>
+              <input
+              type="radio"
+              id="Other"
+              name="Other"
+              value="Other"
+              checked={requestType === "Other"}
+              readOnly
+              onClick={() => {
+                setRequestType("Other");
+                setDetails([]);
+              }}
+            />
+            <label htmlFor="Other">その他</label>
           </div>
           <div style={{ textAlign: "center" }}>
             <input
@@ -145,7 +158,7 @@ const ContactForm = () => {
               readOnly
               onClick={() => toggleDetails("CharacterDesign")}
             />
-            <label htmlFor="CharacterDesign">キャラクターデザイン</label>
+            <label style={{color: requestType !== "MV" ? "gray" : "black"}} htmlFor="CharacterDesign">キャラクターデザイン</label>
             <input
               type="checkbox"
               id="KeyAnimation"
@@ -156,7 +169,7 @@ const ContactForm = () => {
               readOnly
               onClick={() => toggleDetails("KeyAnimation")}
             />
-            <label htmlFor="KeyAnimation">原画</label>
+            <label style={{color: requestType !== "MV" && requestType !== "TV" ? "gray" : "black"}} htmlFor="KeyAnimation">原画</label>
             <input
               type="checkbox"
               id="BetweenAnimation"
@@ -167,7 +180,7 @@ const ContactForm = () => {
               readOnly
               onClick={() => toggleDetails("BetweenAnimation")}
             />
-            <label htmlFor="BetweenAnimation">動画</label>
+            <label style={{color: requestType !== "MV" ? "gray" : "black"}} htmlFor="BetweenAnimation">動画</label>
             <input
               type="checkbox"
               id="CleanUp"
@@ -178,7 +191,7 @@ const ContactForm = () => {
               readOnly
               onClick={() => toggleDetails("CleanUp")}
             />
-            <label htmlFor="CleanUp">仕上げ</label>
+            <label style={{color: requestType !== "MV" ? "gray" : "black"}} htmlFor="CleanUp">仕上げ</label>
           </div>
           <div>
             <label
@@ -285,6 +298,14 @@ const ContactForm = () => {
           alt={"お気楽にご相談ください。"}
         />
       </div>
+        {sending && (
+            <img
+            style={{animation: "3s linear infinite rotation"}}
+            className={styles.sending}
+            src={"favicon.png"}
+            width={"50px"}
+            alt={"送信中"} />
+        )}
     </section>
   );
 };

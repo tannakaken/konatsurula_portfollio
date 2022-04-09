@@ -78,7 +78,6 @@ const Home = ({ works, news, illustrations }: Props) => {
       });
     };
     animate()
-      .then(() => console.log("animate"))
       .catch((error) => console.warn(error));
   }, []);
   const [scrollY, setScrollY] = useState(0);
