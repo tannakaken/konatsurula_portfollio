@@ -41,10 +41,29 @@ def request_type(type):
         return "MV"
     elif type == "TV":
         return "TVアニメ"
-    elif type == "illustration":
-        return "イラスト・漫画"
+    elif type == "Illustration":
+        return "イラスト"
+    elif type == "Manga":
+        return "マンガ"
     else:
         return "その他"
+
+
+def request_detail(detail):
+    if detail == "CharacterDesign":
+        return "キャラクターデザイン"
+    elif detail == "KeyAnimation":
+        return "原画"
+    elif detail == "BetweenAnimation":
+        return "動画"
+    elif detail == "CleanUp":
+        return "仕上げ"
+    else:
+        return "その他"
+
+
+def request_details(details):
+    return ",".join([request_detail(detail) for detail in details])
 
 
 def lambda_handler(event, context):
@@ -53,7 +72,7 @@ def lambda_handler(event, context):
             'statusCode': 200,
             'headers': {
                 'Access-Control-Allow-Headers': 'Content-Type',
-                'Access-Control-Allow-Origin': 'https://www.example.com',
+                'Access-Control-Allow-Origin': 'https://www.konatsuruka.online',
                 'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
             },
             'body': ""
@@ -80,6 +99,7 @@ def lambda_handler(event, context):
                 "[メールアドレス]" + data["email"],
                 "[お名前]" + data["name"],
                 "[お仕事内容]" + request_type(data["requestType"]),
+                "[詳細]" + request_details(data["details"]),
                 "[本文]",
                 data["body"],
             ])
