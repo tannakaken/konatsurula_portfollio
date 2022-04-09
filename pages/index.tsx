@@ -77,8 +77,7 @@ const Home = ({ works, news, illustrations }: Props) => {
         distance: "50%",
       });
     };
-    animate()
-      .catch((error) => console.warn(error));
+    animate().catch((error) => console.warn(error));
   }, []);
   const [scrollY, setScrollY] = useState(0);
 

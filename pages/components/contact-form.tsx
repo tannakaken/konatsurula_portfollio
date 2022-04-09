@@ -133,7 +133,7 @@ const ContactForm = () => {
               }}
             />
             <label htmlFor="Manga">マンガ</label>
-              <input
+            <input
               type="radio"
               id="Other"
               name="Other"
@@ -158,7 +158,12 @@ const ContactForm = () => {
               readOnly
               onClick={() => toggleDetails("CharacterDesign")}
             />
-            <label style={{color: requestType !== "MV" ? "gray" : "black"}} htmlFor="CharacterDesign">キャラクターデザイン</label>
+            <label
+              style={{ color: requestType !== "MV" ? "gray" : "black" }}
+              htmlFor="CharacterDesign"
+            >
+              キャラクターデザイン
+            </label>
             <input
               type="checkbox"
               id="KeyAnimation"
@@ -169,7 +174,17 @@ const ContactForm = () => {
               readOnly
               onClick={() => toggleDetails("KeyAnimation")}
             />
-            <label style={{color: requestType !== "MV" && requestType !== "TV" ? "gray" : "black"}} htmlFor="KeyAnimation">原画</label>
+            <label
+              style={{
+                color:
+                  requestType !== "MV" && requestType !== "TV"
+                    ? "gray"
+                    : "black",
+              }}
+              htmlFor="KeyAnimation"
+            >
+              原画
+            </label>
             <input
               type="checkbox"
               id="BetweenAnimation"
@@ -180,7 +195,12 @@ const ContactForm = () => {
               readOnly
               onClick={() => toggleDetails("BetweenAnimation")}
             />
-            <label style={{color: requestType !== "MV" ? "gray" : "black"}} htmlFor="BetweenAnimation">動画</label>
+            <label
+              style={{ color: requestType !== "MV" ? "gray" : "black" }}
+              htmlFor="BetweenAnimation"
+            >
+              動画
+            </label>
             <input
               type="checkbox"
               id="CleanUp"
@@ -191,7 +211,12 @@ const ContactForm = () => {
               readOnly
               onClick={() => toggleDetails("CleanUp")}
             />
-            <label style={{color: requestType !== "MV" ? "gray" : "black"}} htmlFor="CleanUp">仕上げ</label>
+            <label
+              style={{ color: requestType !== "MV" ? "gray" : "black" }}
+              htmlFor="CleanUp"
+            >
+              仕上げ
+            </label>
           </div>
           <div>
             <label
@@ -251,14 +276,20 @@ const ContactForm = () => {
                     }),
                   }
                 )
-                  .then(() => {
+                  .then((response) => {
                     setBody("");
                     setName("");
                     setRequestType("MV");
                     setDetails([]);
                     setEmail("");
-                    alert("送信しました");
                     setSending(false);
+                    if (response.status > 500) {
+                      alert("サーバー側でエラーが発生しました。");
+                    } else if (response.status === 400) {
+                      alert("不正なリクエストが検知されました。");
+                    } else {
+                      alert("送信しました");
+                    }
                   })
                   .catch((error) => {
                     alert(error);
@@ -298,14 +329,15 @@ const ContactForm = () => {
           alt={"お気楽にご相談ください。"}
         />
       </div>
-        {sending && (
-            <img
-            style={{animation: "3s linear infinite rotation"}}
-            className={styles.sending}
-            src={"favicon.png"}
-            width={"50px"}
-            alt={"送信中"} />
-        )}
+      {sending && (
+        <img
+          style={{ animation: "3s linear infinite rotation" }}
+          className={styles.sending}
+          src={"favicon.png"}
+          width={"50px"}
+          alt={"送信中"}
+        />
+      )}
     </section>
   );
 };

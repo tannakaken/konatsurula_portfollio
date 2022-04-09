@@ -72,7 +72,7 @@ def lambda_handler(event, context):
             'statusCode': 200,
             'headers': {
                 'Access-Control-Allow-Headers': 'Content-Type',
-                'Access-Control-Allow-Origin': 'https://www.konatsuruka.online',
+                'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
             },
             'body': ""
@@ -92,8 +92,8 @@ def lambda_handler(event, context):
     with request.urlopen(post_req) as res:
         recaptcha_check = json.loads(res.read())
         success = recaptcha_check['success']
-        score = recaptcha_check['score']
-        checked_hostname = recaptcha_check['hostname']
+        score = recaptcha_check.get('score', 0)
+        checked_hostname = recaptcha_check.get('hostname')
         if success and hostname == checked_hostname and score > 0.6:
             message = "\n".join([
                 "[メールアドレス]" + data["email"],
