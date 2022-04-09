@@ -3,13 +3,14 @@ import Head from "next/head";
 
 interface Props {
   title: string;
+  author: string;
   description: string;
   keyword: string;
   image: string;
   url: string;
 }
 
-const head = ({
+const CustomHead = ({
   title,
   description,
   keyword,
@@ -22,7 +23,7 @@ const head = ({
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta name="keywords" content={keyword} />
-      <meta property="og:type" content="blog" />
+      <meta property="og:type" content="website" />
       <meta property="og:url" content={url} />
       <meta property="og:image" content={image} />
       <meta property="og:site_name" content={title} />
@@ -33,10 +34,11 @@ const head = ({
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />
       <link rel="canonical" href={url} />
-      <link rel="shortcut icon" href={"https://t-cr.jp/favicon.ico"} />
-      <link rel="apple-touch-icon" href={"https://t-cr.jp/logo.png"} />
+      <link rel="icon" href={"https://www.konatsuruka.online/favicon.ico"} />
+      <link rel="shortcut icon" href={"https://www.konatsuruka.online/favicon.ico"} />
+      <link rel="apple-touch-icon" href={"https://www.konatsuruka.online/favicon.png"} />
     </Head>
   );
 };
 
-export default head;
+export default CustomHead;

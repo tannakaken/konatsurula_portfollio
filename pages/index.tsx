@@ -14,6 +14,7 @@ import Footer from "./components/footer";
 import Header from "./components/header";
 import About from "./components/about";
 import { Illustration, News, Work } from "../models";
+import CustomHead from "./CustomHead";
 
 interface Params extends ParsedUrlQuery {}
 
@@ -91,15 +92,14 @@ const Home = ({ works, news, illustrations }: Props) => {
 
   return (
     <div className={styles.container}>
-      <Head>
-        <title>粉鶴亀のポートフォリオサイト</title>
-        <meta
-          name="description"
-          content="アニメーター粉鶴亀（こなつるか）のポートフォリオサイトです。関わったアニメ作品へのリンクやイラストなどが含まれています。このサイトから仕事の依頼をすることもできます。"
-        />
-        <meta name="author" content="tannakaken" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <CustomHead
+          title={"粉鶴亀のポートフォリオサイト"}
+          description={"アニメーター粉鶴亀（こなつるか）のポートフォリオサイトです。関わったアニメ作品へのリンクやイラストなどが含まれています。このサイトから仕事の依頼をすることもできます。"}
+          author={"tannakaken"}
+          keyword={"アニメ,animation,MV,イラスト,illustration,マンガ,manga"}
+          url={"https://www.konatsuruka.online"}
+          image={"https:///www.konatsuruka.online/header.png"}
+      />
       <Header />
       <main className={styles.main}>
         <div className={styles.mainHeader}>
