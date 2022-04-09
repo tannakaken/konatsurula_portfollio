@@ -13,7 +13,7 @@ import ContactForm from "./components/contact-form";
 import Footer from "./components/footer";
 import Header from "./components/header";
 import About from "./components/about";
-import { Illustration, News, Work } from "./models";
+import { Illustration, News, Work } from "../models";
 
 interface Params extends ParsedUrlQuery {}
 
