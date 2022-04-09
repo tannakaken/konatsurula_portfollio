@@ -1,0 +1,78 @@
+#aboutContainer {
+  @media (max-width: 768px) {
+    display: none;
+  }
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  background: white;
+  .iconContainer {
+    text-align: center;
+    vertical-align: center;
+    background: black;
+    width: 50%;
+    .icon {
+
+    }
+  }
+  .descriptionContainer {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: #f7e9ba;
+    .description {
+      width: 100%;
+      font-size: medium;
+      .name {
+        font-size: x-large;
+      }
+      @media (max-width: 1024px) {
+        font-size: small;
+        .name {
+          font-size: large;
+        }
+      }
+      text-align: left;
+      padding-left: 20%;
+    }
+  }
+}
+
+#aboutContainerPhone {
+  display: none;
+  @media (max-width: 768px) {
+    display: flex;
+  }
+  width: 100%;
+  flex-direction: column;
+  .iconContainer {
+    text-align: center;
+    vertical-align: center;
+    background-image: url("../public/header_nega.png");
+    background-size: contain;
+    background-attachment: fixed;
+    background-color: black;
+    background-position: top 60px left 0;
+    background-repeat: no-repeat;
+    width: 100%;
+    .icon {
+
+    }
+  }
+  .descriptionContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: #f7e9ba;
+    .description {
+      font-size: small;
+      .name {
+        font-size: large;
+      }
+      text-align: left;
+      padding-left: 30%;
+    }
+  }
+}

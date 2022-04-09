@@ -1,7 +1,4 @@
 import Head from "next/head";
-import Link from "next/link";
-import { Link as ScrollLink } from "react-scroll";
-import * as Scroll from "react-scroll";
 import styles from "../styles/Home.module.scss";
 import { useEffect, useState } from "react";
 import { createClient } from "microcms-js-sdk";
@@ -13,33 +10,10 @@ import * as React from "react";
 import { ParsedUrlQuery } from "querystring";
 import { GetStaticProps } from "next";
 import ContactForm from "./components/contact-form";
-
-type Work = {
-  id: string;
-  title: string;
-  youtubeId: string;
-  description: string;
-};
-
-type News = {
-  id: string;
-  title: string;
-  content: string;
-  isNew: boolean;
-};
-
-type ImageData = {
-  url: string;
-  height: number;
-  width: number;
-};
-
-type Illustration = {
-  id: string;
-  title: string;
-  image: ImageData;
-  description: string;
-};
+import Footer from "./components/footer";
+import Header from "./components/header";
+import About from "./components/about";
+import { Illustration, News, Work } from "./models";
 
 interface Params extends ParsedUrlQuery {}
 
@@ -107,16 +81,6 @@ const Home = ({ works, news, illustrations }: Props) => {
       .then(() => console.log("animate"))
       .catch((error) => console.warn(error));
   }, []);
-  const [checked, setChecked] = useState(false);
-  useEffect(() => {
-    const Events = Scroll.Events;
-    Events.scrollEvent.register("end", () => {
-      setChecked(false);
-    });
-    return () => {
-      Events.scrollEvent.remove("end");
-    };
-  }, []);
   const [scrollY, setScrollY] = useState(0);
 
   const handleScroll = () => {
@@ -138,83 +102,7 @@ const Home = ({ works, news, illustrations }: Props) => {
         <meta name="author" content="tannakaken" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <input
-        id={styles.drawerInput}
-        className={styles.drawerHidden}
-        type="checkbox"
-        checked={checked}
-        onChange={() => setChecked(!checked)}
-      />
-      <header className={styles.header}>
-        <h1 id="title" className={styles.headerTitle}>
-          <Link href="/">粉鶴亀のポートフォリオサイト</Link>
-        </h1>
-        <nav className={styles.globalNavi}>
-          <ul>
-            <li className={styles.navItem}>
-              <ScrollLink to="news-section" smooth={true}>
-                ニュース
-              </ScrollLink>
-            </li>
-            <li className={styles.navItem}>
-              <ScrollLink to="about-section" smooth={true}>
-                アバウト
-              </ScrollLink>
-            </li>
-            <li className={styles.navItem}>
-              <ScrollLink to="works-section" smooth={true}>
-                お仕事
-              </ScrollLink>
-            </li>
-            <li className={styles.navItem}>
-              <ScrollLink to="illusts-section" smooth={true}>
-                イラスト
-              </ScrollLink>
-            </li>
-            <li className={styles.navItem}>
-              <ScrollLink to="contact-section" smooth={true}>
-                お仕事相談所
-              </ScrollLink>
-            </li>
-          </ul>
-        </nav>
-        <label htmlFor={styles.drawerInput} className={styles.drawerOpen}>
-          <span />
-        </label>
-      </header>
-      <nav className={styles.globalNaviPhone}>
-        <ul>
-          <li className={styles.navItem}>
-            <ScrollLink
-              to="news-section"
-              smooth={true}
-              onSetActive={() => console.warn("hello")}
-            >
-              ニュース
-            </ScrollLink>
-          </li>
-          <li className={styles.navItem}>
-            <ScrollLink to="about-section" smooth={true}>
-              アバウト
-            </ScrollLink>
-          </li>
-          <li className={styles.navItem}>
-            <ScrollLink to="works-section" smooth={true}>
-              お仕事
-            </ScrollLink>
-          </li>
-          <li className={styles.navItem}>
-            <ScrollLink to="illusts-section" smooth={true}>
-              イラスト
-            </ScrollLink>
-          </li>
-          <li className={styles.navItem}>
-            <ScrollLink to="contact-section" smooth={true}>
-              お仕事相談所
-            </ScrollLink>
-          </li>
-        </ul>
-      </nav>
+      <Header />
       <main className={styles.main}>
         <div className={styles.mainHeader}>
           <div className={styles.mainHeaderPhone}>
@@ -257,146 +145,7 @@ const Home = ({ works, news, illustrations }: Props) => {
             </div>
           </div>
         </section>
-        <section id="about-section">
-          <div id={styles.aboutContainer}>
-            <div className={styles.iconContainer + " left-about"}>
-              <img
-                className={styles.icon}
-                src="/icon.png"
-                alt={"粉鶴亀のアイコン"}
-                width={"333px"}
-                height={"333px"}
-              />
-            </div>
-            <div className={styles.descriptionContainer + " right-about"}>
-              <div className={styles.description}>
-                <p>粉鶴亀（こなつるか）</p>
-                <p>アニメーター</p>
-                <p>MV・TVアニメ</p>
-                <p>イラスト・マンガ（海老蔵名義）</p>
-              </div>
-              <div className={styles.link}>
-                <p>
-                  主な仕事：
-                  <br />
-                  <a href="https://www.youtube.com/watch?v=ENcnYh79dUY">
-                    ヨルシカ「思想犯」
-                  </a>
-                  <br />
-                  <a href="https://www.youtube.com/watch?v=kzdJkT4kp-A">
-                    YOASOBI「ハルジオン」
-                  </a>
-                </p>
-                <p>
-                  連絡先:
-                  <a
-                    className={styles.linkStyle}
-                    href={"mailto:ebizosui2017wishrimp@gmail.com"}
-                  >
-                    ebizosui2017wishrimp@gmail.com
-                  </a>
-                </p>
-                <p>
-                  Twitter
-                  <img
-                    alt="twitter account"
-                    src={"/Twitter.png"}
-                    width={"15px"}
-                    height={"15px"}
-                  />
-                  :
-                  <a
-                    className={styles.linkStyle}
-                    href="https://twitter.com/sashimi0404"
-                  >
-                    @sashimi0404
-                  </a>
-                </p>
-                <p>
-                  Pixiv（版権絵置き場）:
-                  <a
-                    className={styles.linkStyle}
-                    href="https://www.pixiv.net/users/2157406"
-                  >
-                    海老蔵
-                  </a>
-                </p>
-              </div>
-            </div>
-          </div>
-          <div id={styles.aboutContainerPhone}>
-            <div className={styles.iconContainer}>
-              <img
-                className={styles.icon}
-                src="/transparent_icon.png"
-                alt={"粉鶴亀のアイコン"}
-                width={"200px"}
-                height={"200px"}
-              />
-            </div>
-            <div className={styles.descriptionContainer}>
-              <div className={styles.description}>
-                <p>粉鶴亀（こなつるか）</p>
-                <p>アニメーター</p>
-                <p>MP・TVアニメ</p>
-                <p>
-                  イラスト・マンガ
-                  <br />
-                  （海老蔵名義）
-                </p>
-              </div>
-              <div className={styles.link}>
-                <p>
-                  主な仕事：
-                  <br />
-                  <a href="https://www.youtube.com/watch?v=ENcnYh79dUY">
-                    ヨルシカ「思想犯」
-                  </a>
-                  <br />
-                  <a href="https://www.youtube.com/watch?v=kzdJkT4kp-A">
-                    YOASOBI「ハルジオン」
-                  </a>
-                </p>
-                <p>
-                  連絡先:
-                  <br />
-                  <a
-                    className={styles.linkStyle}
-                    href={"mailti:ebizosui2017wishrimp@gmail.com"}
-                  >
-                    ebizosui2017wishrimp@gmail.com
-                  </a>
-                </p>
-                <p>
-                  Twitter
-                  <img
-                    alt="twitter account"
-                    src={"/Twitter.png"}
-                    width={"15px"}
-                    height={"15px"}
-                  />
-                  :<br />
-                  <a
-                    className={styles.linkStyle}
-                    href="https://twitter.com/sashimi0404"
-                  >
-                    @sashimi0404
-                  </a>
-                </p>
-                <p>
-                  Pixiv（版権絵置き場）:
-                  <br />
-                  <a
-                    className={styles.linkStyle}
-                    href="https://www.pixiv.net/users/2157406"
-                  >
-                    海老蔵
-                  </a>
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
+        <About />
         <section className={styles.section} id="works-section">
           <header className={styles.sectionHeader} id={styles.worksHeader}>
             <h1>お仕事</h1>
@@ -431,25 +180,9 @@ const Home = ({ works, news, illustrations }: Props) => {
             </div>
           </div>
         </section>
-        <section
-          id="contact-section"
-          className={styles.contactSection}
-        >
-          <h1>☆お仕事相談所☆</h1>
-          <ContactForm />
-        </section>
+        <ContactForm />
       </main>
-      <footer className={styles.footer}>
-        <p>
-          Copyright(c)2022 粉鶴亀(KONATSURUKA). All Rights Reserved{" "}
-          <span className={styles.logo}>
-            <img src="favicon.png" alt="ebi logo" width={32} height={32} />
-          </span>
-        </p>
-        <p>
-          Created By <a href={"https://twitter.com/tannakaken"}>Tannakaken</a>
-        </p>
-      </footer>
+      <Footer />
       <ReactModal
         contentLabel="News Modal"
         isOpen={isNewsModalOpen}
