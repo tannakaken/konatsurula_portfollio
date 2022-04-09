@@ -250,6 +250,7 @@ const ContactForm = () => {
                   name.length === 0 ||
                   body.length === 0
                 ) {
+                  alert("メールアドレス・ご所属・お名前・本文をご記入ください。")
                   return;
                 }
                 if (executeRecaptcha === undefined) {
