@@ -12,6 +12,14 @@
   }
 }
 
+.YoutubeModalPortal {
+  .ReactModal__Content {
+    @media (max-width: 768px) {
+      height: 60%;
+    }
+  }
+}
+
 .ReactModal__Content--after-open {
   @media (max-width: 768px) {
     inset: 15px !important;

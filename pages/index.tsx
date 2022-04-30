@@ -238,6 +238,7 @@ const Home = ({ works, news, illustrations }: Props) => {
         shouldCloseOnEsc={true}
         onRequestClose={() => setSelectedWork(undefined)}
         closeTimeoutMS={500}
+        portalClassName="YoutubeModalPortal"
       >
         <div className={youTubeStyles.header}>
           <h2>{selectedWork?.title}</h2>
