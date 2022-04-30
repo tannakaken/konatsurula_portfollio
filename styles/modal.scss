@@ -48,6 +48,25 @@
   }
 }
 
+.NewsModalPortal {
+  .ReactModal__Content {
+    @media (max-width: 768px) {
+      height: 40%;
+    }
+  }
+  .ReactModal__Content--after-open {
+    @media (min-width: 769px) {
+      inset: 300px !important;
+    }
+  }
+  .ReactModal__Content--before-close {
+    @media (min-width: 769px) {
+      inset: 500px !important;
+    }
+  }
+  
+}
+
 .ReactModal__Overlay {
   @media (max-width: 768px) {
     z-index: 1000;

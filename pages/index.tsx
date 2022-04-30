@@ -196,6 +196,7 @@ const Home = ({ profile, works, news, illustrations }: Props) => {
         shouldCloseOnEsc={true}
         onRequestClose={() => setSelectedNews(undefined)}
         closeTimeoutMS={500}
+        portalClassName="NewsModalPortal"
       >
         <div className={youTubeStyles.header}>
           <h2>{selectedNews?.title}</h2>
@@ -215,7 +216,7 @@ const Home = ({ profile, works, news, illustrations }: Props) => {
           </a>
         </div>
         {selectedNews !== undefined && (
-          <p style={{ whiteSpace: "pre" }}>{selectedNews.content}</p>
+          <p className={youTubeStyles.description}>{selectedNews.content}</p>
         )}
       </ReactModal>
       <ReactModal

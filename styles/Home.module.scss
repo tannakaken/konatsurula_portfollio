@@ -63,6 +63,9 @@
       color: whitesmoke;
       h2 {
         text-decoration: underline;
+        @media (max-width: 375px) {
+          font-size: 120%;
+        }
       }
       ul {
         list-style: none;
