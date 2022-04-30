@@ -14,6 +14,7 @@ import Header from "./components/header";
 import About from "./components/about";
 import { Illustration, News, Work } from "../models";
 import CustomHead from "./CustomHead";
+import { useScroll, useWindowSize } from "../helpers/window.helpers";
 
 interface Params extends ParsedUrlQuery {}
 
@@ -47,7 +48,12 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (_) => {
 
 ReactModal.setAppElement("#__next");
 
+const headerWidth = 1500;
+const headerHeight = 682;
+
 const Home = ({ works, news, illustrations }: Props) => {
+  const windowSize = useWindowSize();
+  const realHeaderHeight = windowSize.width / headerWidth * headerHeight;
   const [selectedNews, setSelectedNews] = useState<News | undefined>(undefined);
   const isNewsModalOpen = selectedNews !== undefined;
   const [selectedIllustration, setSelectedIllustration] = useState<
@@ -79,15 +85,7 @@ const Home = ({ works, news, illustrations }: Props) => {
     };
     animate().catch((error) => console.warn(error));
   }, []);
-  const [scrollY, setScrollY] = useState(0);
-
-  const handleScroll = () => {
-    setScrollY(window.scrollY);
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-  }, []);
+  const scroll = useScroll();
 
   return (
     <div className={styles.container}>
@@ -132,8 +130,8 @@ const Home = ({ works, news, illustrations }: Props) => {
               <div className={styles.newsContainerClip}>
                 <img
                   style={{
-                    top: 248 - scrollY,
-                    objectPosition: `0px ${scrollY - 186}px`,
+                    top: 60 + realHeaderHeight - scroll.y,
+                    objectPosition: `0px ${scroll.y - realHeaderHeight}px`,
                   }}
                   src={"./header_nega.png"}
                   alt={""}
