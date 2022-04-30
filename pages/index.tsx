@@ -212,6 +212,7 @@ const Home = ({ works, news, illustrations }: Props) => {
         shouldCloseOnEsc={true}
         onRequestClose={() => setSelectedIllustration(undefined)}
         closeTimeoutMS={500}
+        portalClassName="IllustrationModalPortal"
       >
         <div className={youTubeStyles.header}>
           <h2>{selectedIllustration?.title}</h2>
@@ -227,7 +228,7 @@ const Home = ({ works, news, illustrations }: Props) => {
             <img
               src={selectedIllustration.image.url}
               alt={selectedIllustration.title}
-              style={{ maxHeight: "85vh", maxWidth: "85vw" }}
+              style={{ maxHeight: "80vh", maxWidth: "80vw" }}
             />
           </div>
         )}

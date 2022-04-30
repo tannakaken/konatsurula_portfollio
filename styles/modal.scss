@@ -20,6 +20,15 @@
   }
 }
 
+.IllustrationModalPortal {
+  .ReactModal__Content {
+    @media (min-width: 769px) {
+      width: 60%;
+      margin: auto;
+    }
+  }
+}
+
 .ReactModal__Content--after-open {
   @media (max-width: 768px) {
     inset: 15px !important;
