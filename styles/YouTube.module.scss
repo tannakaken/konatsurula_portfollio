@@ -24,11 +24,15 @@
   }
 }
 
-.close-button {
+.closeButton {
   cursor: pointer;
 }
 
 .description {
+  white-space: pre-wrap;
+}
+
+.youtubuDescription {
   @media (min-width: 769px) {
     position: absolute;
     top: 70vh;

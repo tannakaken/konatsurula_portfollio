@@ -18,6 +18,9 @@ import { useScroll, useWindowSize } from "../helpers/window.helpers";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkHtml from "remark-html";
+import WorksSection from "./components/works";
+import IllustrationsSection from "./components/illustrations";
+import NewsSection from "./components/news";
 
 interface Params extends ParsedUrlQuery {}
 
@@ -67,12 +70,6 @@ const Home = ({ profile, works, news, illustrations }: Props) => {
   const realHeaderHeight = windowSize.width / headerWidth * headerHeight;
   const [selectedNews, setSelectedNews] = useState<News | undefined>(undefined);
   const isNewsModalOpen = selectedNews !== undefined;
-  const [selectedIllustration, setSelectedIllustration] = useState<
-    Illustration | undefined
-  >(undefined);
-  const isIllustrationModalOpen = selectedIllustration !== undefined;
-  const [selectedWork, setSelectedWork] = useState<Work | undefined>(undefined);
-  const isYoutubeModalOpen = selectedWork !== undefined;
 
   useEffect(() => {
     const animate = async () => {
@@ -99,7 +96,7 @@ const Home = ({ profile, works, news, illustrations }: Props) => {
   const scroll = useScroll();
 
   return (
-    <div className={styles.container}>
+    <div id="container">
       <CustomHead
           title={"粉鶴亀のポートフォリオサイト"}
           description={"アニメーター粉鶴亀（こなつるか）のポートフォリオサイトです。関わったアニメ作品へのリンクやイラストなどが含まれています。このサイトから仕事の依頼をすることもできます。"}
@@ -117,163 +114,14 @@ const Home = ({ profile, works, news, illustrations }: Props) => {
             </div>
           </div>
         </div>
-        <section className={styles.section} id="news-section">
-          <div className={styles.newsContainer} id={styles.newsHeader}>
-            <h2>ニュース</h2>
-            <ul>
-              {news.map((newsContent) => (
-                <li
-                  key={newsContent.id}
-                  onClick={() => setSelectedNews(newsContent)}
-                >
-                  <img
-                    className={newsContent.isNew ? undefined : styles.oldNews}
-                    alt="it's new"
-                    src="/new.gif"
-                    width={"36px"}
-                    height={"13px"}
-                  />
-                  {newsContent.title}
-                </li>
-              ))}
-            </ul>
-            <div className={styles.newsContainerAttachment}>
-              <div className={styles.newsContainerClip}>
-                <img
-                  style={{
-                    top: 60 + realHeaderHeight - scroll.y,
-                    objectPosition: `0px ${scroll.y - realHeaderHeight}px`,
-                    height: "100vh"
-                  }}
-                  src={"./header_nega.png"}
-                  alt={""}
-                />
-              </div>
-            </div>
-          </div>
-        </section>
+        <NewsSection news={news} />
         <About profile={profile} />
-        <section className={styles.section} id="works-section">
-          <header className={styles.sectionHeader} id={styles.worksHeader}>
-            <h1>お仕事</h1>
-          </header>
-          <div className={styles.sectionContainer}>
-            {works.map((work) => (
-              <img
-                onClick={() => setSelectedWork(work)}
-                alt={work.title}
-                src={`https://img.youtube.com/vi/${work.youtubeId}/sddefault.jpg`}
-                key={work.id}
-                className={styles.work + " works-image"}
-              />
-            ))}
-          </div>
-        </section>
-        <section className={styles.section} id="illusts-section">
-          <header className={styles.sectionHeader} id={styles.illustHeader}>
-            <h1>イラスト</h1>
-          </header>
-          <div className={styles.sectionContainer}>
-            <div className={styles.illustrations}>
-              {illustrations.map((illustration, index) => (
-                <img
-                  onClick={() => setSelectedIllustration(illustration)}
-                  className={styles.illustration + " illustration-image"}
-                  alt={illustration.title}
-                  src={illustration.image.url}
-                  key={illustration.id}
-                />
-              ))}
-            </div>
-          </div>
-        </section>
+        <WorksSection works={works} />
+        <IllustrationsSection illustrations={illustrations} />
         <ContactForm />
       </main>
       <Footer />
-      <ReactModal
-        contentLabel="News Modal"
-        isOpen={isNewsModalOpen}
-        shouldCloseOnEsc={true}
-        onRequestClose={() => setSelectedNews(undefined)}
-        closeTimeoutMS={500}
-        portalClassName="NewsModalPortal"
-      >
-        <div className={youTubeStyles.header}>
-          <h2>{selectedNews?.title}</h2>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "flex-end",
-          }}
-        >
-          <a
-            className={youTubeStyles.closeButton}
-            onClick={() => setSelectedNews(undefined)}
-          >
-            ×close
-          </a>
-        </div>
-        {selectedNews !== undefined && (
-          <p className={youTubeStyles.description}>{selectedNews.content}</p>
-        )}
-      </ReactModal>
-      <ReactModal
-        contentLabel="Illustration Modal"
-        isOpen={isIllustrationModalOpen}
-        shouldCloseOnEsc={true}
-        onRequestClose={() => setSelectedIllustration(undefined)}
-        closeTimeoutMS={500}
-        portalClassName="IllustrationModalPortal"
-      >
-        <div className={youTubeStyles.header}>
-          <h2>{selectedIllustration?.title}</h2>
-          <a
-            className={youTubeStyles.closeButton}
-            onClick={() => setSelectedIllustration(undefined)}
-          >
-            ×close
-          </a>
-        </div>
-        {selectedIllustration !== undefined && (
-          <div style={{ textAlign: "center" }}>
-            <img
-              src={selectedIllustration.image.url}
-              alt={selectedIllustration.title}
-              style={{ maxHeight: "80vh", maxWidth: "80vw" }}
-            />
-          </div>
-        )}
-      </ReactModal>
-      <ReactModal
-        contentLabel="YouTube Modal"
-        isOpen={isYoutubeModalOpen}
-        shouldCloseOnEsc={true}
-        onRequestClose={() => setSelectedWork(undefined)}
-        closeTimeoutMS={500}
-        portalClassName="YoutubeModalPortal"
-      >
-        <div className={youTubeStyles.header}>
-          <h2>{selectedWork?.title}</h2>
-          <a
-            className={youTubeStyles.closeButton}
-            onClick={() => setSelectedWork(undefined)}
-          >
-            ×close
-          </a>
-        </div>
-        {selectedWork !== undefined && (
-          <YouTube
-            opts={{ playerVars: { autoplay: 1 } }}
-            loading="lazy"
-            className={youTubeStyles.iframe}
-            containerClassName={youTubeStyles.youtube}
-            videoId={selectedWork?.youtubeId}
-          />
-        )}
-        <p className={youTubeStyles.description}>{selectedWork?.description}</p>
-      </ReactModal>
+
     </div>
   );
 };
