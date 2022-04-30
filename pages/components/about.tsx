@@ -7,18 +7,12 @@ const About = () => {
     <div className={styles.description}>
       <p>アニメーター・イラストレーター</p>
       <p className={styles.name}>粉鶴亀（KONATSURUKA）</p>
-      <p>ミュージックビデオ作画全般</p>
-      <p>テレビアニメ原画</p>
-      <p>イラスト・マンガ作画</p>
-      <p>
-        連絡先:
-        <a
-          className={commonStyles.linkStyle}
-          href={"mailto:ebizosui2017wishrimp@gmail.com"}
-        >
-          ebizosui2017wishrimp@gmail.com
-        </a>
-      </p>
+      <p>主な仕事</p>
+      <ul>
+        <li>ミュージックビデオ作画全般</li>
+        <li>テレビアニメ原画</li>
+        <li>イラスト・マンガ作画</li>
+      </ul>
       <p>
         Twitter
         <img
@@ -33,15 +27,6 @@ const About = () => {
           href="https://twitter.com/sashimi0404"
         >
           @sashimi0404
-        </a>
-      </p>
-      <p>
-        Pixiv（版権絵置き場）:
-        <a
-          className={commonStyles.linkStyle}
-          href="https://www.pixiv.net/users/2157406"
-        >
-          海老蔵
         </a>
       </p>
     </div>
