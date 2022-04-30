@@ -234,9 +234,6 @@ const Home = ({ works, news, illustrations }: Props) => {
             />
           </div>
         )}
-        <p className={youTubeStyles.description}>
-          {selectedIllustration?.description}
-        </p>
       </ReactModal>
       <ReactModal
         contentLabel="YouTube Modal"

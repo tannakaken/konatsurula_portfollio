@@ -22,5 +22,4 @@ export type Illustration = {
   id: string;
   title: string;
   image: ImageData;
-  description: string;
 };

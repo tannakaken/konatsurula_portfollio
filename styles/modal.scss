@@ -1,11 +1,12 @@
 
 .ReactModal__Content {
-  background-color: transparent;
-  transition-property: background-color, inset;
+  margin-top: 10px !important;
+  border-radius: 10px !important;
   transition-duration: 400ms;
   transition-timing-function: ease-in-out;
   @media (max-width: 768px) {
     inset: 150px !important;
+    max-height: 50%;
   }
   @media (min-width: 769px) {
     inset: 400px !important;
@@ -13,7 +14,6 @@
 }
 
 .ReactModal__Content--after-open {
-  background-color: rgba(250, 190, 190, 0.8);
   @media (max-width: 768px) {
     inset: 15px !important;
   }
