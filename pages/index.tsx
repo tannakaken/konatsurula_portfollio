@@ -63,7 +63,6 @@ const headerWidth = 1500;
 const headerHeight = 682;
 
 const Home = ({ profile, works, news, illustrations }: Props) => {
-  console.warn(profile);
   const windowSize = useWindowSize();
   const realHeaderHeight = windowSize.width / headerWidth * headerHeight;
   const [selectedNews, setSelectedNews] = useState<News | undefined>(undefined);
@@ -144,6 +143,7 @@ const Home = ({ profile, works, news, illustrations }: Props) => {
                   style={{
                     top: 60 + realHeaderHeight - scroll.y,
                     objectPosition: `0px ${scroll.y - realHeaderHeight}px`,
+                    height: "100vh"
                   }}
                   src={"./header_nega.png"}
                   alt={""}
