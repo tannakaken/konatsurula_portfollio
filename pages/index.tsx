@@ -15,10 +15,14 @@ import About from "./components/about";
 import { Illustration, News, Work } from "../models";
 import CustomHead from "./CustomHead";
 import { useScroll, useWindowSize } from "../helpers/window.helpers";
+import { unified } from "unified";
+import remarkParse from "remark-parse";
+import remarkHtml from "remark-html";
 
 interface Params extends ParsedUrlQuery {}
 
 type Props = {
+  profile: string;
   works: Work[];
   news: News[];
   illustrations: Illustration[];
@@ -31,14 +35,21 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (_) => {
   });
   const works = (await client.get<{ contents: Work[] }>({ endpoint: "works" }))
     .contents;
-  const news = (await client.get<{ contents: News[] }>({ endpoint: "news" }))
+  const newsContents = (await client.get<{ contents: News[] }>({ endpoint: "news" }))
     .contents;
+  const profile =  String(await unified()
+    .use(remarkParse)
+    .use(remarkHtml)
+    .process(newsContents[newsContents.length-1].content));
+
+  const news = newsContents.slice(0, newsContents.length - 1);
   const illustrations = (
     await client.get<{ contents: Illustration[] }>({ endpoint: "illusts" })
   ).contents;
 
   return {
     props: {
+      profile,
       works,
       news,
       illustrations,
@@ -51,7 +62,8 @@ ReactModal.setAppElement("#__next");
 const headerWidth = 1500;
 const headerHeight = 682;
 
-const Home = ({ works, news, illustrations }: Props) => {
+const Home = ({ profile, works, news, illustrations }: Props) => {
+  console.warn(profile);
   const windowSize = useWindowSize();
   const realHeaderHeight = windowSize.width / headerWidth * headerHeight;
   const [selectedNews, setSelectedNews] = useState<News | undefined>(undefined);
@@ -140,7 +152,7 @@ const Home = ({ works, news, illustrations }: Props) => {
             </div>
           </div>
         </section>
-        <About />
+        <About profile={profile} />
         <section className={styles.section} id="works-section">
           <header className={styles.sectionHeader} id={styles.worksHeader}>
             <h1>お仕事</h1>

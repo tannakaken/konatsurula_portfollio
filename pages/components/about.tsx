@@ -2,10 +2,12 @@ import * as React from "react";
 import styles from "../../styles/About.module.scss";
 import commonStyles from "../../styles/Common.module.scss";
 
-const About = () => {
+const About = ({profile}: {profile: string}) => {
   const description = (
-    <div className={styles.description}>
-      <p>アニメーター・イラストレーター</p>
+    <div className={styles.description} dangerouslySetInnerHTML={{
+      __html: profile
+    }}>
+      {/* <p>アニメーター・イラストレーター</p>
       <p className={styles.name}>粉鶴亀（KONATSURUKA）</p>
       <p>主な仕事</p>
       <ul>
@@ -15,12 +17,6 @@ const About = () => {
       </ul>
       <p>
         Twitter
-        <img
-          alt="twitter account"
-          src={"/Twitter.png"}
-          width={"15px"}
-          height={"15px"}
-        />
         :
         <a
           className={commonStyles.linkStyle}
@@ -28,7 +24,7 @@ const About = () => {
         >
           @sashimi0404
         </a>
-      </p>
+      </p> */}
     </div>
   );
   return (
