@@ -17,12 +17,12 @@
     background-attachment: fixed;
     background-position: top 60px left 0;
     background-repeat: no-repeat;
-    @media (max-width: 768px) {
+    @media (max-width: 1200px) {
       background-image: none;
     }
     .mainHeaderPhone {
       display: none;
-      @media (max-width: 768px) {
+      @media (max-width: 1200px) {
         display: block;
       }
       height: 100%;
@@ -129,7 +129,7 @@
   }
   .newsContainerAttachment {
     display: none;
-    @media (max-width: 768px) {
+    @media (max-width: 1024px) {
       display: block;
     }
     height: 100%;

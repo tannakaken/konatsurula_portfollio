@@ -6,7 +6,6 @@
   transition-timing-function: ease-in-out;
   @media (max-width: 768px) {
     inset: 150px !important;
-    max-height: 50%;
   }
   @media (min-width: 769px) {
     inset: 400px !important;
