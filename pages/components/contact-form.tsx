@@ -34,6 +34,7 @@ const ContactForm = () => {
   );
   return (
     <section id="contact-section" className={styles.contactSection}>
+      <hr style={{width: "90%"}} />
       <h1>☆お仕事相談所☆</h1>
       <div className={styles.contactForm}>
         <div className={styles.information}>
@@ -61,7 +62,7 @@ const ContactForm = () => {
         </div>
         <div className={styles.contactMain}>
           <div>
-            <label htmlFor={"email"}>メールアドレス:</label>
+            <label className={styles.mailAddressLabel} htmlFor={"email"}>メールアドレス</label>:
             <input
               className={styles.input}
               name={"email"}
@@ -71,7 +72,7 @@ const ContactForm = () => {
             />
           </div>
           <div>
-            <label htmlFor={"email"}>ご所属・お名前:</label>
+            <label className={styles.nameLabel} htmlFor={"name"}>ご所属・お名前</label>:
             <input
               className={styles.input}
               name={"name"}
@@ -81,7 +82,7 @@ const ContactForm = () => {
             />
           </div>
           <div>
-            <span>内容:</span>
+            <span className={styles.requestTypeLabel}>内容</span>:
             <input
               type="radio"
               id="MV"
@@ -326,7 +327,7 @@ const ContactForm = () => {
         <img
           className={styles.contactImage}
           src={"contact.png"}
-          width={"200px"}
+          width={"220px"}
           alt={"お気楽にご相談ください。"}
         />
       </div>

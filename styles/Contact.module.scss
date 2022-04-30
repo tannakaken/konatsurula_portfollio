@@ -61,20 +61,45 @@
 
 .contactBody {
   background-color: #f7e9ba;
-  max-width: 410px;
+  max-width: 600px;
   height: 200px;
-  width: 410px;
+  width: 600px;
+  @media (max-width: 1024px) {
+    width: 410px;
+  }
   @media (max-width: 768px) {
     width: 92vw;
-
   }
 }
+
+.mailAddressLabel {
+  @media (min-width: 1025px) {
+    margin-left: 5em;
+    margin-right: 0.15em;
+  }
+}
+
+.nameLabel {
+  @media (min-width: 1025px) {
+    margin-left: 5em;
+  }
+}
+
+.requestTypeLabel {
+  @media (min-width: 1025px) {
+    margin-left: 5em;
+  }
+}
+
 
 .contactButtonContainer {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  width: 410px;
+  width: 600px;
+  @media (max-width: 1024px) {
+    width: 410px;
+  }
   @media (max-width: 768px) {
     width: 90vw;
   }
