@@ -1,5 +1,4 @@
 import aboutStyles from "../styles/About.module.scss";
-import commonStyles from "../styles/Common.module.scss";
 import styles from "../styles/Home.module.scss";
 import { useEffect, useState } from "react";
 import { createClient } from "microcms-js-sdk";
@@ -23,7 +22,7 @@ import remarkHtml from "remark-html";
 // import WorksSection from "./components/works";
 // import IllustrationsSection from "./components/illustrations";
 // import NewsSection from "./components/news";
-// import NewsSection from "../backup/news";
+import NewsSection from "../backup/news";
 
 interface Params extends ParsedUrlQuery {}
 
@@ -125,8 +124,8 @@ const Home = ({ profile, works, news, illustrations }: Props) => {
             </div>
           </div>
         </div>
-        {/* <NewsSection news={news} /> */}
-        <section className={styles.section} id="news-section">
+        <NewsSection news={news} />
+        {/* <section className={styles.section} id="news-section">
           <div className={styles.newsContainer} id={styles.newsHeader}>
             <h2>ニュース</h2>
             <ul>
@@ -190,7 +189,7 @@ const Home = ({ profile, works, news, illustrations }: Props) => {
         {selectedNews !== undefined && (
           <p className={youTubeStyles.description}>{selectedNews.content}</p>
         )}
-      </ReactModal>
+      </ReactModal> */}
         {/* <About profile={profile} /> */}
         <section id="about-section">
       <div id={aboutStyles.aboutContainer}>
