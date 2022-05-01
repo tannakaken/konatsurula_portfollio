@@ -1,6 +1,6 @@
-import "../../styles/YouTube.module.scss";
-import youTubeStyles from "../../styles/YouTube.module.scss";
-import styles from "../../styles/Home.module.scss";
+import "../styles/YouTube.module.scss";
+import youTubeStyles from "../styles/YouTube.module.scss";
+import styles from "../styles/Home.module.scss";
 import { Work } from "../models";
 import { useState } from "react";
 import ReactModal from "react-modal";

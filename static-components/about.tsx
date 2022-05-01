@@ -1,5 +1,5 @@
 import * as React from "react";
-import styles from "../../styles/About.module.scss";
+import styles from "../styles/About.module.scss";
 
 const About = ({profile}: {profile: string}) => {
   const description = (
