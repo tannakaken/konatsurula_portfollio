@@ -1,7 +1,7 @@
 import "../../styles/YouTube.module.scss";
 import youTubeStyles from "../../styles/YouTube.module.scss";
 import styles from "../../styles/Home.module.scss";
-import { Illustration } from "../../models";
+import { Illustration } from "../models";
 import { useState } from "react";
 import ReactModal from "react-modal";
 

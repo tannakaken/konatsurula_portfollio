@@ -1,9 +1,9 @@
-import "../../styles/YouTube.module.scss";
-import youTubeStyles from "../../styles/YouTube.module.scss";
-import styles from "../../styles/Home.module.scss";
-import { News } from "../../models";
+import "../styles/YouTube.module.scss";
+import youTubeStyles from "../styles/YouTube.module.scss";
+import styles from "../styles/Home.module.scss";
+import { News } from "../models";
 import { useState } from "react";
-import { useScroll, useWindowSize } from "../../helpers/window.helpers";
+import { useScroll, useWindowSize } from "../helpers/window.helpers";
 import ReactModal from "react-modal";
 
 const headerWidth = 1500;
