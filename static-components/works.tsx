@@ -18,7 +18,7 @@ const WorksSection = ({works}: {works: Work[]}) => {
               <img
                 onClick={() => setSelectedWork(work)}
                 alt={work.title}
-                src={`https://img.youtube.com/vi/${work.youtubeId}/sddefault.jpg`}
+                src={`https://img.youtube.com/vi/${work.youtubeId}/hqdefault.jpg`}
                 key={work.id}
                 className={styles.work + " works-image"}
               />
