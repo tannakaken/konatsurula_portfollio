@@ -4,8 +4,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "email": "node scripts/send_email.js",
     "export": "next export",
     "build:static": "next build && next export && node scripts/filter.js",
+    "build:static-and-email": "next build && next export && node scripts/filter.js && node scripts/send_email.js",
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json,css}'",
