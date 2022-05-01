@@ -34,9 +34,9 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (_) => {
     serviceDomain: "konatsuruka",
     apiKey: process.env.NEXT_PUBLIC_MICRO_CMS_API_KEY || "",
   });
-  const works = (await client.get<{ contents: Work[] }>({ endpoint: "works" }))
+  const works = (await client.get<{ contents: Work[] }>({ endpoint: "works?limit=100" }))
     .contents;
-  const newsContents = (await client.get<{ contents: News[] }>({ endpoint: "news" }))
+  const newsContents = (await client.get<{ contents: News[] }>({ endpoint: "news?limit=100" }))
     .contents;
   const profile =  String(await unified()
     .use(remarkParse)
@@ -45,7 +45,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (_) => {
 
   const news = newsContents.slice(0, newsContents.length - 1);
   const illustrations = (
-    await client.get<{ contents: Illustration[] }>({ endpoint: "illusts" })
+    await client.get<{ contents: Illustration[] }>({ endpoint: "illusts?limit=100" })
   ).contents;
 
   return {
