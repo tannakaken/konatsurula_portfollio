@@ -23,7 +23,7 @@
 .IllustrationModalPortal {
   .ReactModal__Content {
     @media (min-width: 769px) {
-      width: 60%;
+      width: 90%;
       margin: auto;
     }
   }
@@ -56,7 +56,7 @@
   }
   .ReactModal__Content--after-open {
     @media (min-width: 769px) {
-      inset: 300px !important;
+      inset: 250px !important;
     }
   }
   .ReactModal__Content--before-close {

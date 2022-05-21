@@ -10,7 +10,7 @@ import ContactForm from "./components/contact-form";
 import Footer from "./components/footer";
 import Header from "./components/header";
 
-import { Illustration, News, Work } from "../models";
+import { Illustration, News, Work, WorkWithoutVideo } from "../models";
 import CustomHead from "./CustomHead";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
@@ -25,6 +25,7 @@ interface Params extends ParsedUrlQuery {}
 type Props = {
   profile: string;
   works: Work[];
+  worksWithoutVideo: WorkWithoutVideo[];
   news: News[];
   illustrations: Illustration[];
 };
@@ -34,8 +35,10 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (_) => {
     serviceDomain: "konatsuruka",
     apiKey: process.env.NEXT_PUBLIC_MICRO_CMS_API_KEY || "",
   });
-  const works = (await client.get<{ contents: Work[] }>({ endpoint: "works?limit=100" }))
+  const allWorks = (await client.get<{ contents: Work[] }>({ endpoint: "works?limit=100" }))
     .contents;
+  const works = allWorks.filter((work) => work.youtubeId.length > 0);
+  const worksWithoutVideo = allWorks.filter((work) => work.youtubeId.length === 0);
   const newsContents = (await client.get<{ contents: News[] }>({ endpoint: "news?limit=100" }))
     .contents;
   const profile =  String(await unified()
@@ -52,6 +55,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (_) => {
     props: {
       profile,
       works,
+      worksWithoutVideo,
       news,
       illustrations,
     },
@@ -60,7 +64,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (_) => {
 
 ReactModal.setAppElement("#__next");
 
-const Home = ({ profile, works, news, illustrations }: Props) => {
+const Home = ({ profile, works, worksWithoutVideo, news, illustrations }: Props) => {
   useEffect(() => {
     const animate = async () => {
       const sr = (await import("scrollreveal")).default();
@@ -105,7 +109,7 @@ const Home = ({ profile, works, news, illustrations }: Props) => {
         </div>
         <NewsSection news={news} />
         <About profile={profile} />
-        <WorksSection works={works} />
+        <WorksSection works={works} worksWithoutVideo={worksWithoutVideo} />
         <IllustrationsSection illustrations={illustrations} />
         <ContactForm />
       </main>

@@ -1,0 +1,27 @@
+.workWithoutVideo {
+    border-top: 1px solid;
+    width: 80%;
+    margin: auto;
+    @media (max-width: 768px) {
+        width: 90%;
+    }
+    .workWithoutVideoContainer {
+        width: 20vw;
+        margin-left: 30vw;
+        @media (max-width: 768px) {
+            margin-left: 10vw;
+            width: 70vw;
+        }
+        .title {
+            font-Size: 13pt;
+            line-height: 1em;
+        }
+        .publishedMonth {
+            margin: 0;
+        }
+        .description {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+    }
+}

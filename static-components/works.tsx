@@ -1,12 +1,13 @@
 import "../styles/YouTube.module.scss";
 import youTubeStyles from "../styles/YouTube.module.scss";
 import styles from "../styles/Home.module.scss";
-import { Work } from "../models";
+import workStyles from "../styles/Work.module.scss";
+import { truncateMonth, Work, WorkWithoutVideo } from "../models";
 import { useState } from "react";
 import ReactModal from "react-modal";
 import YouTube from "react-youtube";
 
-const WorksSection = ({works}: {works: Work[]}) => {
+const WorksSection = ({works, worksWithoutVideo}: {works: Work[], worksWithoutVideo: WorkWithoutVideo[]}) => {
     const [selectedWork, setSelectedWork] = useState<Work | undefined>(undefined);
     return (<>
     <section className={styles.section} id="works-section">
@@ -22,6 +23,17 @@ const WorksSection = ({works}: {works: Work[]}) => {
                 key={work.id}
                 className={styles.work + " works-image"}
               />
+            ))}
+          </div>
+          <div>
+            {worksWithoutVideo.map((work) => (
+              <div className={workStyles.workWithoutVideo} key={work.id}>
+                <div className={workStyles.workWithoutVideoContainer}>
+                  <h2 className={workStyles.title}>{work.title}</h2>
+                  <p className={workStyles.publishedMonth}>{truncateMonth(work.publishedMonth)}</p>
+                  <p className={workStyles.description}>{work.description}</p>
+                </div>
+              </div>
             ))}
           </div>
         </section>
@@ -42,6 +54,8 @@ const WorksSection = ({works}: {works: Work[]}) => {
             ×close
           </a>
         </div>
+        <p>{truncateMonth(selectedWork?.publishedMonth)}</p>
+        <p className={youTubeStyles.youtubeDescription}>{selectedWork?.description}</p>
         {selectedWork !== undefined && (
           <YouTube
             opts={{ playerVars: { autoplay: 1 } }}
@@ -51,7 +65,6 @@ const WorksSection = ({works}: {works: Work[]}) => {
             videoId={selectedWork?.youtubeId}
           />
         )}
-        <p className={youTubeStyles.youtubeDescription}>{selectedWork?.description}</p>
       </ReactModal>
     </>);
 };

@@ -1,8 +1,21 @@
-export type Work = {
+export const truncateMonth = (iSO8601String: string | undefined) => {
+  console.warn(iSO8601String);
+  if (iSO8601String === undefined) {
+    return "";
+  }
+  const date = new Date(iSO8601String);
+  return `${date.getFullYear()}年${date.getMonth() + 1}月`;
+}
+
+export type WorkWithoutVideo = {
   id: string;
   title: string;
-  youtubeId: string;
   description: string;
+  publishedMonth: string;
+}
+
+export type Work = WorkWithoutVideo & {
+  youtubeId: string;
 };
 
 export type News = {
