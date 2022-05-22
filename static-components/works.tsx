@@ -7,6 +7,10 @@ import { useState } from "react";
 import ReactModal from "react-modal";
 import YouTube from "react-youtube";
 
+const className = (index: number) => {
+  return index % 2 === 0 ? "works-without-video-right" : "works-without-video-left";
+}
+
 const WorksSection = ({works, worksWithoutVideo}: {works: Work[], worksWithoutVideo: WorkWithoutVideo[]}) => {
     const [selectedWork, setSelectedWork] = useState<Work | undefined>(undefined);
     return (<>
@@ -15,20 +19,20 @@ const WorksSection = ({works, worksWithoutVideo}: {works: Work[], worksWithoutVi
             <h1>お仕事</h1>
           </header>
           <div className={styles.sectionContainer}>
-            {works.map((work) => (
+            {works.map((work, index) => (
               <img
                 onClick={() => setSelectedWork(work)}
                 alt={work.title}
                 src={`https://img.youtube.com/vi/${work.youtubeId}/hqdefault.jpg`}
                 key={work.id}
-                className={styles.work + " works-image"}
+                className={styles.work + " works-image-" + (index%4)}
               />
             ))}
           </div>
           <div>
-            {worksWithoutVideo.map((work) => (
+            {worksWithoutVideo.map((work, index) => (
               <div className={workStyles.workWithoutVideo} key={work.id}>
-                <div className={workStyles.workWithoutVideoContainer}>
+                <div className={workStyles.workWithoutVideoContainer + " " + className(index)}>
                   <h2 className={workStyles.title}>{work.title}</h2>
                   <p className={workStyles.publishedMonth}>{truncateMonth(work.publishedMonth)}</p>
                   <p className={workStyles.description}>{work.description}</p>

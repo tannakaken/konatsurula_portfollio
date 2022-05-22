@@ -21,6 +21,10 @@ const ContactForm = () => {
   const [sending, setSending] = useState(false);
   const { executeRecaptcha } = useGoogleReCaptcha();
   const tooltipRef = useRef<HTMLImageElement>(null);
+  const [isMounted, setIsMounted] = useState(false);
+  React.useEffect(() => {
+    setIsMounted(true);
+  }, [])
 
   const toggleDetails = useCallback(
     (detail: Detail) => {
@@ -48,7 +52,7 @@ const ContactForm = () => {
               "<div><div><p>・用途<br />・予算<br />・納品希望日<br />・詳細…等を<br />ご入力ください。</p></div><div><img src='contact.png' alt='お気楽にご相談ください。' /></div></div>"
             }
           />
-          <ReactTooltip
+          {isMounted && <ReactTooltip
             border={true}
             borderColor={"black"}
             className={styles.tooltip}
@@ -58,7 +62,7 @@ const ContactForm = () => {
             html={true}
             backgroundColor={"#f7e9ba"}
             textColor={"black"}
-          />
+          />}
         </div>
         <div className={styles.contactMain}>
           <div>

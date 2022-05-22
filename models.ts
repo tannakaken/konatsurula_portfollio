@@ -1,5 +1,4 @@
 export const truncateMonth = (iSO8601String: string | undefined) => {
-  console.warn(iSO8601String);
   if (iSO8601String === undefined) {
     return "";
   }

@@ -68,7 +68,22 @@ const Home = ({ profile, works, worksWithoutVideo, news, illustrations }: Props)
   useEffect(() => {
     const animate = async () => {
       const sr = (await import("scrollreveal")).default();
-      sr.reveal(".works-image", { reset: true });
+      sr.reveal(".works-image-0", { reset: true, delay: 0 });
+      sr.reveal(".works-image-1", { reset: true, delay: 100 });
+      sr.reveal(".works-image-2", { reset: true, delay: 200 });
+      sr.reveal(".works-image-3", { reset: true, delay: 300 });
+      sr.reveal(".works-without-video-left", {
+        reset: true,
+        origin: "left",
+        delay: 100,
+        distance: "100%"
+      }),
+      sr.reveal(".works-without-video-right", {
+        reset: true,
+        origin: "right",
+        delay: 100,
+        distance: "100%"
+      }),
       sr.reveal(".illustration-image", { reset: true });
       sr.reveal(".left-about", {
         reset: true,
@@ -114,7 +129,6 @@ const Home = ({ profile, works, worksWithoutVideo, news, illustrations }: Props)
         <ContactForm />
       </main>
       <Footer />
-
     </div>
   );
 };
