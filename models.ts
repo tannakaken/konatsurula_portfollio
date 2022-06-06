@@ -14,7 +14,7 @@ export type WorkWithoutVideo = {
 }
 
 export type Work = WorkWithoutVideo & {
-  youtubeId: string;
+  youtubeId?: string;
 };
 
 export type News = {

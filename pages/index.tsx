@@ -37,8 +37,8 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (_) => {
   });
   const allWorks = (await client.get<{ contents: Work[] }>({ endpoint: "works?limit=100" }))
     .contents;
-  const works = allWorks.filter((work) => work.youtubeId.length > 0);
-  const worksWithoutVideo = allWorks.filter((work) => work.youtubeId.length === 0);
+  const works = allWorks.filter((work) => work.youtubeId !== undefined && work.youtubeId.length > 0);
+  const worksWithoutVideo = allWorks.filter((work) => work.youtubeId === undefined || work.youtubeId.length === 0);
   const newsContents = (await client.get<{ contents: News[] }>({ endpoint: "news?limit=100" }))
     .contents;
   const profile =  String(await unified()
