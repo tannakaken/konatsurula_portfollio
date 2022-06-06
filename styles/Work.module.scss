@@ -1,31 +1,29 @@
 .workWithoutVideo {
-    border-top: 1px solid;
-    &:first-child {
-        border-top: none;
-    }
-    width: 80%;
     margin: auto;
-    @media (max-width: 768px) {
-        width: 90%;
-    }
     .workWithoutVideoContainer {
         padding-bottom: 10px;
-        width: 20vw;
-        margin-left: 30vw;
-        @media (max-width: 768px) {
-            margin-left: 10vw;
-            width: 70vw;
-        }
         .title {
+            margin-left: 30vw;
+            @media (max-width: 768px) {
+                margin-left: 10vw;
+            }
             font-Size: 13pt;
             line-height: 1em;
         }
-        .publishedMonth {
-            margin: 0;
+        .content {
+            width: 30vw;
+            margin: auto;
+            @media (max-width: 768px) {
+                width: 70vw;
+            }
+            .publishedMonth {
+                margin: 0;
+            }
+            .description {
+                margin: 0;
+                white-space: pre-wrap;
+            }
         }
-        .description {
-            margin: 0;
-            white-space: pre-wrap;
-        }
+        
     }
 }

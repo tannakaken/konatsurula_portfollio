@@ -47,10 +47,12 @@ const WorksSection = ({
                 }
               >
                 <h2 className={workStyles.title}>{work.title}</h2>
-                <p className={workStyles.publishedMonth}>
-                  {truncateMonth(work.publishedMonth)}
-                </p>
-                <p className={workStyles.description}>{work.description}</p>
+                <div className={workStyles.content}>
+                  <p className={workStyles.publishedMonth}>
+                    {truncateMonth(work.publishedMonth)}
+                  </p>
+                  <p className={workStyles.description}>{work.description}</p>
+                </div>
               </div>
             </div>
           ))}
