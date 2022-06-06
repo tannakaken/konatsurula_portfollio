@@ -24,7 +24,7 @@ const ContactForm = () => {
   const [isMounted, setIsMounted] = useState(false);
   React.useEffect(() => {
     setIsMounted(true);
-  }, [])
+  }, []);
 
   const toggleDetails = useCallback(
     (detail: Detail) => {
@@ -38,7 +38,7 @@ const ContactForm = () => {
   );
   return (
     <section id="contact-section" className={styles.contactSection}>
-      <hr style={{width: "90%"}} />
+      <hr style={{ width: "90%" }} />
       <h1>☆お仕事相談所☆</h1>
       <div className={styles.contactForm}>
         <div className={styles.information}>
@@ -52,21 +52,26 @@ const ContactForm = () => {
               "<div><div><p>・用途<br />・予算<br />・納品希望日<br />・詳細…等を<br />ご入力ください。</p></div><div><img src='contact.png' alt='お気楽にご相談ください。' /></div></div>"
             }
           />
-          {isMounted && <ReactTooltip
-            border={true}
-            borderColor={"black"}
-            className={styles.tooltip}
-            effect={"solid"}
-            clickable={true}
-            place={"left"}
-            html={true}
-            backgroundColor={"#f7e9ba"}
-            textColor={"black"}
-          />}
+          {isMounted && (
+            <ReactTooltip
+              border={true}
+              borderColor={"black"}
+              className={styles.tooltip}
+              effect={"solid"}
+              clickable={true}
+              place={"left"}
+              html={true}
+              backgroundColor={"#f7e9ba"}
+              textColor={"black"}
+            />
+          )}
         </div>
         <div className={styles.contactMain}>
           <div>
-            <label className={styles.mailAddressLabel} htmlFor={"email"}>メールアドレス</label>:
+            <label className={styles.mailAddressLabel} htmlFor={"email"}>
+              メールアドレス
+            </label>
+            :
             <input
               className={styles.input}
               name={"email"}
@@ -76,7 +81,10 @@ const ContactForm = () => {
             />
           </div>
           <div>
-            <label className={styles.nameLabel} htmlFor={"name"}>ご所属・お名前</label>:
+            <label className={styles.nameLabel} htmlFor={"name"}>
+              ご所属・お名前
+            </label>
+            :
             <input
               className={styles.input}
               name={"name"}
@@ -255,7 +263,9 @@ const ContactForm = () => {
                   name.length === 0 ||
                   body.length === 0
                 ) {
-                  alert("メールアドレス・ご所属・お名前・本文をご記入ください。")
+                  alert(
+                    "メールアドレス・ご所属・お名前・本文をご記入ください。"
+                  );
                   return;
                 }
                 if (executeRecaptcha === undefined) {

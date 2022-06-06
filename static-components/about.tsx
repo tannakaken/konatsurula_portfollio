@@ -1,12 +1,14 @@
 import * as React from "react";
 import styles from "../styles/About.module.scss";
 
-const About = ({profile}: {profile: string}) => {
+const About = ({ profile }: { profile: string }) => {
   const description = (
-    <div className={styles.description} dangerouslySetInnerHTML={{
-      __html: profile
-    }}>
-    </div>
+    <div
+      className={styles.description}
+      dangerouslySetInnerHTML={{
+        __html: profile,
+      }}
+    ></div>
   );
   return (
     <section id="about-section">

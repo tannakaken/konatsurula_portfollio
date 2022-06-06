@@ -35,8 +35,32 @@ const CustomHead = ({
       <meta name="twitter:image" content={image} />
       <link rel="canonical" href={url} />
       <link rel="icon" href={"https://www.konatsuruka.online/favicon.ico"} />
-      <link rel="shortcut icon" href={"https://www.konatsuruka.online/favicon.ico"} />
-      <link rel="apple-touch-icon" href={"https://www.konatsuruka.online/favicon.png"} />
+      <link
+        rel="shortcut icon"
+        href={"https://www.konatsuruka.online/favicon.ico"}
+      />
+      <link
+        rel="apple-touch-icon"
+        href={"https://www.konatsuruka.online/favicon.png"}
+      />
+      {process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID && (
+        <>
+          <script
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID}`}
+          ></script>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID}');
+      `,
+            }}
+          />
+        </>
+      )}
     </Head>
   );
 };

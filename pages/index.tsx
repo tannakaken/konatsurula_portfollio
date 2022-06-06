@@ -1,6 +1,5 @@
-
 import styles from "../styles/Home.module.scss";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { createClient } from "microcms-js-sdk";
 import ReactModal from "react-modal";
 import * as React from "react";
@@ -19,6 +18,7 @@ import About from "../static-components/about";
 import WorksSection from "../static-components/works";
 import IllustrationsSection from "../static-components/illustrations";
 import NewsSection from "../static-components/news";
+import { pageView } from "../helpers/ga.helper";
 
 interface Params extends ParsedUrlQuery {}
 
@@ -35,20 +35,30 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (_) => {
     serviceDomain: "konatsuruka",
     apiKey: process.env.NEXT_PUBLIC_MICRO_CMS_API_KEY || "",
   });
-  const allWorks = (await client.get<{ contents: Work[] }>({ endpoint: "works?limit=100" }))
-    .contents;
-  const works = allWorks.filter((work) => work.youtubeId !== undefined && work.youtubeId.length > 0);
-  const worksWithoutVideo = allWorks.filter((work) => work.youtubeId === undefined || work.youtubeId.length === 0);
-  const newsContents = (await client.get<{ contents: News[] }>({ endpoint: "news?limit=100" }))
-    .contents;
-  const profile =  String(await unified()
-    .use(remarkParse)
-    .use(remarkHtml)
-    .process(newsContents[newsContents.length-1].content));
+  const allWorks = (
+    await client.get<{ contents: Work[] }>({ endpoint: "works?limit=100" })
+  ).contents;
+  const works = allWorks.filter(
+    (work) => work.youtubeId !== undefined && work.youtubeId.length > 0
+  );
+  const worksWithoutVideo = allWorks.filter(
+    (work) => work.youtubeId === undefined || work.youtubeId.length === 0
+  );
+  const newsContents = (
+    await client.get<{ contents: News[] }>({ endpoint: "news?limit=100" })
+  ).contents;
+  const profile = String(
+    await unified()
+      .use(remarkParse)
+      .use(remarkHtml)
+      .process(newsContents[newsContents.length - 1].content)
+  );
 
   const news = newsContents.slice(0, newsContents.length - 1);
   const illustrations = (
-    await client.get<{ contents: Illustration[] }>({ endpoint: "illusts?limit=100" })
+    await client.get<{ contents: Illustration[] }>({
+      endpoint: "illusts?limit=100",
+    })
   ).contents;
 
   return {
@@ -64,7 +74,13 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (_) => {
 
 ReactModal.setAppElement("#__next");
 
-const Home = ({ profile, works, worksWithoutVideo, news, illustrations }: Props) => {
+const Home = ({
+  profile,
+  works,
+  worksWithoutVideo,
+  news,
+  illustrations,
+}: Props) => {
   useEffect(() => {
     const animate = async () => {
       const sr = (await import("scrollreveal")).default();
@@ -76,15 +92,15 @@ const Home = ({ profile, works, worksWithoutVideo, news, illustrations }: Props)
         reset: true,
         origin: "left",
         delay: 100,
-        distance: "100%"
+        distance: "100%",
       }),
-      sr.reveal(".works-without-video-right", {
-        reset: true,
-        origin: "right",
-        delay: 100,
-        distance: "100%"
-      }),
-      sr.reveal(".illustration-image", { reset: true });
+        sr.reveal(".works-without-video-right", {
+          reset: true,
+          origin: "right",
+          delay: 100,
+          distance: "100%",
+        }),
+        sr.reveal(".illustration-image", { reset: true });
       sr.reveal(".left-about", {
         reset: true,
         opacity: 1,
@@ -102,16 +118,21 @@ const Home = ({ profile, works, worksWithoutVideo, news, illustrations }: Props)
     };
     animate().catch((error) => console.warn(error));
   }, []);
+  useEffect(() => {
+    pageView("メインページ", "/");
+  }, []);
 
   return (
     <div id="container">
       <CustomHead
-          title={"粉鶴亀のポートフォリオサイト"}
-          description={"アニメーター粉鶴亀（こなつるか）のポートフォリオサイトです。関わったアニメ作品へのリンクやイラストなどが含まれています。このサイトから仕事の依頼をすることもできます。"}
-          author={"tannakaken"}
-          keyword={"アニメ,animation,MV,イラスト,illustration,マンガ,manga"}
-          url={"https://www.konatsuruka.online"}
-          image={"https:///www.konatsuruka.online/header.png"}
+        title={"粉鶴亀のポートフォリオサイト"}
+        description={
+          "アニメーター粉鶴亀（こなつるか）のポートフォリオサイトです。関わったアニメ作品へのリンクやイラストなどが含まれています。このサイトから仕事の依頼をすることもできます。"
+        }
+        author={"tannakaken"}
+        keyword={"アニメ,animation,MV,イラスト,illustration,マンガ,manga"}
+        url={"https://www.konatsuruka.online"}
+        image={"https:///www.konatsuruka.online/header.png"}
       />
       <Header />
       <main className={styles.main}>

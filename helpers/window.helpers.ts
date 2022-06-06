@@ -10,8 +10,7 @@ export const useWindowSize = () => {
     if (typeof window !== "undefined") {
       const handleResize = () => {
         setWindowSize({
-          width:
-           window.innerWidth,
+          width: window.innerWidth,
           height: window.innerHeight,
         });
       };
@@ -25,23 +24,23 @@ export const useWindowSize = () => {
 };
 
 export const useScroll = () => {
-    const [scrollY, setScrollY] = useState(0);
-    const [scrollX, setScrollX] = useState(0);
+  const [scrollY, setScrollY] = useState(0);
+  const [scrollX, setScrollX] = useState(0);
 
-    const handleScroll = () => {
-        if (typeof window !== "undefined") {
-            setScrollY(window.scrollY);
-            setScrollX(window.scrollX);
-        }
-    };
-  
-    useEffect(() => {
-      if (typeof window !== "undefined") {
-        window.addEventListener("scroll", handleScroll);
-      }
-    }, []);
-    return {
-        x: scrollX,
-        y: scrollY,
+  const handleScroll = () => {
+    if (typeof window !== "undefined") {
+      setScrollY(window.scrollY);
+      setScrollX(window.scrollX);
     }
-}
+  };
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.addEventListener("scroll", handleScroll);
+    }
+  }, []);
+  return {
+    x: scrollX,
+    y: scrollY,
+  };
+};

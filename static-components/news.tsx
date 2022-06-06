@@ -9,50 +9,51 @@ import ReactModal from "react-modal";
 const headerWidth = 1500;
 const headerHeight = 682;
 
-const NewsSection = ({news}: {news: News[]}) => {
-    const windowSize = useWindowSize();
-    const scroll = useScroll();
-    const realHeaderHeight = windowSize.width / headerWidth * headerHeight;
-    const [selectedNews, setSelectedNews] = useState<News | undefined>(undefined);
+const NewsSection = ({ news }: { news: News[] }) => {
+  const windowSize = useWindowSize();
+  const scroll = useScroll();
+  const realHeaderHeight = (windowSize.width / headerWidth) * headerHeight;
+  const [selectedNews, setSelectedNews] = useState<News | undefined>(undefined);
 
-    return <>
-     <section className={styles.section} id="news-section">
-          <div className={styles.newsContainer} id={styles.newsHeader}>
-            <h2>ニュース</h2>
-            <ul>
-              {news.map((newsContent) => (
-                <li
-                  key={newsContent.id}
-                  onClick={() => setSelectedNews(newsContent)}
-                  style={{cursor: "pointer"}}
-                >
-                  <img
-                    className={newsContent.isNew ? undefined : styles.oldNews}
-                    alt="it's new"
-                    src="/new.gif"
-                    width={"36px"}
-                    height={"13px"}
-                  />
-                  {newsContent.title}
-                </li>
-              ))}
-            </ul>
-            <div className={styles.newsContainerAttachment}>
-              <div className={styles.newsContainerClip}>
+  return (
+    <>
+      <section className={styles.section} id="news-section">
+        <div className={styles.newsContainer} id={styles.newsHeader}>
+          <h2>ニュース</h2>
+          <ul>
+            {news.map((newsContent) => (
+              <li
+                key={newsContent.id}
+                onClick={() => setSelectedNews(newsContent)}
+                style={{ cursor: "pointer" }}
+              >
                 <img
-                  style={{
-                    top: 60 + realHeaderHeight - scroll.y,
-                    objectPosition: `0px ${scroll.y - realHeaderHeight}px`,
-                    height: "100vh"
-                  }}
-                  src={"./header_nega.png"}
-                  alt={""}
+                  className={newsContent.isNew ? undefined : styles.oldNews}
+                  alt="it's new"
+                  src="/new.gif"
+                  width={"36px"}
+                  height={"13px"}
                 />
-              </div>
+                {newsContent.title}
+              </li>
+            ))}
+          </ul>
+          <div className={styles.newsContainerAttachment}>
+            <div className={styles.newsContainerClip}>
+              <img
+                style={{
+                  top: 60 + realHeaderHeight - scroll.y,
+                  objectPosition: `0px ${scroll.y - realHeaderHeight}px`,
+                  height: "100vh",
+                }}
+                src={"./header_nega.png"}
+                alt={""}
+              />
             </div>
           </div>
-        </section>
-        <ReactModal
+        </div>
+      </section>
+      <ReactModal
         contentLabel="News Modal"
         isOpen={selectedNews !== undefined}
         shouldCloseOnEsc={true}
@@ -82,6 +83,7 @@ const NewsSection = ({news}: {news: News[]}) => {
         )}
       </ReactModal>
     </>
-}
+  );
+};
 
 export default NewsSection;
