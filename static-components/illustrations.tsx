@@ -64,6 +64,9 @@ const IllustrationsSection = ({
             />
           </div>
         )}
+        <div>
+          <p>無断転載禁止/Do not repost without my permission.</p>
+        </div>
       </ReactModal>
     </>
   );
