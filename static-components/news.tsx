@@ -25,11 +25,6 @@ const NewsSection = ({ news }: { news: News[] }) => {
               <li
                 key={newsContent.id}
                 onClick={() => setSelectedNews(newsContent)}
-                style={{
-                  cursor: "pointer",
-                  paddingLeft: "10.2em",
-                  textIndent: "-10.2em",
-                }}
               >
                 <img
                   className={newsContent.isNew ? undefined : styles.oldNews}

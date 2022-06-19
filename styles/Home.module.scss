@@ -52,7 +52,8 @@
       text-decoration: underline;
     }
     .newsContainer {
-      height: 25vh;
+      height: 20vh;
+      overflow: auto;
       display: flex;
       flex-direction: row;
       @media (max-width: 768px) {
@@ -65,9 +66,13 @@
         text-decoration: underline;
         @media (max-width: 768px) {
           font-size: small;
+          margin-top: 100px;
         }
       }
       ul {
+        @media (min-width: 769px) {
+          margin-top: 50px;
+        }
         list-style: none;
         text-align: left;
         li {
@@ -78,6 +83,9 @@
           .oldNews {
             opacity: 0;
           }
+          cursor: "pointer";
+          padding-left: 10.2em;
+          text-indent: -10.2em;
         }
       }
     }
@@ -125,6 +133,7 @@
       clip-path: inset(0 0 0 0);
       height: 200%;
     }
+
     img {
       position: fixed;
       width: 100%;
