@@ -57,6 +57,25 @@ const WorksSection = ({
             )
           )}
         </div>
+        <div>
+          {worksWithoutVideo.map((work, index) => (
+            <div className={workStyles.workWithoutVideo} key={work.id}>
+              <div
+                className={
+                  workStyles.workWithoutVideoContainer + " " + className(index)
+                }
+              >
+                <h2 className={workStyles.title}>{work.title}</h2>
+                <div className={workStyles.content}>
+                  <p className={workStyles.publishedMonth}>
+                    {truncateMonth(work.publishedMonth)}
+                  </p>
+                  <p className={workStyles.description}>{work.description}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
         <header className={styles.sectionHeader} id={styles.worksHeader}>
           <h1>SKEB</h1>
         </header>
@@ -86,25 +105,6 @@ const WorksSection = ({
               />
             )
           )}
-        </div>
-        <div>
-          {worksWithoutVideo.map((work, index) => (
-            <div className={workStyles.workWithoutVideo} key={work.id}>
-              <div
-                className={
-                  workStyles.workWithoutVideoContainer + " " + className(index)
-                }
-              >
-                <h2 className={workStyles.title}>{work.title}</h2>
-                <div className={workStyles.content}>
-                  <p className={workStyles.publishedMonth}>
-                    {truncateMonth(work.publishedMonth)}
-                  </p>
-                  <p className={workStyles.description}>{work.description}</p>
-                </div>
-              </div>
-            </div>
-          ))}
         </div>
       </section>
       <ReactModal
