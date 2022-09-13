@@ -101,7 +101,11 @@ const WorksSection = ({
             <img
               alt={selectedWork.title}
               src={selectedWork.gifImage.url}
-              className={youTubeStyles.iframe}
+              className={youTubeStyles.youtube}
+              style={{
+                width: "80%",
+                paddingTop: 0,
+              }}
             />
           ) : (
             <YouTube
