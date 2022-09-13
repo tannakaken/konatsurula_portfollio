@@ -130,15 +130,20 @@ const WorksSection = ({
         </p>
         {selectedWork !== undefined &&
           (selectedWork.gifImage !== undefined ? (
-            <img
-              alt={selectedWork.title}
-              src={selectedWork.gifImage.url}
-              className={youTubeStyles.youtube}
-              style={{
-                width: "80%",
-                paddingTop: 0,
-              }}
-            />
+            <>
+              <img
+                alt={selectedWork.title}
+                src={selectedWork.gifImage.url}
+                className={youTubeStyles.youtube}
+                style={{
+                  width: "80%",
+                  paddingTop: 0,
+                }}
+              />
+              <div>
+                <p>無断転載禁止/Do not repost without my permission.</p>
+              </div>
+            </>
           ) : (
             <YouTube
               opts={{ playerVars: { autoplay: 1 } }}
