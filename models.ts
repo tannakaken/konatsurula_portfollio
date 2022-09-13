@@ -11,6 +11,7 @@ export type WorkWithoutVideo = {
   title: string;
   description: string;
   publishedMonth: string;
+  isSkeb?: boolean;
 };
 
 export type Work = WorkWithoutVideo & {

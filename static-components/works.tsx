@@ -16,9 +16,11 @@ const className = (index: number) => {
 
 const WorksSection = ({
   works,
+  skebWorks,
   worksWithoutVideo,
 }: {
   works: Work[];
+  skebWorks: Work[];
   worksWithoutVideo: WorkWithoutVideo[];
 }) => {
   const [selectedWork, setSelectedWork] = useState<Work | undefined>(undefined);
@@ -30,6 +32,36 @@ const WorksSection = ({
         </header>
         <div className={styles.sectionContainer}>
           {works.map((work, index) =>
+            work.gifImage !== undefined ? (
+              <img
+                onClick={() => {
+                  setSelectedWork(work);
+                  trackingEvent("Movie", work.title);
+                }}
+                alt={work.title}
+                src={work.gifImage.url}
+                key={work.id}
+                className={styles.work + " works-image-" + (index % 4)}
+              />
+            ) : (
+              <img
+                onClick={() => {
+                  setSelectedWork(work);
+                  trackingEvent("Movie", work.title);
+                }}
+                alt={work.title}
+                src={`https://img.youtube.com/vi/${work.youtubeId}/hqdefault.jpg`}
+                key={work.id}
+                className={styles.work + " works-image-" + (index % 4)}
+              />
+            )
+          )}
+        </div>
+        <header className={styles.sectionHeader} id={styles.worksHeader}>
+          <h1>SKEB</h1>
+        </header>
+        <div className={styles.sectionContainer}>
+          {skebWorks.map((work, index) =>
             work.gifImage !== undefined ? (
               <img
                 onClick={() => {

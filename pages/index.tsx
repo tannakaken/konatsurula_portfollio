@@ -25,6 +25,7 @@ interface Params extends ParsedUrlQuery {}
 type Props = {
   profile: string;
   works: Work[];
+  skebWorks: Work[];
   worksWithoutVideo: WorkWithoutVideo[];
   news: News[];
   illustrations: Illustration[];
@@ -39,11 +40,13 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (_) => {
   const allWorks = (
     await client.get<{ contents: Work[] }>({ endpoint: "works?limit=100" })
   ).contents;
-  const works = allWorks.filter(
+  const worksWithVideo = allWorks.filter(
     (work) =>
       (work.youtubeId !== undefined && work.youtubeId.length > 0) ||
       work.gifImage !== undefined
   );
+  const works = worksWithVideo.filter((work) => !work.isSkeb);
+  const skebWorks = worksWithVideo.filter((work) => work.isSkeb);
   const worksWithoutVideo = allWorks.filter(
     (work) =>
       (work.youtubeId === undefined || work.youtubeId.length === 0) &&
@@ -72,6 +75,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (_) => {
     props: {
       profile,
       works,
+      skebWorks,
       worksWithoutVideo,
       news,
       illustrations,
@@ -85,6 +89,7 @@ ReactModal.setAppElement("#__next");
 const Home = ({
   profile,
   works,
+  skebWorks,
   worksWithoutVideo,
   news,
   illustrations,
@@ -154,7 +159,11 @@ const Home = ({
         </div>
         <NewsSection news={news} />
         <About profile={profile} />
-        <WorksSection works={works} worksWithoutVideo={worksWithoutVideo} />
+        <WorksSection
+          works={works}
+          skebWorks={skebWorks}
+          worksWithoutVideo={worksWithoutVideo}
+        />
         <IllustrationsSection
           illustrations={illustrations}
           illustrations3D={illustrations3D}
