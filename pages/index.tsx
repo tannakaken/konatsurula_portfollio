@@ -28,6 +28,7 @@ type Props = {
   worksWithoutVideo: WorkWithoutVideo[];
   news: News[];
   illustrations: Illustration[];
+  illustrations3D: Illustration[];
 };
 
 export const getStaticProps: GetStaticProps<Props, Params> = async (_) => {
@@ -55,11 +56,13 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (_) => {
   );
 
   const news = newsContents.slice(0, newsContents.length - 1);
-  const illustrations = (
+  const allIllustrations = (
     await client.get<{ contents: Illustration[] }>({
       endpoint: "illusts?limit=100",
     })
   ).contents;
+  const illustrations = allIllustrations.filter((item) => !item.is3d);
+  const illustrations3D = allIllustrations.filter((item) => item.is3d);
 
   return {
     props: {
@@ -68,6 +71,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (_) => {
       worksWithoutVideo,
       news,
       illustrations,
+      illustrations3D,
     },
   };
 };
@@ -80,6 +84,7 @@ const Home = ({
   worksWithoutVideo,
   news,
   illustrations,
+  illustrations3D,
 }: Props) => {
   useEffect(() => {
     const animate = async () => {
@@ -146,7 +151,10 @@ const Home = ({
         <NewsSection news={news} />
         <About profile={profile} />
         <WorksSection works={works} worksWithoutVideo={worksWithoutVideo} />
-        <IllustrationsSection illustrations={illustrations} />
+        <IllustrationsSection
+          illustrations={illustrations}
+          illustrations3D={illustrations3D}
+        />
         <ContactForm />
       </main>
       <Footer />

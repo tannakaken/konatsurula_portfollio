@@ -8,8 +8,10 @@ import { trackingEvent } from "../helpers/ga.helper";
 
 const IllustrationsSection = ({
   illustrations,
+  illustrations3D,
 }: {
   illustrations: Illustration[];
+  illustrations3D: Illustration[];
 }) => {
   const [selectedIllustration, setSelectedIllustration] = useState<
     Illustration | undefined
@@ -22,10 +24,30 @@ const IllustrationsSection = ({
         </header>
         <div className={styles.sectionContainer}>
           <div className={styles.illustrations}>
-            {illustrations.map((illustration, index) => (
+            {illustrations.map((illustration) => (
               <img
                 onClick={() => {
                   trackingEvent("Illustration", illustration.title);
+                  setSelectedIllustration(illustration);
+                }}
+                className={styles.illustration + " illustration-image"}
+                alt={illustration.title}
+                src={illustration.image.url}
+                key={illustration.id}
+                style={{ cursor: "pointer" }}
+              />
+            ))}
+          </div>
+        </div>
+        <header className={styles.sectionHeader} id={styles.illustHeader}>
+          <h1>3Dイラスト</h1>
+        </header>
+        <div className={styles.sectionContainer}>
+          <div className={styles.illustrations}>
+            {illustrations3D.map((illustration) => (
+              <img
+                onClick={() => {
+                  trackingEvent("Illustration3D", illustration.title);
                   setSelectedIllustration(illustration);
                 }}
                 className={styles.illustration + " illustration-image"}
