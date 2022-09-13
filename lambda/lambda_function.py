@@ -54,6 +54,8 @@ def request_detail(detail):
         return "キャラクターデザイン"
     elif detail == "KeyAnimation":
         return "原画"
+    elif detail == "SecondKeyAnimation":
+        return "第二原画"
     elif detail == "BetweenAnimation":
         return "動画"
     elif detail == "CleanUp":

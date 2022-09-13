@@ -9,6 +9,7 @@ type RequestType = "MV" | "TV" | "Illustration" | "Manga" | "Other";
 type Detail =
   | "CharacterDesign"
   | "KeyAnimation"
+  | "SecondKeyAnimation"
   | "BetweenAnimation"
   | "CleanUp";
 
@@ -160,7 +161,7 @@ const ContactForm = () => {
             />
             <label htmlFor="Other">その他</label>
           </div>
-          <div style={{ textAlign: "center" }}>
+          <div className={styles.details}>
             <input
               type="checkbox"
               id="CharacterDesign"
@@ -197,6 +198,27 @@ const ContactForm = () => {
               htmlFor="KeyAnimation"
             >
               原画
+            </label>
+            <input
+              type="checkbox"
+              id="SecondKeyAnimation"
+              name="SecondKeyAnimation"
+              value="SecondKeyAnimation"
+              checked={details.includes("SecondKeyAnimation")}
+              disabled={requestType !== "MV" && requestType !== "TV"}
+              readOnly
+              onClick={() => toggleDetails("SecondKeyAnimation")}
+            />
+            <label
+              style={{
+                color:
+                  requestType !== "MV" && requestType !== "TV"
+                    ? "gray"
+                    : "black",
+              }}
+              htmlFor="SecondKeyAnimation"
+            >
+              第二原画
             </label>
             <input
               type="checkbox"
