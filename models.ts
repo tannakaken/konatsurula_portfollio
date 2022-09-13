@@ -15,6 +15,7 @@ export type WorkWithoutVideo = {
 
 export type Work = WorkWithoutVideo & {
   youtubeId?: string;
+  gifImage?: ImageData;
 };
 
 export type News = {

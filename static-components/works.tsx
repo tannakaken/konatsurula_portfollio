@@ -29,18 +29,31 @@ const WorksSection = ({
           <h1>お仕事</h1>
         </header>
         <div className={styles.sectionContainer}>
-          {works.map((work, index) => (
-            <img
-              onClick={() => {
-                setSelectedWork(work);
-                trackingEvent("Movie", work.title);
-              }}
-              alt={work.title}
-              src={`https://img.youtube.com/vi/${work.youtubeId}/hqdefault.jpg`}
-              key={work.id}
-              className={styles.work + " works-image-" + (index % 4)}
-            />
-          ))}
+          {works.map((work, index) =>
+            work.gifImage !== undefined ? (
+              <img
+                onClick={() => {
+                  setSelectedWork(work);
+                  trackingEvent("Movie", work.title);
+                }}
+                alt={work.title}
+                src={work.gifImage.url}
+                key={work.id}
+                className={styles.work + " works-image-" + (index % 4)}
+              />
+            ) : (
+              <img
+                onClick={() => {
+                  setSelectedWork(work);
+                  trackingEvent("Movie", work.title);
+                }}
+                alt={work.title}
+                src={`https://img.youtube.com/vi/${work.youtubeId}/hqdefault.jpg`}
+                key={work.id}
+                className={styles.work + " works-image-" + (index % 4)}
+              />
+            )
+          )}
         </div>
         <div>
           {worksWithoutVideo.map((work, index) => (
@@ -83,15 +96,22 @@ const WorksSection = ({
         <p className={youTubeStyles.youtubeDescription}>
           {selectedWork?.description}
         </p>
-        {selectedWork !== undefined && (
-          <YouTube
-            opts={{ playerVars: { autoplay: 1 } }}
-            loading="lazy"
-            className={youTubeStyles.iframe}
-            containerClassName={youTubeStyles.youtube}
-            videoId={selectedWork?.youtubeId}
-          />
-        )}
+        {selectedWork !== undefined &&
+          (selectedWork.gifImage !== undefined ? (
+            <img
+              alt={selectedWork.title}
+              src={selectedWork.gifImage.url}
+              className={youTubeStyles.iframe}
+            />
+          ) : (
+            <YouTube
+              opts={{ playerVars: { autoplay: 1 } }}
+              loading="lazy"
+              className={youTubeStyles.iframe}
+              containerClassName={youTubeStyles.youtube}
+              videoId={selectedWork?.youtubeId}
+            />
+          ))}
       </ReactModal>
     </>
   );

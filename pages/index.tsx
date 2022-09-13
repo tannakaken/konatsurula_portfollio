@@ -40,10 +40,14 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (_) => {
     await client.get<{ contents: Work[] }>({ endpoint: "works?limit=100" })
   ).contents;
   const works = allWorks.filter(
-    (work) => work.youtubeId !== undefined && work.youtubeId.length > 0
+    (work) =>
+      (work.youtubeId !== undefined && work.youtubeId.length > 0) ||
+      work.gifImage !== undefined
   );
   const worksWithoutVideo = allWorks.filter(
-    (work) => work.youtubeId === undefined || work.youtubeId.length === 0
+    (work) =>
+      (work.youtubeId === undefined || work.youtubeId.length === 0) &&
+      work.gifImage === undefined
   );
   const newsContents = (
     await client.get<{ contents: News[] }>({ endpoint: "news?limit=100" })
