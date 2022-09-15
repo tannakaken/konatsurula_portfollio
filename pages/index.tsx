@@ -68,8 +68,8 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (_) => {
       endpoint: "illusts?limit=100",
     })
   ).contents;
-  const illustrations = allIllustrations.filter((item) => !item.is3d);
-  const illustrations3D = allIllustrations.filter((item) => item.is3d);
+  const illustrations = allIllustrations.filter((item) => !item.is3D);
+  const illustrations3D = allIllustrations.filter((item) => item.is3D);
 
   return {
     props: {

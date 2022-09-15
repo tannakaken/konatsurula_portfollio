@@ -36,5 +36,5 @@ export type Illustration = {
   id: string;
   title: string;
   image: ImageData;
-  is3d?: boolean;
+  is3D?: boolean;
 };
