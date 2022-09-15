@@ -146,14 +146,14 @@ const Home = ({
         author={"tannakaken"}
         keyword={"アニメ,animation,MV,イラスト,illustration,マンガ,manga"}
         url={"https://www.konatsuruka.online"}
-        image={"https:///www.konatsuruka.online/header.png"}
+        image={"https:///www.konatsuruka.online/header.webp"}
       />
       <Header />
       <main className={styles.main}>
         <div className={styles.mainHeader}>
           <div className={styles.mainHeaderPhone}>
             <div className={styles.mainHeaderPhoneClip}>
-              <img src="./header.png" alt="" />
+              <img src="./header.webp" alt="" />
             </div>
           </div>
         </div>

@@ -32,7 +32,7 @@ const IllustrationsSection = ({
                 }}
                 className={styles.illustration + " illustration-image"}
                 alt={illustration.title}
-                src={illustration.image.url}
+                src={illustration.image.url + "?w=300&fm=webp"}
                 key={illustration.id}
                 style={{ cursor: "pointer" }}
               />
@@ -52,7 +52,7 @@ const IllustrationsSection = ({
                 }}
                 className={styles.illustration + " illustration-image"}
                 alt={illustration.title}
-                src={illustration.image.url}
+                src={illustration.image.url + "?w=300&fm=webp"}
                 key={illustration.id}
                 style={{ cursor: "pointer" }}
               />

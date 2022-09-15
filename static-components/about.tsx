@@ -16,7 +16,7 @@ const About = ({ profile }: { profile: string }) => {
         <div className={styles.iconContainer + " left-about"}>
           <img
             className={styles.icon}
-            src="/icon.png"
+            src="/icon.webp"
             alt={"粉鶴亀のアイコン"}
             width={"333px"}
             height={"333px"}
@@ -30,7 +30,7 @@ const About = ({ profile }: { profile: string }) => {
         <div className={styles.iconContainer}>
           <img
             className={styles.icon}
-            src="/transparent_icon.png"
+            src="/transparent_icon.webp"
             alt={"粉鶴亀のアイコン"}
             width={"200px"}
             height={"200px"}

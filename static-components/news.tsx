@@ -29,7 +29,7 @@ const NewsSection = ({ news }: { news: News[] }) => {
                 <img
                   className={newsContent.isNew ? undefined : styles.oldNews}
                   alt="it's new"
-                  src="/new.gif"
+                  src="/new.webp"
                   width={"36px"}
                   height={"13px"}
                 />
@@ -45,7 +45,7 @@ const NewsSection = ({ news }: { news: News[] }) => {
                   objectPosition: `0px ${scroll.y - realHeaderHeight}px`,
                   height: "100vh",
                 }}
-                src={"./header_nega.png"}
+                src={"./header_nega.webp"}
                 alt={""}
               />
             </div>

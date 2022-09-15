@@ -39,7 +39,7 @@ const WorksSection = ({
                   trackingEvent("Movie", work.title);
                 }}
                 alt={work.title}
-                src={work.gifImage.url}
+                src={work.gifImage.url + "?w=300&fm=webp"}
                 key={work.id}
                 className={styles.work + " works-image-" + (index % 4)}
               />
@@ -88,7 +88,7 @@ const WorksSection = ({
                   trackingEvent("Movie", work.title);
                 }}
                 alt={work.title}
-                src={work.gifImage.url}
+                src={work.gifImage.url + "?w=300&fm=webp"}
                 key={work.id}
                 className={styles.work + " works-image-" + (index % 4)}
               />

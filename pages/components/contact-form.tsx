@@ -45,12 +45,12 @@ const ContactForm = () => {
         <div className={styles.information}>
           <img
             ref={tooltipRef}
-            src={"information.png"}
+            src={"information.webp"}
             alt={"用途、予算、納品希望日、詳細……等をご入力ください。"}
             width={"20px"}
             height={"20px"}
             data-tip={
-              "<div><div><p>・用途<br />・予算<br />・納品希望日<br />・詳細…等を<br />ご入力ください。</p></div><div><img src='contact.png' alt='お気楽にご相談ください。' /></div></div>"
+              "<div><div><p>・用途<br />・予算<br />・納品希望日<br />・詳細…等を<br />ご入力ください。</p></div><div><img src='contact.webp' alt='お気楽にご相談ください。' /></div></div>"
             }
           />
           {isMounted && (
@@ -362,7 +362,7 @@ const ContactForm = () => {
         </div>
         <img
           className={styles.contactImage}
-          src={"contact.png"}
+          src={"contact.webp"}
           width={"220px"}
           alt={"お気楽にご相談ください。"}
         />
@@ -371,7 +371,7 @@ const ContactForm = () => {
         <img
           style={{ animation: "3s linear infinite rotation" }}
           className={styles.sending}
-          src={"favicon.png"}
+          src={"favicon.webp"}
           width={"50px"}
           alt={"送信中"}
         />

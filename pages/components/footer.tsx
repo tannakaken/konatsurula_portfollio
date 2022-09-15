@@ -32,7 +32,7 @@ const Footer = () => {
         Copyright(c)2022 粉鶴亀(KONATSURUKA). All Rights Reserved{" "}
         <span className={styles.logo}>
           <img
-            src="favicon.png"
+            src="favicon.webp"
             alt="ebi logo"
             width={32}
             height={32}
