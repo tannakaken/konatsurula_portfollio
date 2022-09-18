@@ -7,6 +7,7 @@ interface Props {
   description: string;
   keyword: string;
   image: string;
+  domain: string;
   url: string;
 }
 
@@ -15,6 +16,7 @@ const CustomHead = ({
   description,
   keyword,
   image,
+  domain,
   url,
 }: Props): JSX.Element => {
   return (
@@ -28,10 +30,12 @@ const CustomHead = ({
       <meta property="og:url" content={url} />
       <meta property="og:image" content={image} />
       <meta property="og:site_name" content={title} />
-      <meta name="twitter:card" content="summary" />
+      <meta property="og:locale" content="ja_JP" />
+      <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@sashimi0404" />
       <meta name="twitter:creator" content="@tannakaken" />
-      <meta name="twitter:url" content={image} />
+      <meta name="twitter:domain" content={domain} />
+      <meta name="twitter:url" content={url} />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />
