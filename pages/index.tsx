@@ -114,11 +114,20 @@ const Home = ({
         delay: 100,
         distance: "100%",
       });
-      sr.reveal(".illustration-image", {
-        reset: true,
-        viewFactor: 0.2, // 本番環境でイラストが消える現象が起きてたので、これを設定したらうまくいった。
-        opacity: 0.2, // もし消えてしまった時に消え切らないための保険
-      });
+      for (let i = 0; i < illustrations.length; i++) {
+        sr.reveal(`.illustration-image-${i}`, {
+          reset: true,
+          viewFactor: 0.2, // 本番環境でイラストが消える現象が起きてたので、これを設定したらうまくいった。
+          opacity: 0.2, // もし消えてしまった時に消え切らないための保険
+        });
+      }
+      for (let i = 0; i < illustrations3D.length; i++) {
+        sr.reveal(`.illustration-image-3d-${i}`, {
+          reset: true,
+          viewFactor: 0.2, // 本番環境でイラストが消える現象が起きてたので、これを設定したらうまくいった。
+          opacity: 0.2, // もし消えてしまった時に消え切らないための保険
+        });
+      }
       sr.reveal(".left-about", {
         reset: true,
         opacity: 1,
@@ -135,7 +144,7 @@ const Home = ({
       });
     };
     animate().catch((error) => console.warn(error));
-  }, []);
+  }, [illustrations, illustrations3D]);
   useEffect(() => {
     pageView("メインページ", "/");
   }, []);
