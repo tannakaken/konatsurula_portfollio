@@ -117,7 +117,7 @@ const Home = ({
       sr.reveal(".illustration-image", {
         reset: true,
         viewOffset: {
-          bottom: 100,
+          bottom: -5,
         },
       });
       sr.reveal(".left-about", {
