@@ -115,7 +115,10 @@ const Home = ({
         distance: "100%",
       });
       sr.reveal(".illustration-image", {
-        reset: false,
+        reset: true,
+        viewOffset: {
+          bottom: 100,
+        },
       });
       sr.reveal(".left-about", {
         reset: true,
