@@ -19,46 +19,53 @@ const IllustrationsSection = ({
   return (
     <>
       <section className={styles.section} id="illusts-section">
-        <header className={styles.sectionHeader} id={styles.illustHeader}>
-          <h1>イラスト</h1>
-        </header>
-        <div className={styles.sectionContainer}>
-          <div className={styles.illustrations}>
-            {illustrations.map((illustration) => (
-              <img
-                onClick={() => {
-                  trackingEvent("Illustration", illustration.title);
-                  setSelectedIllustration(illustration);
-                }}
-                className={styles.illustration + " illustration-image"}
-                alt={illustration.title}
-                src={illustration.image.url + "?w=300&fm=webp"}
-                key={illustration.id}
-                style={{ cursor: "pointer" }}
-              />
-            ))}
+        {/* <header className={styles.sectionHeader} id={styles.illustHeader}>
+          <h1>自主制作</h1>
+        </header> */}
+        <section>
+          <header className={styles.sectionHeader} id={styles.illustHeader}>
+            <h1>イラスト</h1>
+          </header>
+          <div className={styles.sectionContainer}>
+            <div className={styles.illustrations}>
+              {illustrations.map((illustration) => (
+                <img
+                  onClick={() => {
+                    trackingEvent("Illustration", illustration.title);
+                    setSelectedIllustration(illustration);
+                  }}
+                  className={styles.illustration + " illustration-image"}
+                  alt={illustration.title}
+                  src={illustration.image.url + "?w=300&fm=webp"}
+                  key={illustration.id}
+                  style={{ cursor: "pointer" }}
+                />
+              ))}
+            </div>
           </div>
-        </div>
-        <header className={styles.sectionHeader} id={styles.illustHeader}>
-          <h1>3Dイラスト</h1>
-        </header>
-        <div className={styles.sectionContainer}>
-          <div className={styles.illustrations}>
-            {illustrations3D.map((illustration) => (
-              <img
-                onClick={() => {
-                  trackingEvent("Illustration3D", illustration.title);
-                  setSelectedIllustration(illustration);
-                }}
-                className={styles.illustration + " illustration-image"}
-                alt={illustration.title}
-                src={illustration.image.url + "?w=300&fm=webp"}
-                key={illustration.id}
-                style={{ cursor: "pointer" }}
-              />
-            ))}
+        </section>
+        <section>
+          <header className={styles.sectionHeader} id={styles.illustHeader}>
+            <h1>3Dイラスト</h1>
+          </header>
+          <div className={styles.sectionContainer}>
+            <div className={styles.illustrations}>
+              {illustrations3D.map((illustration) => (
+                <img
+                  onClick={() => {
+                    trackingEvent("Illustration3D", illustration.title);
+                    setSelectedIllustration(illustration);
+                  }}
+                  className={styles.illustration + " illustration-image"}
+                  alt={illustration.title}
+                  src={illustration.image.url + "?w=300&fm=webp"}
+                  key={illustration.id}
+                  style={{ cursor: "pointer" }}
+                />
+              ))}
+            </div>
           </div>
-        </div>
+        </section>
       </section>
       <ReactModal
         contentLabel="Illustration Modal"

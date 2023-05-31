@@ -10,7 +10,7 @@ import Footer from "./components/footer";
 import Header from "./components/header";
 
 import { Illustration, News, Work, WorkWithoutVideo } from "../models";
-import CustomHead from "./CustomHead";
+import CustomHead from "./components/CustomHead";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkHtml from "remark-html";

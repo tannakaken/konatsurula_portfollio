@@ -27,85 +27,89 @@ const WorksSection = ({
   return (
     <>
       <section className={styles.section} id="works-section">
-        <header className={styles.sectionHeader} id={styles.worksHeader}>
-          <h1>お仕事</h1>
-        </header>
-        <div className={styles.sectionContainer}>
-          {works.map((work, index) =>
-            work.gifImage !== undefined ? (
-              <img
-                onClick={() => {
-                  setSelectedWork(work);
-                  trackingEvent("Movie", work.title);
-                }}
-                alt={work.title}
-                src={work.gifImage.url + "?w=300&fm=webp"}
-                key={work.id}
-                className={styles.work + " works-image-" + (index % 4)}
-              />
-            ) : (
-              <img
-                onClick={() => {
-                  setSelectedWork(work);
-                  trackingEvent("Movie", work.title);
-                }}
-                alt={work.title}
-                src={`https://img.youtube.com/vi/${work.youtubeId}/hqdefault.jpg`}
-                key={work.id}
-                className={styles.work + " works-image-" + (index % 4)}
-              />
-            )
-          )}
-        </div>
-        <div>
-          {worksWithoutVideo.map((work, index) => (
-            <div className={workStyles.workWithoutVideo} key={work.id}>
-              <div
-                className={
-                  workStyles.workWithoutVideoContainer + " " + className(index)
-                }
-              >
-                <h2 className={workStyles.title}>{work.title}</h2>
-                <div className={workStyles.content}>
-                  <p className={workStyles.publishedMonth}>
-                    {truncateMonth(work.publishedMonth)}
-                  </p>
-                  <p className={workStyles.description}>{work.description}</p>
+        <section>
+          <header className={styles.sectionHeader} id={styles.worksHeader}>
+            <h1>お仕事</h1>
+          </header>
+          <div className={styles.sectionContainer}>
+            {works.map((work, index) =>
+              work.gifImage !== undefined ? (
+                <img
+                  onClick={() => {
+                    setSelectedWork(work);
+                    trackingEvent("Movie", work.title);
+                  }}
+                  alt={work.title}
+                  src={work.gifImage.url + "?w=300&fm=webp"}
+                  key={work.id}
+                  className={styles.work + " works-image-" + (index % 4)}
+                />
+              ) : (
+                <img
+                  onClick={() => {
+                    setSelectedWork(work);
+                    trackingEvent("Movie", work.title);
+                  }}
+                  alt={work.title}
+                  src={`https://img.youtube.com/vi/${work.youtubeId}/hqdefault.jpg`}
+                  key={work.id}
+                  className={styles.work + " works-image-" + (index % 4)}
+                />
+              )
+            )}
+          </div>
+          <div>
+            {worksWithoutVideo.map((work, index) => (
+              <div className={workStyles.workWithoutVideo} key={work.id}>
+                <div
+                  className={
+                    workStyles.workWithoutVideoContainer + " " + className(index)
+                  }
+                >
+                  <h2 className={workStyles.title}>{work.title}</h2>
+                  <div className={workStyles.content}>
+                    <p className={workStyles.publishedMonth}>
+                      {truncateMonth(work.publishedMonth)}
+                    </p>
+                    <p className={workStyles.description}>{work.description}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-        <header className={styles.sectionHeader} id={styles.worksHeader}>
-          <h1>SKEB</h1>
-        </header>
-        <div className={styles.sectionContainer}>
-          {skebWorks.map((work, index) =>
-            work.gifImage !== undefined ? (
-              <img
-                onClick={() => {
-                  setSelectedWork(work);
-                  trackingEvent("Movie", work.title);
-                }}
-                alt={work.title}
-                src={work.gifImage.url + "?w=300&fm=webp"}
-                key={work.id}
-                className={styles.work + " works-image-" + (index % 4)}
-              />
-            ) : (
-              <img
-                onClick={() => {
-                  setSelectedWork(work);
-                  trackingEvent("Movie", work.title);
-                }}
-                alt={work.title}
-                src={`https://img.youtube.com/vi/${work.youtubeId}/hqdefault.jpg`}
-                key={work.id}
-                className={styles.work + " works-image-" + (index % 4)}
-              />
-            )
-          )}
-        </div>
+            ))}
+          </div>
+        </section>
+        <section>  
+          <header className={styles.sectionHeader} id={styles.worksHeader}>
+            <h1>SKEB</h1>
+          </header>
+          <div className={styles.sectionContainer}>
+            {skebWorks.map((work, index) =>
+              work.gifImage !== undefined ? (
+                <img
+                  onClick={() => {
+                    setSelectedWork(work);
+                    trackingEvent("Movie", work.title);
+                  }}
+                  alt={work.title}
+                  src={work.gifImage.url + "?w=300&fm=webp"}
+                  key={work.id}
+                  className={styles.work + " works-image-" + (index % 4)}
+                />
+              ) : (
+                <img
+                  onClick={() => {
+                    setSelectedWork(work);
+                    trackingEvent("Movie", work.title);
+                  }}
+                  alt={work.title}
+                  src={`https://img.youtube.com/vi/${work.youtubeId}/hqdefault.jpg`}
+                  key={work.id}
+                  className={styles.work + " works-image-" + (index % 4)}
+                />
+              )
+            )}
+          </div>
+        </section>
       </section>
       <ReactModal
         contentLabel="YouTube Modal"
