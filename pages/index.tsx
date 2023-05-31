@@ -114,7 +114,11 @@ const Home = ({
         delay: 100,
         distance: "100%",
       });
-      sr.reveal(".illustration-image", { delay: 250, reset: true });
+      sr.reveal(".illustration-image", {
+        delay: 250,
+        duration: 500,
+        reset: true,
+      });
       sr.reveal(".left-about", {
         reset: true,
         opacity: 1,
