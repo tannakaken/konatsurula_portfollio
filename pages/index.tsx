@@ -116,7 +116,8 @@ const Home = ({
       });
       sr.reveal(".illustration-image", {
         reset: true,
-        viewFactor: 0.3,
+        viewFactor: 0.2,
+        opacity: 0.2,
       });
       sr.reveal(".left-about", {
         reset: true,
