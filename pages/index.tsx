@@ -107,14 +107,14 @@ const Home = ({
         origin: "left",
         delay: 100,
         distance: "100%",
-      }),
-        sr.reveal(".works-without-video-right", {
-          reset: true,
-          origin: "right",
-          delay: 100,
-          distance: "100%",
-        }),
-        sr.reveal(".illustration-image", { reset: true });
+      });
+      sr.reveal(".works-without-video-right", {
+        reset: true,
+        origin: "right",
+        delay: 100,
+        distance: "100%",
+      });
+      sr.reveal(".illustration-image", { delay: 250, reset: true });
       sr.reveal(".left-about", {
         reset: true,
         opacity: 1,
