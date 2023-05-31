@@ -13,6 +13,11 @@ function sendMail(smtpData, mailData) {
 }
 
 function main() {
+  if (process.env.DEPLOY_ENV !== "production") {
+    console.log("not production");
+    return;
+  }
+  console.log("production");
   const smtpData = {
     host: "smtp.gmail.com",
     port: "465",
