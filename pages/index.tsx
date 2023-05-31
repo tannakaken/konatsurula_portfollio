@@ -117,7 +117,7 @@ const Home = ({
       sr.reveal(".illustration-image", {
         reset: true,
         viewFactor: 0.2, // 本番環境でイラストが消える現象が起きてたので、これを設定したらうまくいった。
-        opacity: 0.1, // もし消えてしまった時に消え切らないための保険
+        opacity: 0.2, // もし消えてしまった時に消え切らないための保険
       });
       sr.reveal(".left-about", {
         reset: true,
