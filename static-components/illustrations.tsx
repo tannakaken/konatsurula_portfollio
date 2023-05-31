@@ -28,15 +28,13 @@ const IllustrationsSection = ({
           </header>
           <div className={styles.sectionContainer}>
             <div className={styles.illustrations}>
-              {illustrations.map((illustration, index) => (
+              {illustrations.map((illustration) => (
                 <img
                   onClick={() => {
                     trackingEvent("Illustration", illustration.title);
                     setSelectedIllustration(illustration);
                   }}
-                  className={
-                    styles.illustration + ` illustration-image-${index}`
-                  }
+                  className={styles.illustration + " illustration-image"}
                   alt={illustration.title}
                   src={illustration.image.url + "?w=300&fm=webp"}
                   key={illustration.id}
@@ -52,15 +50,13 @@ const IllustrationsSection = ({
           </header>
           <div className={styles.sectionContainer}>
             <div className={styles.illustrations}>
-              {illustrations3D.map((illustration, index) => (
+              {illustrations3D.map((illustration) => (
                 <img
                   onClick={() => {
                     trackingEvent("Illustration3D", illustration.title);
                     setSelectedIllustration(illustration);
                   }}
-                  className={
-                    styles.illustration + ` illustration-image-3d-${index}`
-                  }
+                  className={styles.illustration + " illustration-image"}
                   alt={illustration.title}
                   src={illustration.image.url + "?w=300&fm=webp"}
                   key={illustration.id}
