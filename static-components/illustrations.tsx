@@ -16,7 +16,6 @@ const IllustrationsSection = ({
   const [selectedIllustration, setSelectedIllustration] = useState<
     Illustration | undefined
   >(undefined);
-  const [loadedIllustrationCount, setLoadedIllustrationCount] = useState(0);
   /**
    * ここではイラストのアニメーションはさせる。
    * scrollrevealのアニメーションのためにはエレメントの高さなどが必要だが
@@ -40,23 +39,11 @@ const IllustrationsSection = ({
     });
   }, []);
   useEffect(() => {
-    if (loadedIllustrationCount === 0) {
-      // 画像がキャッシュされている時はonLoadは動かない。
-      // その時の対策に最初に一度必ずアニメーションを起動させる。
-      // その時は最初から画像の大きさがわかっているから動くはず
-      animate().catch((error) => console.warn(error));
-    }
-    if (
-      loadedIllustrationCount ===
-      illustrations.length + illustrations3D.length
-    ) {
-      // 画像がすべてロードされたらアニメーションを動かす。
-      animate().catch((error) => console.warn(error));
-    }
-  }, [animate, loadedIllustrationCount, illustrations, illustrations3D]);
+    animate().catch((error) => console.warn(error));
+  }, [animate]);
   const onLoadSingleImage = useCallback(() => {
-    setLoadedIllustrationCount(loadedIllustrationCount + 1);
-  }, [loadedIllustrationCount]);
+    animate().catch((error) => console.warn(error));
+  }, [animate]);
   return (
     <>
       <section className={styles.section} id="illusts-section">
