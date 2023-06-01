@@ -18,7 +18,7 @@ const IllustrationsSection = ({
   >(undefined);
   const [loadedIllustrationCount, setLoadedIllustrationCount] = useState(0);
   /**
-   * ここではイラストのアニメーションはしない
+   * ここではイラストのアニメーションはさせる。
    * scrollrevealのアニメーションのためにはエレメントの高さなどが必要だが
    * ロードが終わらないと高さが決まらない。
    * なのでロード後にアニメーションを開始する。
@@ -28,19 +28,29 @@ const IllustrationsSection = ({
     const sr = (await import("scrollreveal")).default();
     sr.reveal(".illustration-image", {
       reset: true,
-      opacity: 0.8,
       scale: 0.5,
+    });
+    sr.reveal(".illustration-image-3d", {
+      reset: true,
+      scale: 0.8,
       rotate: {
         y: 180,
       },
-      duration: 1000,
+      duration: 2000,
     });
   }, []);
   useEffect(() => {
+    if (loadedIllustrationCount === 0) {
+      // 画像がキャッシュされている時はonLoadは動かない。
+      // その時の対策に最初に一度必ずアニメーションを起動させる。
+      // その時は最初から画像の大きさがわかっているから動くはず
+      animate().catch((error) => console.warn(error));
+    }
     if (
       loadedIllustrationCount ===
       illustrations.length + illustrations3D.length
     ) {
+      // 画像がすべてロードされたらアニメーションを動かす。
       animate().catch((error) => console.warn(error));
     }
   }, [animate, loadedIllustrationCount, illustrations, illustrations3D]);
@@ -87,7 +97,7 @@ const IllustrationsSection = ({
                     trackingEvent("Illustration3D", illustration.title);
                     setSelectedIllustration(illustration);
                   }}
-                  className={styles.illustration + " illustration-image"}
+                  className={styles.illustration + " illustration-image-3d"}
                   alt={illustration.title}
                   src={illustration.image.url + "?w=300&fm=webp"}
                   key={illustration.id}

@@ -75,6 +75,7 @@ const ContactForm = () => {
             :
             <input
               className={styles.input}
+              id={"email"}
               name={"email"}
               type={"email"}
               value={email}
@@ -88,6 +89,7 @@ const ContactForm = () => {
             :
             <input
               className={styles.input}
+              id={"name"}
               name={"name"}
               type={"name"}
               value={name}
@@ -266,6 +268,7 @@ const ContactForm = () => {
             </label>
             <br />
             <textarea
+              id={"body"}
               name={"body"}
               value={body}
               onChange={(event) => setBody(event.target.value)}
