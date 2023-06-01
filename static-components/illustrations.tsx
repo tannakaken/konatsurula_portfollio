@@ -98,6 +98,9 @@ const IllustrationsSection = ({
   const onLoadSingleImage = useCallback(() => {
     setLoadedImageCount((prev) => prev + 1);
   }, []);
+  const close = useCallback(() => {
+    setSelectedIllustration(undefined);
+  }, []);
 
   return (
     <>
@@ -154,25 +157,22 @@ const IllustrationsSection = ({
         contentLabel="Illustration Modal"
         isOpen={selectedIllustration !== undefined}
         shouldCloseOnEsc={true}
-        onRequestClose={() => setSelectedIllustration(undefined)}
+        onRequestClose={close}
         closeTimeoutMS={500}
         portalClassName="IllustrationModalPortal"
       >
         <div className={youTubeStyles.header}>
           <h2>{selectedIllustration?.title}</h2>
-          <a
-            className={youTubeStyles.closeButton}
-            onClick={() => setSelectedIllustration(undefined)}
-          >
+          <a className={youTubeStyles.closeButton} onClick={close}>
             ×close
           </a>
         </div>
         {selectedIllustration !== undefined && (
-          <div style={{ textAlign: "center" }}>
+          <div className={styles.fullIllustrationContainer}>
             <img
-              src={selectedIllustration.image.url}
+              src={selectedIllustration.image.url + "?fm=webp"}
               alt={selectedIllustration.title}
-              style={{ maxHeight: "80vh", maxWidth: "80vw" }}
+              className={styles.fullIllustration}
             />
           </div>
         )}

@@ -268,3 +268,12 @@
   height: auto;
   cursor: pointer;
 }
+
+.fullIllustrationContainer {
+  text-align: center;
+  .fullIllustration {
+    max-height: 80vh; 
+    max-width: 80vw;
+  }
+}
+
