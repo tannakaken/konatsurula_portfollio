@@ -2,7 +2,7 @@ import "../styles/YouTube.module.scss";
 import youTubeStyles from "../styles/YouTube.module.scss";
 import styles from "../styles/Home.module.scss";
 import { Illustration } from "../models";
-import { useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import ReactModal from "react-modal";
 import { trackingEvent } from "../helpers/ga.helper";
 
@@ -16,6 +16,37 @@ const IllustrationsSection = ({
   const [selectedIllustration, setSelectedIllustration] = useState<
     Illustration | undefined
   >(undefined);
+  const [loadedIllustrationCount, setLoadedIllustrationCount] = useState(0);
+  /**
+   * ここではイラストのアニメーションはしない
+   * scrollrevealのアニメーションのためにはエレメントの高さなどが必要だが
+   * ロードが終わらないと高さが決まらない。
+   * なのでロード後にアニメーションを開始する。
+   * see https://github.com/jlmakes/scrollreveal/issues/298
+   */
+  const animate = useCallback(async () => {
+    const sr = (await import("scrollreveal")).default();
+    sr.reveal(".illustration-image", {
+      reset: true,
+      opacity: 0.8,
+      scale: 0.5,
+      rotate: {
+        y: 180,
+      },
+      duration: 1000,
+    });
+  }, []);
+  useEffect(() => {
+    if (
+      loadedIllustrationCount ===
+      illustrations.length + illustrations3D.length
+    ) {
+      animate().catch((error) => console.warn(error));
+    }
+  }, [animate, loadedIllustrationCount, illustrations, illustrations3D]);
+  const onLoadSingleImage = useCallback(() => {
+    setLoadedIllustrationCount(loadedIllustrationCount + 1);
+  }, [loadedIllustrationCount]);
   return (
     <>
       <section className={styles.section} id="illusts-section">
@@ -38,7 +69,7 @@ const IllustrationsSection = ({
                   alt={illustration.title}
                   src={illustration.image.url + "?w=300&fm=webp"}
                   key={illustration.id}
-                  style={{ cursor: "pointer" }}
+                  onLoad={onLoadSingleImage}
                 />
               ))}
             </div>
@@ -60,7 +91,7 @@ const IllustrationsSection = ({
                   alt={illustration.title}
                   src={illustration.image.url + "?w=300&fm=webp"}
                   key={illustration.id}
-                  style={{ cursor: "pointer" }}
+                  onLoad={onLoadSingleImage}
                 />
               ))}
             </div>

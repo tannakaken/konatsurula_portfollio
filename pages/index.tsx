@@ -97,6 +97,11 @@ const Home = ({
 }: Props) => {
   useEffect(() => {
     const animate = async () => {
+      // nextで動かすために必要な処置
+      // ScrollRevealパッケージのインポートにはwindowの横幅縦幅などの情報が必要だが
+      // ssrやssgを行うときにはそれらの情報はまだない。
+      // なのでこのタイミングでインポートする必要がある。
+      // see https://qiita.com/syo2255/items/d0c79157b065398bb8cc
       const sr = (await import("scrollreveal")).default();
       sr.reveal(".works-image-0", { reset: true, delay: 0 });
       sr.reveal(".works-image-1", { reset: true, delay: 100 });
@@ -114,15 +119,6 @@ const Home = ({
         delay: 100,
         distance: "100%",
       });
-      sr.reveal(".illustration-image", {
-        reset: true,
-        opacity: 0.8,
-        scale: 0.5,
-        rotate: {
-          y: 180,
-        },
-        duration: 1000,
-      });
       sr.reveal(".left-about", {
         reset: true,
         opacity: 1,
@@ -137,6 +133,11 @@ const Home = ({
         delay: 400,
         distance: "50%",
       });
+      // ここではイラストのアニメーションはしない
+      // scrollrevealのアニメーションのためにはエレメントの高さなどが必要だが
+      // ロードが終わらないと高さが決まらない。
+      // なのでロード後にアニメーションを開始する。
+      // see https://github.com/jlmakes/scrollreveal/issues/298
     };
     animate().catch((error) => console.warn(error));
   }, []);
