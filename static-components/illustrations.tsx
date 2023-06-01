@@ -2,9 +2,56 @@ import "../styles/YouTube.module.scss";
 import youTubeStyles from "../styles/YouTube.module.scss";
 import styles from "../styles/Home.module.scss";
 import { Illustration } from "../models";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import ReactModal from "react-modal";
 import { trackingEvent } from "../helpers/ga.helper";
+
+type SurelyOnLoadImageProps = {
+  alt: string;
+  onClick: () => void;
+  className: string;
+  src: string;
+  onLoad: () => void;
+};
+
+/**
+ * 画像をロードしたらonLoadがcallされるが、
+ * 画像をブラウザがキャッシュしていた場合onLoadは呼ばれない。
+ * その時は、レンダリング時にすでに画像の高さが分かっているので、
+ * それによってonLoadを発火させる。
+ * onLoadは一度しか発火しない。
+ */
+const SurelyOnLoadImage = ({
+  onClick,
+  onLoad,
+  className,
+  alt,
+  src,
+}: SurelyOnLoadImageProps) => {
+  const imageRef = useRef<HTMLImageElement>(null);
+  const [loaded, setLoaded] = useState(false);
+  const onLoadAndSetLoaded = useCallback(() => {
+    if (!loaded) {
+      onLoad();
+      setLoaded(true);
+    }
+  }, [onLoad, loaded]);
+  useEffect(() => {
+    if (imageRef.current?.height) {
+      onLoadAndSetLoaded();
+    }
+  }, [onLoadAndSetLoaded]);
+  return (
+    <img
+      ref={imageRef}
+      onClick={onClick}
+      className={className}
+      alt={alt}
+      src={src}
+      onLoad={onLoadAndSetLoaded}
+    />
+  );
+};
 
 const IllustrationsSection = ({
   illustrations,
@@ -38,12 +85,20 @@ const IllustrationsSection = ({
       duration: 2000,
     });
   }, []);
+  const [loadedImageCount, setLoadedImageCount] = useState(0);
   useEffect(() => {
-    animate().catch((error) => console.warn(error));
-  }, [animate]);
+    // 全ての画像がロード後にアニメーションを開始する。
+    if (loadedImageCount === illustrations.length + illustrations3D.length) {
+      animate().catch((error) => console.warn(error));
+    }
+  }, [loadedImageCount, animate, illustrations, illustrations3D]);
+  /**
+   * 画像をロードしたら、ロードした画像のカウントを一つ増やす
+   */
   const onLoadSingleImage = useCallback(() => {
-    animate().catch((error) => console.warn(error));
-  }, [animate]);
+    setLoadedImageCount((prev) => prev + 1);
+  }, []);
+
   return (
     <>
       <section className={styles.section} id="illusts-section">
@@ -57,7 +112,7 @@ const IllustrationsSection = ({
           <div className={styles.sectionContainer}>
             <div className={styles.illustrations}>
               {illustrations.map((illustration) => (
-                <img
+                <SurelyOnLoadImage
                   onClick={() => {
                     trackingEvent("Illustration", illustration.title);
                     setSelectedIllustration(illustration);
@@ -79,7 +134,7 @@ const IllustrationsSection = ({
           <div className={styles.sectionContainer}>
             <div className={styles.illustrations}>
               {illustrations3D.map((illustration) => (
-                <img
+                <SurelyOnLoadImage
                   onClick={() => {
                     trackingEvent("Illustration3D", illustration.title);
                     setSelectedIllustration(illustration);
