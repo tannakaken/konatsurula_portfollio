@@ -67,7 +67,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (_) => {
     await client.get<{ contents: Illustration[] }>({
       endpoint: "illusts?limit=100",
     })
-  ).contents;
+  ).contents.filter((item) => item.videoPath === undefined);
   const illustrations = allIllustrations.filter((item) => !item.is3D);
   const illustrations3D = allIllustrations.filter((item) => item.is3D);
 

@@ -37,4 +37,5 @@ export type Illustration = {
   title: string;
   image: ImageData;
   is3D?: boolean;
+  videoPath?: string;
 };
