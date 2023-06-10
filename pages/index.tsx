@@ -28,6 +28,7 @@ type Props = {
   skebWorks: Work[];
   worksWithoutVideo: WorkWithoutVideo[];
   news: News[];
+  myMovies: Illustration[];
   illustrations: Illustration[];
   illustrations3D: Illustration[];
 };
@@ -67,9 +68,14 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (_) => {
     await client.get<{ contents: Illustration[] }>({
       endpoint: "illusts?limit=100",
     })
-  ).contents.filter((item) => item.videoPath === undefined);
-  const illustrations = allIllustrations.filter((item) => !item.is3D);
-  const illustrations3D = allIllustrations.filter((item) => item.is3D);
+  ).contents;
+  const myMovies = allIllustrations.filter((item) => item.videoPath);
+  const illustrations = allIllustrations.filter(
+    (item) => !item.videoPath && !item.is3D
+  );
+  const illustrations3D = allIllustrations.filter(
+    (item) => !item.videoPath && item.is3D
+  );
 
   return {
     props: {
@@ -78,6 +84,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (_) => {
       skebWorks,
       worksWithoutVideo,
       news,
+      myMovies,
       illustrations,
       illustrations3D,
     },
@@ -92,6 +99,7 @@ const Home = ({
   skebWorks,
   worksWithoutVideo,
   news,
+  myMovies,
   illustrations,
   illustrations3D,
 }: Props) => {
@@ -175,6 +183,7 @@ const Home = ({
           worksWithoutVideo={worksWithoutVideo}
         />
         <IllustrationsSection
+          myMovies={myMovies}
           illustrations={illustrations}
           illustrations3D={illustrations3D}
         />

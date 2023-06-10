@@ -35,7 +35,7 @@ const Header = () => {
       </li>
       <li className={styles.navItem}>
         <ScrollLink to="illusts-section" smooth={true}>
-          イラスト
+          自主制作
         </ScrollLink>
       </li>
       <li className={styles.navItem}>

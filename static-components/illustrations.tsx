@@ -54,9 +54,11 @@ const SurelyOnLoadImage = ({
 };
 
 const IllustrationsSection = ({
+  myMovies,
   illustrations,
   illustrations3D,
 }: {
+  myMovies: Illustration[];
   illustrations: Illustration[];
   illustrations3D: Illustration[];
 }) => {
@@ -105,9 +107,27 @@ const IllustrationsSection = ({
   return (
     <>
       <section className={styles.section} id="illusts-section">
-        {/* <header className={styles.sectionHeader} id={styles.illustHeader}>
-          <h1>自主制作</h1>
-        </header> */}
+        <section>
+          <header className={styles.sectionHeader} id={styles.illustHeader}>
+            <h1>自主制作動画</h1>
+          </header>
+          <div className={styles.sectionContainer}>
+            <div className={styles.illustrations}>
+              {myMovies.map((myMovie, index) => (
+                <img
+                  onClick={() => {
+                    trackingEvent("Illustration", myMovie.title);
+                    setSelectedIllustration(myMovie);
+                  }}
+                  alt={myMovie.title}
+                  src={myMovie.image.url + "?w=300&fm=webp"}
+                  key={myMovie.id}
+                  className={styles.work + " works-image-" + (index % 4)}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
         <section>
           <header className={styles.sectionHeader} id={styles.illustHeader}>
             <h1>イラスト</h1>
@@ -169,11 +189,26 @@ const IllustrationsSection = ({
         </div>
         {selectedIllustration !== undefined && (
           <div className={styles.fullIllustrationContainer}>
-            <img
-              src={selectedIllustration.image.url + "?fm=webp"}
-              alt={selectedIllustration.title}
-              className={styles.fullIllustration}
-            />
+            {selectedIllustration.videoPath === undefined ? (
+              <img
+                src={selectedIllustration.image.url + "?fm=webp"}
+                alt={selectedIllustration.title}
+                className={styles.fullIllustration}
+              />
+            ) : (
+              <video
+                style={{
+                  width: 800,
+                  height: 600,
+                }}
+                controls
+                src={
+                  process.env.NEXT_PUBLIC_CLOUD_FRONT_ORIGIN +
+                  "/" +
+                  selectedIllustration.videoPath
+                }
+              />
+            )}
           </div>
         )}
         <div>
