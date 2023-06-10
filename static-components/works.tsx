@@ -3,7 +3,7 @@ import youTubeStyles from "../styles/YouTube.module.scss";
 import styles from "../styles/Home.module.scss";
 import workStyles from "../styles/Work.module.scss";
 import { truncateMonth, Work, WorkWithoutVideo } from "../models";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import ReactModal from "react-modal";
 import YouTube from "react-youtube";
 import { trackingEvent } from "../helpers/ga.helper";
@@ -13,6 +13,15 @@ const className = (index: number) => {
     ? "works-without-video-right"
     : "works-without-video-left";
 };
+
+const imageStyle = {
+  width: "80%",
+  paddingTop: 0,
+} as const;
+
+const youtupeOption = {
+  playerVars: { autoplay: 1 },
+} as const;
 
 const WorksSection = ({
   works,
@@ -24,6 +33,14 @@ const WorksSection = ({
   worksWithoutVideo: WorkWithoutVideo[];
 }) => {
   const [selectedWork, setSelectedWork] = useState<Work | undefined>(undefined);
+  const [showNotice, setShowNotice] = useState(false);
+  const onAfterOpen = useCallback(() => {
+    setShowNotice(true);
+  }, []);
+  const close = useCallback(() => {
+    setSelectedWork(undefined);
+    setShowNotice(false);
+  }, []);
   return (
     <>
       <section className={styles.section} id="works-section">
@@ -63,7 +80,9 @@ const WorksSection = ({
               <div className={workStyles.workWithoutVideo} key={work.id}>
                 <div
                   className={
-                    workStyles.workWithoutVideoContainer + " " + className(index)
+                    workStyles.workWithoutVideoContainer +
+                    " " +
+                    className(index)
                   }
                 >
                   <h2 className={workStyles.title}>{work.title}</h2>
@@ -78,7 +97,7 @@ const WorksSection = ({
             ))}
           </div>
         </section>
-        <section>  
+        <section>
           <header className={styles.sectionHeader} id={styles.worksHeader}>
             <h1>SKEB</h1>
           </header>
@@ -115,16 +134,14 @@ const WorksSection = ({
         contentLabel="YouTube Modal"
         isOpen={selectedWork !== undefined}
         shouldCloseOnEsc={true}
-        onRequestClose={() => setSelectedWork(undefined)}
+        onRequestClose={close}
+        onAfterClose={onAfterOpen}
         closeTimeoutMS={500}
         portalClassName="YoutubeModalPortal"
       >
         <div className={youTubeStyles.header}>
           <h2>{selectedWork?.title}</h2>
-          <a
-            className={youTubeStyles.closeButton}
-            onClick={() => setSelectedWork(undefined)}
-          >
+          <a className={youTubeStyles.closeButton} onClick={close}>
             ×close
           </a>
         </div>
@@ -139,18 +156,17 @@ const WorksSection = ({
                 alt={selectedWork.title}
                 src={selectedWork.gifImage.url}
                 className={youTubeStyles.youtube}
-                style={{
-                  width: "80%",
-                  paddingTop: 0,
-                }}
+                style={imageStyle}
               />
               <div>
-                <p>無断転載禁止/Do not repost without my permission.</p>
+                {showNotice && (
+                  <p>無断転載禁止/Do not repost without my permission.</p>
+                )}
               </div>
             </>
           ) : (
             <YouTube
-              opts={{ playerVars: { autoplay: 1 } }}
+              opts={youtupeOption}
               loading="lazy"
               className={youTubeStyles.iframe}
               containerClassName={youTubeStyles.youtube}

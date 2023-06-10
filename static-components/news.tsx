@@ -2,7 +2,7 @@ import "../styles/YouTube.module.scss";
 import youTubeStyles from "../styles/YouTube.module.scss";
 import styles from "../styles/Home.module.scss";
 import { News } from "../models";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useScroll, useWindowSize } from "../helpers/window.helpers";
 import ReactModal from "react-modal";
 
@@ -14,6 +14,9 @@ const NewsSection = ({ news }: { news: News[] }) => {
   const scroll = useScroll();
   const realHeaderHeight = (windowSize.width / headerWidth) * headerHeight;
   const [selectedNews, setSelectedNews] = useState<News | undefined>(undefined);
+  const close = useCallback(() => {
+    setSelectedNews(undefined);
+  }, []);
 
   return (
     <>
@@ -56,7 +59,7 @@ const NewsSection = ({ news }: { news: News[] }) => {
         contentLabel="News Modal"
         isOpen={selectedNews !== undefined}
         shouldCloseOnEsc={true}
-        onRequestClose={() => setSelectedNews(undefined)}
+        onRequestClose={close}
         closeTimeoutMS={500}
         portalClassName="NewsModalPortal"
       >
@@ -70,10 +73,7 @@ const NewsSection = ({ news }: { news: News[] }) => {
             justifyContent: "flex-end",
           }}
         >
-          <a
-            className={youTubeStyles.closeButton}
-            onClick={() => setSelectedNews(undefined)}
-          >
+          <a className={youTubeStyles.closeButton} onClick={close}>
             ×close
           </a>
         </div>

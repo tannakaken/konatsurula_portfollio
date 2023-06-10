@@ -23,7 +23,6 @@
 .IllustrationModalPortal {
   .ReactModal__Content {
     @media (min-width: 769px) {
-      // width: 90%; // なんでこれが必要なんだっけ？ これがあるとモーダルのアニメーションが崩れる
       margin: auto;
     }
   }

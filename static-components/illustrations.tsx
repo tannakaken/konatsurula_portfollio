@@ -101,6 +101,9 @@ const IllustrationsSection = ({
     setLoadedImageCount((prev) => prev + 1);
   }, []);
   const [showNotice, setShowNotice] = useState(false);
+  const onAfterOpen = useCallback(() => {
+    setShowNotice(true);
+  }, []);
   const close = useCallback(() => {
     setSelectedIllustration(undefined);
     setShowNotice(false);
@@ -178,7 +181,7 @@ const IllustrationsSection = ({
       <ReactModal
         contentLabel="Illustration Modal"
         isOpen={selectedIllustration !== undefined}
-        onAfterOpen={() => setShowNotice(true)}
+        onAfterOpen={onAfterOpen}
         shouldCloseOnEsc={true}
         onRequestClose={close}
         closeTimeoutMS={500}
