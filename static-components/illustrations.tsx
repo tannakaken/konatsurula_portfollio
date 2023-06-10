@@ -100,8 +100,10 @@ const IllustrationsSection = ({
   const onLoadSingleImage = useCallback(() => {
     setLoadedImageCount((prev) => prev + 1);
   }, []);
+  const [showNotice, setShowNotice] = useState(false);
   const close = useCallback(() => {
     setSelectedIllustration(undefined);
+    setShowNotice(false);
   }, []);
 
   return (
@@ -176,6 +178,7 @@ const IllustrationsSection = ({
       <ReactModal
         contentLabel="Illustration Modal"
         isOpen={selectedIllustration !== undefined}
+        onAfterOpen={() => setShowNotice(true)}
         shouldCloseOnEsc={true}
         onRequestClose={close}
         closeTimeoutMS={500}
@@ -209,7 +212,9 @@ const IllustrationsSection = ({
           </div>
         )}
         <div>
-          <p>無断転載禁止/Do not repost without my permission.</p>
+          {showNotice && (
+            <p>無断転載禁止/Do not repost without my permission.</p>
+          )}
         </div>
       </ReactModal>
     </>
