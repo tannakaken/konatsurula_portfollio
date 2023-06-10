@@ -197,10 +197,7 @@ const IllustrationsSection = ({
               />
             ) : (
               <video
-                style={{
-                  width: 800,
-                  height: 600,
-                }}
+                className={styles.video}
                 controls
                 src={
                   process.env.NEXT_PUBLIC_CLOUD_FRONT_ORIGIN +
