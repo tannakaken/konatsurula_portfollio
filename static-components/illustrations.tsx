@@ -8,7 +8,7 @@ import { trackingEvent } from "../helpers/ga.helper";
 
 type SurelyOnLoadImageProps = {
   alt: string;
-  onClick: () => void;
+  onClick?: () => void;
   className: string;
   src: string;
   onLoad: () => void;
@@ -62,7 +62,7 @@ const IllustrationsSection = ({
   illustrations: Illustration[];
   illustrations3D: Illustration[];
 }) => {
-  const [selectedIllustration, setSelectedIllustration] = useState<
+  const [selectedMyWork, setSelectedMyWork] = useState<
     Illustration | undefined
   >(undefined);
   /**
@@ -101,12 +101,17 @@ const IllustrationsSection = ({
     setLoadedImageCount((prev) => prev + 1);
   }, []);
   const [showNotice, setShowNotice] = useState(false);
+  const [loadingSelectedIllustration, setLoadingSelectedIllustration] =
+    useState(false);
   const onAfterOpen = useCallback(() => {
     setShowNotice(true);
   }, []);
   const close = useCallback(() => {
-    setSelectedIllustration(undefined);
+    setSelectedMyWork(undefined);
     setShowNotice(false);
+  }, []);
+  const loadedSelectedIllustration = useCallback(() => {
+    setLoadingSelectedIllustration(false);
   }, []);
 
   return (
@@ -117,14 +122,13 @@ const IllustrationsSection = ({
             <header className={styles.sectionHeader} id={styles.illustHeader}>
               <h1>自主制作動画</h1>
             </header>
-
             <div className={styles.sectionContainer}>
               <div className={styles.illustrations}>
                 {myMovies.map((myMovie, index) => (
                   <img
                     onClick={() => {
                       trackingEvent("Illustration", myMovie.title);
-                      setSelectedIllustration(myMovie);
+                      setSelectedMyWork(myMovie);
                     }}
                     alt={myMovie.title}
                     src={myMovie.image.url + "?w=300&fm=webp"}
@@ -146,7 +150,8 @@ const IllustrationsSection = ({
                 <SurelyOnLoadImage
                   onClick={() => {
                     trackingEvent("Illustration", illustration.title);
-                    setSelectedIllustration(illustration);
+                    setSelectedMyWork(illustration);
+                    setLoadingSelectedIllustration(true);
                   }}
                   className={styles.illustration + " illustration-image"}
                   alt={illustration.title}
@@ -168,7 +173,7 @@ const IllustrationsSection = ({
                 <SurelyOnLoadImage
                   onClick={() => {
                     trackingEvent("Illustration3D", illustration.title);
-                    setSelectedIllustration(illustration);
+                    setSelectedMyWork(illustration);
                   }}
                   className={styles.illustration + " illustration-image-3d"}
                   alt={illustration.title}
@@ -183,7 +188,7 @@ const IllustrationsSection = ({
       </section>
       <ReactModal
         contentLabel="Illustration Modal"
-        isOpen={selectedIllustration !== undefined}
+        isOpen={selectedMyWork !== undefined}
         onAfterOpen={onAfterOpen}
         shouldCloseOnEsc={true}
         onRequestClose={close}
@@ -191,18 +196,19 @@ const IllustrationsSection = ({
         portalClassName="IllustrationModalPortal"
       >
         <div className={youTubeStyles.header}>
-          <h2>{selectedIllustration?.title}</h2>
+          <h2>{selectedMyWork?.title}</h2>
           <a className={youTubeStyles.closeButton} onClick={close}>
             ×close
           </a>
         </div>
-        {selectedIllustration !== undefined && (
+        {selectedMyWork !== undefined && (
           <div className={styles.fullIllustrationContainer}>
-            {selectedIllustration.videoPath === undefined ? (
-              <img
-                src={selectedIllustration.image.url + "?fm=webp"}
-                alt={selectedIllustration.title}
+            {selectedMyWork.videoPath === undefined ? (
+              <SurelyOnLoadImage
+                src={selectedMyWork.image.url + "?fm=webp"}
+                alt={selectedMyWork.title}
                 className={styles.fullIllustration}
+                onLoad={loadedSelectedIllustration}
               />
             ) : (
               <video
@@ -211,7 +217,7 @@ const IllustrationsSection = ({
                 src={
                   process.env.NEXT_PUBLIC_CLOUD_FRONT_ORIGIN +
                   "/" +
-                  selectedIllustration.videoPath
+                  selectedMyWork.videoPath
                 }
               />
             )}
@@ -222,6 +228,15 @@ const IllustrationsSection = ({
             <p>無断転載禁止/Do not repost without my permission.</p>
           )}
         </div>
+        {loadingSelectedIllustration && (
+          <img
+            style={{ animation: "3s linear infinite rotation" }}
+            className={styles.loading}
+            src={"favicon.webp"}
+            width={"50px"}
+            alt={"画像ダウンロード中"}
+          />
+        )}
       </ReactModal>
     </>
   );
