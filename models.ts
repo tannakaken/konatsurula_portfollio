@@ -10,7 +10,7 @@ export type WorkWithoutVideo = {
   id: string;
   title: string;
   description: string;
-  publishedMonth: string;
+  publishedMonth?: string;
   isSkeb?: boolean;
 };
 

@@ -47,12 +47,28 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (_) => {
       work.gifImage !== undefined
   );
   const works = worksWithVideo.filter((work) => !work.isSkeb);
+  const sortWork = (a: Work, b: Work) => {
+    if (a.publishedMonth === undefined) {
+      if (b.publishedMonth === undefined) {
+        return 0;
+      }
+      return -1;
+    }
+    if (b.publishedMonth === undefined) {
+      return 1;
+    }
+    const aDate = new Date(a.publishedMonth);
+    const bDate = new Date(b.publishedMonth);
+    return bDate.getTime() - aDate.getTime();
+  };
+  works.sort(sortWork);
   const skebWorks = worksWithVideo.filter((work) => work.isSkeb);
   const worksWithoutVideo = allWorks.filter(
     (work) =>
       (work.youtubeId === undefined || work.youtubeId.length === 0) &&
       work.gifImage === undefined
   );
+  worksWithoutVideo.sort(sortWork);
   const newsContents = (
     await client.get<{ contents: News[] }>({ endpoint: "news?limit=100" })
   ).contents;
