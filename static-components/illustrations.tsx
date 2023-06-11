@@ -112,27 +112,30 @@ const IllustrationsSection = ({
   return (
     <>
       <section className={styles.section} id="illusts-section">
-        <section>
-          <header className={styles.sectionHeader} id={styles.illustHeader}>
-            <h1>自主制作動画</h1>
-          </header>
-          <div className={styles.sectionContainer}>
-            <div className={styles.illustrations}>
-              {myMovies.map((myMovie, index) => (
-                <img
-                  onClick={() => {
-                    trackingEvent("Illustration", myMovie.title);
-                    setSelectedIllustration(myMovie);
-                  }}
-                  alt={myMovie.title}
-                  src={myMovie.image.url + "?w=300&fm=webp"}
-                  key={myMovie.id}
-                  className={styles.work + " works-image-" + (index % 4)}
-                />
-              ))}
+        {myMovies.length > 0 && (
+          <section>
+            <header className={styles.sectionHeader} id={styles.illustHeader}>
+              <h1>自主制作動画</h1>
+            </header>
+
+            <div className={styles.sectionContainer}>
+              <div className={styles.illustrations}>
+                {myMovies.map((myMovie, index) => (
+                  <img
+                    onClick={() => {
+                      trackingEvent("Illustration", myMovie.title);
+                      setSelectedIllustration(myMovie);
+                    }}
+                    alt={myMovie.title}
+                    src={myMovie.image.url + "?w=300&fm=webp"}
+                    key={myMovie.id}
+                    className={styles.work + " works-image-" + (index % 4)}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
         <section>
           <header className={styles.sectionHeader} id={styles.illustHeader}>
             <h1>イラスト</h1>
