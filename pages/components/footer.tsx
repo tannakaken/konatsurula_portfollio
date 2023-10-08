@@ -42,6 +42,7 @@ const Footer = () => {
       </p>
       <p>
         Created By <a href={"https://twitter.com/tannakaken"}>Tannakaken</a>
+        &lt;<a href="mailto:tannakaken@gmail.com">tannakaken@gmail.com</a>&gt;
       </p>
     </footer>
   );
