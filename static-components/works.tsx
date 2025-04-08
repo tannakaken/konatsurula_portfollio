@@ -34,6 +34,18 @@ const WorksSection = ({
 }) => {
   const [selectedWork, setSelectedWork] = useState<Work | undefined>(undefined);
   const [showNotice, setShowNotice] = useState(false);
+  const showedNumberOfWorksWithoutVideo = 10;
+  const showedWorksWithoutVideo = worksWithoutVideo.slice(
+    0,
+    showedNumberOfWorksWithoutVideo
+  );
+  const unshowedWorksWithoutVideo = worksWithoutVideo.slice(
+    showedNumberOfWorksWithoutVideo
+  );
+  const hasMoreWorksWithoutVideo =
+    worksWithoutVideo.length > showedNumberOfWorksWithoutVideo;
+  const [showPastWorksWithoutVideo, setShowPastWorksWithoutVideo] =
+    useState(false);
   const onAfterOpen = useCallback(() => {
     setShowNotice(true);
   }, []);
@@ -76,8 +88,15 @@ const WorksSection = ({
             )}
           </div>
           <div>
-            {worksWithoutVideo.map((work, index) => (
-              <div className={workStyles.workWithoutVideo} key={work.id}>
+            {showedWorksWithoutVideo.map((work, index) => (
+              <div
+                className={
+                  index > showedNumberOfWorksWithoutVideo
+                    ? workStyles.noShow
+                    : workStyles.workWithoutVideo
+                }
+                key={work.id}
+              >
                 <div
                   className={
                     workStyles.workWithoutVideoContainer +
@@ -95,6 +114,19 @@ const WorksSection = ({
                 </div>
               </div>
             ))}
+            {hasMoreWorksWithoutVideo && (
+              <div>
+                <button
+                  className={workStyles.showMoreWorksWithoutVideo}
+                  type="button"
+                  onClick={() => {
+                    setShowPastWorksWithoutVideo(true);
+                  }}
+                >
+                  もっと見る...
+                </button>
+              </div>
+            )}
           </div>
         </section>
         <section>
@@ -173,6 +205,43 @@ const WorksSection = ({
               videoId={selectedWork?.youtubeId}
             />
           ))}
+      </ReactModal>
+      <ReactModal
+        contentLabel="Past Works Modal"
+        isOpen={showPastWorksWithoutVideo}
+        shouldCloseOnEsc={true}
+        onRequestClose={() => {
+          setShowPastWorksWithoutVideo(false);
+        }}
+        closeTimeoutMS={500}
+        portalClassName="PastWorksModalPortal"
+      >
+        <div className={workStyles.pastWorksHeader}>
+          <h2>過去の仕事</h2>
+          <a
+            className={workStyles.closeButton}
+            onClick={() => {
+              setShowPastWorksWithoutVideo(false);
+            }}
+          >
+            ×close
+          </a>
+        </div>
+        <div className={workStyles.pastWorksContainer}>
+          {unshowedWorksWithoutVideo.map((work) => (
+            <div className={workStyles.pastwork} key={work.id}>
+              <div className={workStyles.pastWorkContainer}>
+                <h2 className={workStyles.pastWorkTitle}>{work.title}</h2>
+                <div className={workStyles.pastWorkContent}>
+                  <p className={workStyles.publishedMonth}>
+                    {truncateMonth(work.publishedMonth)}
+                  </p>
+                  <p className={workStyles.description}>{work.description}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </ReactModal>
     </>
   );

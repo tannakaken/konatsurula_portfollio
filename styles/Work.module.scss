@@ -24,6 +24,70 @@
                 white-space: pre-wrap;
             }
         }
-        
     }
 }
+
+.showMoreWorksWithoutVideo {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: black;
+    margin-left: 30vw;
+    @media (max-width: 768px) {
+        margin-left: 10vw;
+    }
+    padding-bottom: 10px;
+    font-Size: 10pt;
+    line-height: 1em;
+}
+.showMoreWorksWithoutVideo:hover {
+    text-decoration: underline;
+}
+
+.pastWorksHeader {
+    height: 10%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    @media (max-width: 768px) {
+        h2 {
+        font-size: 110%;
+        }
+    }
+}
+
+.closeButton {
+    cursor: pointer;
+}
+
+.pastWorksContainer {
+    height: 90%;
+    overflow: auto;
+    .pastwork {
+        margin: auto;
+        .pastWorkContainer {
+            padding-bottom: 5px;
+            .pastWorkTitle {
+                margin-left: 10vw;
+                @media (max-width: 768px) {
+                    margin-left: 5vw;
+                }
+                font-Size: 11pt;
+                line-height: 1em;
+            }
+            .pastWorkContent {
+                margin-left: 15vw;
+                .publishedMonth {
+                    margin: 0;
+                }
+                .description {
+                    margin: 0;
+                    padding-right: 10px;
+                    white-space: pre-wrap;
+                }
+            }
+        }
+    }
+}
+
