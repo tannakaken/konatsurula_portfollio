@@ -14,6 +14,9 @@ const NewsSection = ({ news }: { news: News[] }) => {
   const scroll = useScroll();
   const realHeaderHeight = (windowSize.width / headerWidth) * headerHeight;
   const [selectedNews, setSelectedNews] = useState<News | undefined>(undefined);
+  const [showedNumber, setShowedNumber] = useState(3);
+  const showedNews = news.slice(0, showedNumber);
+  const hasMoreNews = news.length > showedNumber;
   const close = useCallback(() => {
     setSelectedNews(undefined);
   }, []);
@@ -24,7 +27,7 @@ const NewsSection = ({ news }: { news: News[] }) => {
         <div className={styles.newsContainer} id={styles.newsHeader}>
           <h2>ニュース</h2>
           <ul>
-            {news.map((newsContent) => (
+            {showedNews.map((newsContent) => (
               <li
                 key={newsContent.id}
                 onClick={() => setSelectedNews(newsContent)}
@@ -39,6 +42,19 @@ const NewsSection = ({ news }: { news: News[] }) => {
                 {newsContent.title}
               </li>
             ))}
+            {hasMoreNews && (
+              <li>
+                <button
+                  className={styles.showMore}
+                  type="button"
+                  onClick={() => {
+                    setShowedNumber(showedNumber + 5);
+                  }}
+                >
+                  もっと見る...
+                </button>
+              </li>
+            )}
           </ul>
           <div className={styles.newsContainerAttachment}>
             <div className={styles.newsContainerClip}>
