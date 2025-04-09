@@ -6,12 +6,21 @@ import { useCallback, useState } from "react";
 import { useScroll, useWindowSize } from "../helpers/window.helpers";
 import ReactModal from "react-modal";
 
+/**
+ * 画像ファイルの実際のピクセル幅（ヘッダ画像を変えたら修正する）
+ */
 const headerWidth = 1032;
+/**
+ * 画像ファイルの実際のピクセル高さ（ヘッダ画像を変えたら修正する。）
+ */
 const headerHeight = 542;
 
 const NewsSection = ({ news }: { news: News[] }) => {
   const windowSize = useWindowSize();
   const scroll = useScroll();
+  /**
+   * 表示時の画像の実際の高さ
+   */
   const realHeaderHeight = (windowSize.width / headerWidth) * headerHeight;
   const [selectedNews, setSelectedNews] = useState<News | undefined>(undefined);
   const [showedNumber, setShowedNumber] = useState(3);

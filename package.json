@@ -1,0 +1,49 @@
+{
+  "name": "konatsuruka_portfollio",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "email": "node scripts/send_email.js",
+    "export": "next export",
+    "build:static": "next build && next export && node scripts/filter.js",
+    "build:static-and-email": "next build && next export && node scripts/filter.js && node scripts/send_email.js",
+    "start": "next start",
+    "lint": "next lint",
+    "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json,css}'",
+    "puppeteer": "node test/puppeteer/recaptcha_test.js"
+  },
+  "dependencies": {
+    "gtag": "^1.0.1",
+    "microcms-js-sdk": "^2.0.0",
+    "next": "12.0.7",
+    "nodemailer": "^6.7.4",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-google-recaptcha-v3": "^1.9.7",
+    "react-modal": "^3.14.4",
+    "react-scroll": "^1.8.4",
+    "react-tooltip": "^4.2.21",
+    "react-youtube": "^7.14.0",
+    "remark": "^14.0.2",
+    "remark-html": "^15.0.1",
+    "remark-parse": "^10.0.1",
+    "unified": "^10.1.2"
+  },
+  "devDependencies": {
+    "@types/gtag.js": "^0.0.10",
+    "@types/node": "^17.0.8",
+    "@types/react": "^17.0.38",
+    "@types/react-modal": "^3.13.1",
+    "@types/react-scroll": "^1.8.3",
+    "@types/scrollreveal": "^0.0.7",
+    "eslint": "8.6.0",
+    "eslint-config-next": "12.0.7",
+    "eslint-config-prettier": "^8.5.0",
+    "prettier": "^2.6.1",
+    "puppeteer": "^13.5.1",
+    "sass": "^1.47.0",
+    "scrollreveal": "^4.0.9",
+    "typescript": "^4.5.4"
+  }
+}

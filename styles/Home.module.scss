@@ -48,6 +48,10 @@
       justify-content: center;
       align-items: center;
       color: whitesmoke;
+      /* 黒抜き文字 */
+      -webkit-text-stroke: 4px black;
+      text-stroke: 4px black;
+      paint-order: stroke;
       font-size: xxx-large;
       text-decoration: underline;
     }
@@ -128,6 +132,12 @@
 #newsHeader {
   background-image: none;
   background-color: transparent;
+  h2 {
+    /* 黒抜き文字 */
+    -webkit-text-stroke: 4px black;
+    text-stroke: 4px black;
+    paint-order: stroke;
+  }
   .newsContainerAttachment {
     display: block;
     height: 100%;
@@ -157,10 +167,15 @@
 
 #worksHeader {
   color: black;
+  /* 白抜き文字 */
+  -webkit-text-stroke: 4px whitesmoke;
+  text-stroke: 4px whitesmoke;
+  paint-order: stroke;
   background-image: url("../public/header_gray.webp");
   background-size: cover;
   background-attachment: fixed;
   font-size: 30pt;
+
   @media (max-width: 1366px) {
     background-size: cover;
     background-attachment: unset;
@@ -298,5 +313,8 @@
   color: white;
 }
 .showMore:hover {
+  text-decoration: underline;
+}
+.showMore:focus {
   text-decoration: underline;
 }
