@@ -6,8 +6,8 @@ import { useCallback, useState } from "react";
 import { useScroll, useWindowSize } from "../helpers/window.helpers";
 import ReactModal from "react-modal";
 
-const headerWidth = 1500;
-const headerHeight = 682;
+const headerWidth = 1032;
+const headerHeight = 542;
 
 const NewsSection = ({ news }: { news: News[] }) => {
   const windowSize = useWindowSize();

@@ -180,14 +180,14 @@ const Home = ({
         keyword={"アニメ,animation,MV,イラスト,illustration,マンガ,manga"}
         domain={"www.konatsuruka.online"}
         url={"https://www.konatsuruka.online"}
-        image={"https:///www.konatsuruka.online/header.webp"}
+        image={"https:///www.konatsuruka.online/header2.webp"}
       />
       <Header />
       <main className={styles.main}>
         <div className={styles.mainHeader}>
           <div className={styles.mainHeaderPhone}>
             <div className={styles.mainHeaderPhoneClip}>
-              <img src="./header.webp" alt="" />
+              <img src={"./header.webp"} alt="" />
             </div>
           </div>
         </div>
