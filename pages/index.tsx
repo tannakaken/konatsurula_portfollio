@@ -9,14 +9,14 @@ import ContactForm from "./components/contact-form";
 import Footer from "./components/footer";
 import Header from "./components/header";
 
-import { Illustration, News, Work, WorkWithoutVideo } from "../models";
+import { MyWork, News, Work, WorkWithoutVideo } from "../models";
 import CustomHead from "./components/CustomHead";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkHtml from "remark-html";
 import About from "../static-components/about";
 import WorksSection from "../static-components/works";
-import IllustrationsSection from "../static-components/illustrations";
+import MyWorksSection from "../static-components/myworks";
 import NewsSection from "../static-components/news";
 import { pageView } from "../helpers/ga.helper";
 
@@ -28,9 +28,10 @@ type Props = {
   skebWorks: Work[];
   worksWithoutVideo: WorkWithoutVideo[];
   news: News[];
-  myMovies: Illustration[];
-  illustrations: Illustration[];
-  illustrations3D: Illustration[];
+  myYoutubes: MyWork[];
+  myMovies: MyWork[];
+  illustrations: MyWork[];
+  illustrations3D: MyWork[];
 };
 
 export const getStaticProps: GetStaticProps<Props, Params> = async (_) => {
@@ -80,17 +81,18 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (_) => {
   );
 
   const news = newsContents.slice(0, newsContents.length - 1);
-  const allIllustrations = (
-    await client.get<{ contents: Illustration[] }>({
-      endpoint: "illusts?limit=100",
+  const allMyWorks = (
+    await client.get<{ contents: MyWork[] }>({
+      endpoint: "myworks?limit=100",
     })
   ).contents;
-  const myMovies = allIllustrations.filter((item) => item.videoPath);
-  const illustrations = allIllustrations.filter(
-    (item) => !item.videoPath && !item.is3D
+  const myYoutubes = allMyWorks.filter((item) => item.youtubeId);
+  const myMovies = allMyWorks.filter((item) => item.videoPath);
+  const illustrations = allMyWorks.filter(
+    (item) => !item.youtubeId && !item.videoPath && !item.is3D
   );
-  const illustrations3D = allIllustrations.filter(
-    (item) => !item.videoPath && item.is3D
+  const illustrations3D = allMyWorks.filter(
+    (item) => !item.youtubeId && !item.videoPath && item.is3D
   );
 
   return {
@@ -100,6 +102,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (_) => {
       skebWorks,
       worksWithoutVideo,
       news,
+      myYoutubes,
       myMovies,
       illustrations,
       illustrations3D,
@@ -115,6 +118,7 @@ const Home = ({
   skebWorks,
   worksWithoutVideo,
   news,
+  myYoutubes,
   myMovies,
   illustrations,
   illustrations3D,
@@ -198,7 +202,8 @@ const Home = ({
           skebWorks={skebWorks}
           worksWithoutVideo={worksWithoutVideo}
         />
-        <IllustrationsSection
+        <MyWorksSection
+          myYoutubes={myYoutubes}
           myMovies={myMovies}
           illustrations={illustrations}
           illustrations3D={illustrations3D}

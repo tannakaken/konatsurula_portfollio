@@ -7,6 +7,7 @@ import { useCallback, useState } from "react";
 import ReactModal from "react-modal";
 import YouTube from "react-youtube";
 import { trackingEvent } from "../helpers/ga.helper";
+import { youtupeOption } from "./constants";
 
 const className = (index: number) => {
   return index % 2 === 0
@@ -19,10 +20,9 @@ const imageStyle = {
   paddingTop: 0,
 } as const;
 
-const youtupeOption = {
-  playerVars: { autoplay: 1 },
-} as const;
-
+/**
+ * 仕事で関わった制作物のセクション
+ */
 const WorksSection = ({
   works,
   skebWorks,

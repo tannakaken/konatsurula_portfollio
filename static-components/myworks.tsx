@@ -1,10 +1,12 @@
 import "../styles/YouTube.module.scss";
 import youTubeStyles from "../styles/YouTube.module.scss";
 import styles from "../styles/Home.module.scss";
-import { Illustration } from "../models";
+import { MyWork } from "../models";
 import { useCallback, useEffect, useRef, useState } from "react";
 import ReactModal from "react-modal";
 import { trackingEvent } from "../helpers/ga.helper";
+import YouTube from "react-youtube";
+import { youtupeOption } from "./constants";
 
 type SurelyOnLoadImageProps = {
   alt: string;
@@ -53,18 +55,23 @@ const SurelyOnLoadImage = ({
   );
 };
 
-const IllustrationsSection = ({
+/**
+ * 自主制作物のセクション
+ */
+const MyWorksSection = ({
+  myYoutubes,
   myMovies,
   illustrations,
   illustrations3D,
 }: {
-  myMovies: Illustration[];
-  illustrations: Illustration[];
-  illustrations3D: Illustration[];
+  myYoutubes: MyWork[];
+  myMovies: MyWork[];
+  illustrations: MyWork[];
+  illustrations3D: MyWork[];
 }) => {
-  const [selectedMyWork, setSelectedMyWork] = useState<
-    Illustration | undefined
-  >(undefined);
+  const [selectedMyWork, setSelectedMyWork] = useState<MyWork | undefined>(
+    undefined
+  );
   /**
    * ここではイラストのアニメーションはさせる。
    * scrollrevealのアニメーションのためにはエレメントの高さなどが必要だが
@@ -117,26 +124,40 @@ const IllustrationsSection = ({
   return (
     <>
       <section className={styles.section} id="illusts-section">
-        {myMovies.length > 0 && (
+        {(myYoutubes.length > 0 || myMovies.length > 0) && (
           <section>
             <header className={styles.sectionHeader} id={styles.illustHeader}>
               <h1>自主制作動画</h1>
             </header>
             <div className={styles.sectionContainer}>
-              <div className={styles.illustrations}>
-                {myMovies.map((myMovie, index) => (
-                  <img
-                    onClick={() => {
-                      trackingEvent("Illustration", myMovie.title);
-                      setSelectedMyWork(myMovie);
-                    }}
-                    alt={myMovie.title}
-                    src={myMovie.image.url + "?w=300&fm=webp"}
-                    key={myMovie.id}
-                    className={styles.work + " works-image-" + (index % 4)}
-                  />
-                ))}
-              </div>
+              {myYoutubes.map((youtube, index) => (
+                <img
+                  onClick={() => {
+                    trackingEvent("Movie", youtube.title);
+                    setSelectedMyWork(youtube);
+                  }}
+                  alt={youtube.title}
+                  src={`https://img.youtube.com/vi/${youtube.youtubeId}/hqdefault.jpg`}
+                  key={youtube.id}
+                  className={styles.work + " works-image-" + (index % 4)}
+                />
+              ))}
+              {myMovies.map((myMovie, index) => (
+                <img
+                  onClick={() => {
+                    trackingEvent("Movie", myMovie.title);
+                    setSelectedMyWork(myMovie);
+                  }}
+                  alt={myMovie.title}
+                  src={myMovie.image?.url + "?w=300&fm=webp"}
+                  key={myMovie.id}
+                  className={
+                    styles.work +
+                    " works-image-" +
+                    ((myYoutubes.length + index) % 4)
+                  }
+                />
+              ))}
             </div>
           </section>
         )}
@@ -155,7 +176,7 @@ const IllustrationsSection = ({
                   }}
                   className={styles.illustration + " illustration-image"}
                   alt={illustration.title}
-                  src={illustration.image.url + "?w=300&fm=webp"}
+                  src={illustration.image?.url + "?w=300&fm=webp"}
                   key={illustration.id}
                   onLoad={onLoadSingleImage}
                 />
@@ -177,7 +198,7 @@ const IllustrationsSection = ({
                   }}
                   className={styles.illustration + " illustration-image-3d"}
                   alt={illustration.title}
-                  src={illustration.image.url + "?w=300&fm=webp"}
+                  src={illustration.image?.url + "?w=300&fm=webp"}
                   key={illustration.id}
                   onLoad={onLoadSingleImage}
                 />
@@ -187,13 +208,15 @@ const IllustrationsSection = ({
         </section>
       </section>
       <ReactModal
-        contentLabel="Illustration Modal"
-        isOpen={selectedMyWork !== undefined}
+        contentLabel="MyWork Modal"
+        isOpen={
+          selectedMyWork !== undefined && selectedMyWork.youtubeId === undefined
+        }
         onAfterOpen={onAfterOpen}
         shouldCloseOnEsc={true}
         onRequestClose={close}
         closeTimeoutMS={500}
-        portalClassName="IllustrationModalPortal"
+        portalClassName="MyWorkModalPortal"
       >
         <div className={youTubeStyles.header}>
           <h2>{selectedMyWork?.title}</h2>
@@ -203,7 +226,7 @@ const IllustrationsSection = ({
         </div>
         {selectedMyWork !== undefined && (
           <div className={styles.fullIllustrationContainer}>
-            {selectedMyWork.videoPath === undefined ? (
+            {selectedMyWork.videoPath === undefined && selectedMyWork.image ? (
               <SurelyOnLoadImage
                 src={selectedMyWork.image.url + "?fm=webp"}
                 alt={selectedMyWork.title}
@@ -238,8 +261,38 @@ const IllustrationsSection = ({
           />
         )}
       </ReactModal>
+      <ReactModal
+        contentLabel="YouTube Modal"
+        isOpen={
+          selectedMyWork !== undefined && selectedMyWork.youtubeId !== undefined
+        }
+        shouldCloseOnEsc={true}
+        onRequestClose={close}
+        onAfterClose={onAfterOpen}
+        closeTimeoutMS={500}
+        portalClassName="YoutubeModalPortal"
+      >
+        <div className={youTubeStyles.header}>
+          <h2>{selectedMyWork?.title}</h2>
+          <a className={youTubeStyles.closeButton} onClick={close}>
+            ×close
+          </a>
+        </div>
+        <p className={youTubeStyles.youtubeDescription}>
+          {selectedMyWork?.description}
+        </p>
+        {selectedMyWork !== undefined && (
+          <YouTube
+            opts={youtupeOption}
+            loading="lazy"
+            className={youTubeStyles.iframe}
+            containerClassName={youTubeStyles.youtube}
+            videoId={selectedMyWork?.youtubeId}
+          />
+        )}
+      </ReactModal>
     </>
   );
 };
 
-export default IllustrationsSection;
+export default MyWorksSection;
