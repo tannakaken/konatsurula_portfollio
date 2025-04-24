@@ -77,7 +77,7 @@ const WorksSection = ({
                     trackingEvent("Movie", work.title);
                   }}
                   alt={work.title}
-                  src={`https://img.youtube.com/vi_webp/${work.youtubeId}/hqdefault.webp`}
+                  src={`https://img.youtube.com/vi_webp/${work.youtubeId}/mqdefault.webp`}
                   key={work.id}
                   className={styles.work + " works-image-" + (index % 4)}
                 />
@@ -150,7 +150,7 @@ const WorksSection = ({
                     trackingEvent("Movie", work.title);
                   }}
                   alt={work.title}
-                  src={`https://img.youtube.com/vi_webp/${work.youtubeId}/hqdefault.webp`}
+                  src={`https://img.youtube.com/vi_webp/${work.youtubeId}/mqdefault.webp`}
                   key={work.id}
                   className={styles.work + " works-image-" + (index % 4)}
                 />

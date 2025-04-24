@@ -137,7 +137,7 @@ const MyWorksSection = ({
                     setSelectedMyWork(youtube);
                   }}
                   alt={youtube.title}
-                  src={`https://img.youtube.com/vi_webp/${youtube.youtubeId}/hqdefault.webp`}
+                  src={`https://img.youtube.com/vi_webp/${youtube.youtubeId}/mqdefault.webp`}
                   key={youtube.id}
                   className={styles.work + " works-image-" + (index % 4)}
                 />
