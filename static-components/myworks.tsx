@@ -6,7 +6,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import ReactModal from "react-modal";
 import { trackingEvent } from "../helpers/ga.helper";
 import YouTube from "react-youtube";
-import { youtupeOption } from "./constants";
+import { youtubeOption } from "./constants";
 
 type SurelyOnLoadImageProps = {
   alt: string;
@@ -137,7 +137,7 @@ const MyWorksSection = ({
                     setSelectedMyWork(youtube);
                   }}
                   alt={youtube.title}
-                  src={`https://img.youtube.com/vi/${youtube.youtubeId}/hqdefault.jpg`}
+                  src={`https://img.youtube.com/vi_webp/${youtube.youtubeId}/hqdefault.webp`}
                   key={youtube.id}
                   className={styles.work + " works-image-" + (index % 4)}
                 />
@@ -283,7 +283,7 @@ const MyWorksSection = ({
         </p>
         {selectedMyWork !== undefined && (
           <YouTube
-            opts={youtupeOption}
+            opts={youtubeOption}
             loading="lazy"
             className={youTubeStyles.iframe}
             containerClassName={youTubeStyles.youtube}

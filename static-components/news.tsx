@@ -5,23 +5,24 @@ import { News } from "../models";
 import { useCallback, useState } from "react";
 import { useScroll, useWindowSize } from "../helpers/window.helpers";
 import ReactModal from "react-modal";
+import { headerHeight, headerWidth } from "./constants";
 
-/**
- * 画像ファイルの実際のピクセル幅（ヘッダ画像を変えたら修正する）
- */
-const headerWidth = 1032;
-/**
- * 画像ファイルの実際のピクセル高さ（ヘッダ画像を変えたら修正する。）
- */
-const headerHeight = 542;
-
-const NewsSection = ({ news }: { news: News[] }) => {
-  const windowSize = useWindowSize();
+const NewsSection = ({
+  news,
+  windowSize,
+  headerOverflow,
+}: {
+  news: News[];
+  windowSize: ReturnType<typeof useWindowSize>;
+  headerOverflow: boolean;
+}) => {
   const scroll = useScroll();
   /**
    * 表示時の画像の実際の高さ
    */
-  const realHeaderHeight = (windowSize.width / headerWidth) * headerHeight;
+  const realHeaderHeight = headerOverflow
+    ? windowSize.height - 60
+    : (windowSize.width / headerWidth) * headerHeight;
   const [selectedNews, setSelectedNews] = useState<News | undefined>(undefined);
   const [showedNumber, setShowedNumber] = useState(3);
   const showedNews = news.slice(0, showedNumber);
@@ -65,14 +66,19 @@ const NewsSection = ({ news }: { news: News[] }) => {
               </li>
             )}
           </ul>
+          {/* スクロールと共に移動し、ヘッダ画像に完全に重なるように表示されるヘッダ画像のネガ */}
           <div className={styles.newsContainerAttachment}>
             <div className={styles.newsContainerClip}>
               <img
                 style={{
                   top: 60 + realHeaderHeight - scroll.y,
                   objectPosition: `0px ${scroll.y - realHeaderHeight}px`,
-                  height: "100vh",
                 }}
+                className={
+                  headerOverflow
+                    ? styles.newsBackgroundWide
+                    : styles.newsBackgroundNormal
+                }
                 src={"./header_nega.webp"}
                 alt={""}
               />

@@ -5,10 +5,41 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  .mainHeader {
-    margin-top: 60px;
+  .background {
+    background-image: url("../public/global_bg.webp");
+    z-index: -100;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+  }
+  // ヘッダ画像が一画面で表示できる場合
+  .mainHeaderNormal {
     width: 100%;
-    height: 52.5vw;
+    height: 52.5vw; // ヘッダの画像の実際のピクセル数から 543 / 1032と計算した。
+    .mainHeaderPhone {
+      img {
+        width: 100%;
+        height: 52.5vw;
+        left: 0;
+      }
+    }
+  }
+  // 画面が横長の場合はヘッダ画像の下部が見えなくなるので、それを防ぐ。
+  .mainHeaderWide {
+    height: calc( 100vh - 60px );
+    width: 100%;
+    .mainHeaderPhone {
+      img {
+        height: calc( 100vh - 60px );
+        width: 100vw;
+      }
+    }
+  }
+
+  .mainHeader {
+    margin-top: 60px; // ヘッダナビゲーションの高さ
     background-image: none;
     .mainHeaderPhone {
       display: block;
@@ -18,6 +49,7 @@
       left: 0;
       right: 0;
       z-index: -1;
+      //  ヘッダ画像はずっと画面の中で固定されている。その画像をスクロールの上部でのみ見えるようにするためのトリック
       .mainHeaderPhoneClip {
         position: relative;
         clip-path: inset(0 0 0 0);
@@ -25,9 +57,6 @@
       }
       img {
         position: fixed;
-        width: 100%;
-        height: 52.5vw;
-        left: 0;
         top: 60px;
         z-index: -1;
         pointer-events: none;
@@ -152,10 +181,19 @@
       height: 200%;
     }
 
+    // ヘッダ画像が一画面で表示可能な場合
+    .newsBackgroundNormal {
+      width: 100%;
+      height: 100vh;
+    }
+    // 画面が横長でヘッダ画像の下部が切れてしまう場合
+    .newsBackgroundWide {
+      height: calc( 100vh - 60px );
+      left: calc((100vw - (100vh - 60px) / 543 * 1032) / 2)
+    }
+
     img {
       position: fixed;
-      width: 100%;
-      height: 100vw;
       left: 0;
       z-index: -1;
       pointer-events: none;

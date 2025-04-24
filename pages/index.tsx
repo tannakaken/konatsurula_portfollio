@@ -1,5 +1,5 @@
 import styles from "../styles/Home.module.scss";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { createClient } from "microcms-js-sdk";
 import ReactModal from "react-modal";
 import * as React from "react";
@@ -19,6 +19,8 @@ import WorksSection from "../static-components/works";
 import MyWorksSection from "../static-components/myworks";
 import NewsSection from "../static-components/news";
 import { pageView } from "../helpers/ga.helper";
+import { useScroll, useWindowSize } from "../helpers/window.helpers";
+import { headerHeight, headerWidth } from "../static-components/constants";
 
 interface Params extends ParsedUrlQuery {}
 
@@ -123,6 +125,11 @@ const Home = ({
   illustrations,
   illustrations3D,
 }: Props) => {
+  const windowSize = useWindowSize();
+  const scroll = useScroll();
+  const windowRatio = (windowSize.height - 60) / windowSize.width;
+  const headerRatio = headerHeight / headerWidth;
+  const headerOverflow = headerRatio > windowRatio;
   useEffect(() => {
     const animate = async () => {
       // nextで動かすために必要な処置
@@ -173,8 +180,23 @@ const Home = ({
     pageView("メインページ", "/");
   }, []);
 
+  const backgroundColumns = windowSize.width < 768 ? 4 : 10;
+  const backgroundVW = 100 / backgroundColumns;
+
+  const [rollingShrimpColumn, setRollingShrimpColum] = useState(0);
+  useEffect(() => {
+    setRollingShrimpColum(Math.floor(Math.random() * backgroundColumns));
+  }, [backgroundColumns]);
+
+  const backgroundSize = windowSize.width / backgroundColumns;
+  const loopSize =
+    Math.ceil(windowSize.height / backgroundSize) * backgroundSize;
+  const offset = -scroll.y / 10;
+  const top = offset + Math.ceil(Math.abs(offset) / loopSize) * loopSize;
+
   return (
     <div id="container">
+      {/* head要素 */}
       <CustomHead
         title={"粉鶴亀のポートフォリオサイト"}
         description={
@@ -186,16 +208,49 @@ const Home = ({
         url={"https://www.konatsuruka.online"}
         image={"https:///www.konatsuruka.online/header2.webp"}
       />
+      {/* 固定のヘッダナビゲータ */}
       <Header />
       <main className={styles.main}>
-        <div className={styles.mainHeader}>
+        {/* スクロールにつれて少しずれてスクロールすることで遠近感を表現するリピート背景 */}
+        <div
+          className={styles.background}
+          style={{
+            backgroundSize: `${backgroundVW}vw ${backgroundVW}vw`,
+            backgroundPosition: `top ${offset}px left`,
+          }}
+        >
+          {/* ランダムで一つだけスクロールにつれて回転するイースターエッグ要素 */}
+          <img
+            src="/global_bg.webp"
+            style={{
+              position: "fixed",
+              left: `${rollingShrimpColumn * backgroundVW}vw`,
+              top: `${top}px`,
+              transform: `rotate(${scroll.y}deg)`,
+              width: `${backgroundVW}vw`,
+              height: `${backgroundVW}vw`,
+              zIndex: -99,
+            }}
+            alt=""
+          />
+        </div>
+        <div
+          className={`${styles.mainHeader} ${
+            headerOverflow ? styles.mainHeaderWide : styles.mainHeaderNormal
+          }`}
+        >
           <div className={styles.mainHeaderPhone}>
+            {/*  ヘッダ画像はずっと画面の中で固定されている。その画像をスクロールの上部でのみ見えるようにするためのトリック */}
             <div className={styles.mainHeaderPhoneClip}>
               <img src={"./header.webp"} alt="" />
             </div>
           </div>
         </div>
-        <NewsSection news={news} />
+        <NewsSection
+          news={news}
+          windowSize={windowSize}
+          headerOverflow={headerOverflow}
+        />
         <About profile={profile} />
         <WorksSection
           works={works}

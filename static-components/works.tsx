@@ -7,7 +7,7 @@ import { useCallback, useState } from "react";
 import ReactModal from "react-modal";
 import YouTube from "react-youtube";
 import { trackingEvent } from "../helpers/ga.helper";
-import { youtupeOption } from "./constants";
+import { youtubeOption } from "./constants";
 
 const className = (index: number) => {
   return index % 2 === 0
@@ -37,9 +37,6 @@ const WorksSection = ({
   const showedNumberOfWorksWithoutVideo = 10;
   const showedWorksWithoutVideo = worksWithoutVideo.slice(
     0,
-    showedNumberOfWorksWithoutVideo
-  );
-  const unshowedWorksWithoutVideo = worksWithoutVideo.slice(
     showedNumberOfWorksWithoutVideo
   );
   const hasMoreWorksWithoutVideo =
@@ -80,7 +77,7 @@ const WorksSection = ({
                     trackingEvent("Movie", work.title);
                   }}
                   alt={work.title}
-                  src={`https://img.youtube.com/vi/${work.youtubeId}/hqdefault.jpg`}
+                  src={`https://img.youtube.com/vi_webp/${work.youtubeId}/hqdefault.webp`}
                   key={work.id}
                   className={styles.work + " works-image-" + (index % 4)}
                 />
@@ -123,7 +120,7 @@ const WorksSection = ({
                     setShowPastWorksWithoutVideo(true);
                   }}
                 >
-                  もっと見る...
+                  全て見る...
                 </button>
               </div>
             )}
@@ -153,7 +150,7 @@ const WorksSection = ({
                     trackingEvent("Movie", work.title);
                   }}
                   alt={work.title}
-                  src={`https://img.youtube.com/vi/${work.youtubeId}/hqdefault.jpg`}
+                  src={`https://img.youtube.com/vi_webp/${work.youtubeId}/hqdefault.webp`}
                   key={work.id}
                   className={styles.work + " works-image-" + (index % 4)}
                 />
@@ -198,7 +195,7 @@ const WorksSection = ({
             </>
           ) : (
             <YouTube
-              opts={youtupeOption}
+              opts={youtubeOption}
               loading="lazy"
               className={youTubeStyles.iframe}
               containerClassName={youTubeStyles.youtube}
@@ -228,7 +225,7 @@ const WorksSection = ({
           </a>
         </div>
         <div className={workStyles.pastWorksContainer}>
-          {unshowedWorksWithoutVideo.map((work) => (
+          {worksWithoutVideo.map((work) => (
             <div className={workStyles.pastwork} key={work.id}>
               <div className={workStyles.pastWorkContainer}>
                 <h2 className={workStyles.pastWorkTitle}>{work.title}</h2>
