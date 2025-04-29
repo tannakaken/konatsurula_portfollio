@@ -1,6 +1,9 @@
 {
   "name": "konatsuruka_portfollio",
-  "private": false,
+  "private": true,
+  "license": "GPL-3.0",
+  "author": "tannakaken <tannakaken@gmail.com>",
+  "description": "アニメータ粉鶴亀のポートフォリオサイト",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

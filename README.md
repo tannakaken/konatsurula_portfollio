@@ -47,3 +47,11 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ## loading="lazy"について
 
 使用している scrollreveal と loading="lazy"の相性が悪いので、設定していない。
+
+# scrollreveal のライセンスについて
+
+scrollreveal は商用利用で、ソースコードをプライベートにするためには料金を払う必要がある。
+
+しかし、ソースコードを GNU General Public License 3.0 で公開すれば無料で使える。
+
+https://github.com/jlmakes/scrollreveal
