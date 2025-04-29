@@ -98,7 +98,9 @@ const MyWorksSection = ({
   useEffect(() => {
     // 全ての画像がロード後にアニメーションを開始する。
     if (loadedImageCount === illustrations.length + illustrations3D.length) {
-      animate().catch((error) => console.warn(error));
+      animate()
+        .then(() => console.warn("animate"))
+        .catch((error) => console.warn(error));
     }
   }, [loadedImageCount, animate, illustrations, illustrations3D]);
   /**
