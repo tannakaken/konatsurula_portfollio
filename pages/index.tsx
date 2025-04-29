@@ -242,7 +242,16 @@ const Home = ({
           <div className={styles.mainHeaderPhone}>
             {/*  ヘッダ画像はずっと画面の中で固定されている。その画像をスクロールの上部でのみ見えるようにするためのトリック */}
             <div className={styles.mainHeaderPhoneClip}>
-              <img src={"./header.webp"} alt="" />
+              <img
+                className={styles.desktopHeader}
+                src={"./header.webp"}
+                alt=""
+              />
+              <img
+                className={styles.phoneHeader}
+                src={"./header_phone.webp"}
+                alt=""
+              />
             </div>
           </div>
         </div>

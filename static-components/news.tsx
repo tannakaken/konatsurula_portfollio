@@ -74,12 +74,21 @@ const NewsSection = ({
                   top: 60 + realHeaderHeight - scroll.y,
                   objectPosition: `0px ${scroll.y - realHeaderHeight}px`,
                 }}
-                className={
+                className={`${
                   headerOverflow
                     ? styles.newsBackgroundWide
                     : styles.newsBackgroundNormal
-                }
+                } ${styles.desktopHeader}`}
                 src={"./header_nega.webp"}
+                alt={""}
+              />
+              <img
+                style={{
+                  top: 60 + realHeaderHeight - scroll.y,
+                  objectPosition: `0px ${scroll.y - realHeaderHeight}px`,
+                }}
+                className={`${styles.newsBackgroundNormal} ${styles.phoneHeader}`}
+                src={"./header_nega_phone.webp"}
                 alt={""}
               />
             </div>

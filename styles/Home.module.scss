@@ -38,6 +38,18 @@
     }
   }
 
+  .phoneHeader {
+    display: none;
+  }
+  @media (max-width: 768px) {
+    .desktopHeader {
+      display: inline;
+    }
+    .phoneHeader {
+      display: default;
+    }
+  }
+
   .mainHeader {
     margin-top: 60px; // ヘッダナビゲーションの高さ
     background-image: none;
@@ -55,6 +67,7 @@
         clip-path: inset(0 0 0 0);
         height: 100%;
       }
+
       img {
         position: fixed;
         top: 60px;
@@ -71,7 +84,7 @@
       height: 40vh;
       @media (max-width: 768px) {
           height: 20vh;
-        }
+      }
       display: flex;
       flex-direction: row;
       justify-content: center;
@@ -210,6 +223,9 @@
   text-stroke: 4px whitesmoke;
   paint-order: stroke;
   background-image: url("../public/header_gray.webp");
+  @media (max-width: 768px) {
+    background-image: url("../public/header_gray_phone.webp");
+  }
   background-size: cover;
   background-attachment: fixed;
   font-size: 30pt;
@@ -225,6 +241,9 @@
 
 #illustHeader {
   background-image: url("../public/header_nega.webp");
+  @media (max-width: 768px) {
+    background-image: url("../public/header_nega_phone.webp");
+  }
   background-size: cover;
   background-attachment: fixed;
   font-size: 30pt;
