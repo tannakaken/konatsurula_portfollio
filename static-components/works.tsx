@@ -69,7 +69,6 @@ const WorksSection = ({
                   src={work.gifImage.url + "?w=300&fm=webp"}
                   key={work.id}
                   className={styles.work + " works-image-" + (index % 4)}
-                  loading="lazy"
                 />
               ) : (
                 <img
@@ -81,7 +80,6 @@ const WorksSection = ({
                   src={`https://img.youtube.com/vi_webp/${work.youtubeId}/mqdefault.webp`}
                   key={work.id}
                   className={styles.work + " works-image-" + (index % 4)}
-                  loading="lazy"
                 />
               )
             )}
@@ -144,7 +142,6 @@ const WorksSection = ({
                   src={work.gifImage.url + "?w=300&fm=webp"}
                   key={work.id}
                   className={styles.work + " works-image-" + (index % 4)}
-                  loading="lazy"
                 />
               ) : (
                 <img
@@ -156,7 +153,6 @@ const WorksSection = ({
                   src={`https://img.youtube.com/vi_webp/${work.youtubeId}/mqdefault.webp`}
                   key={work.id}
                   className={styles.work + " works-image-" + (index % 4)}
-                  loading="lazy"
                 />
               )
             )}
