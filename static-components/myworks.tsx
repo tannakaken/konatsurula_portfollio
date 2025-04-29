@@ -98,9 +98,7 @@ const MyWorksSection = ({
   useEffect(() => {
     // 全ての画像がロード後にアニメーションを開始する。
     if (loadedImageCount === illustrations.length + illustrations3D.length) {
-      animate()
-        .then(() => console.warn("animate"))
-        .catch((error) => console.warn(error));
+      animate().catch((error) => console.warn(error));
     }
   }, [loadedImageCount, animate, illustrations, illustrations3D]);
   /**
@@ -142,7 +140,6 @@ const MyWorksSection = ({
                   src={`https://img.youtube.com/vi_webp/${youtube.youtubeId}/mqdefault.webp`}
                   key={youtube.id}
                   className={styles.work + " works-image-" + (index % 4)}
-                  loading="lazy"
                 />
               ))}
               {myMovies.map((myMovie, index) => (
@@ -159,7 +156,6 @@ const MyWorksSection = ({
                     " works-image-" +
                     ((myYoutubes.length + index) % 4)
                   }
-                  loading="lazy"
                 />
               ))}
             </div>
