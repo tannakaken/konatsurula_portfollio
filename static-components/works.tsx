@@ -22,8 +22,6 @@ const imageStyle = {
 
 /**
  * 仕事で関わった制作物のセクション
- * 
- * loading="lazy"にすると、自主制作セクションのアニメーションが動かなくなる。謎！
  */
 const WorksSection = ({
   works,

@@ -43,3 +43,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
     convert header_grat.PNG -negate header_nega.webp
 
 と行う。
+
+## loading="lazy"について
+
+使用している scrollreveal と loading="lazy"の相性が悪いので、設定していない。
