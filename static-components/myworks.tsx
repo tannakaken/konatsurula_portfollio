@@ -140,6 +140,7 @@ const MyWorksSection = ({
                   src={`https://img.youtube.com/vi_webp/${youtube.youtubeId}/mqdefault.webp`}
                   key={youtube.id}
                   className={styles.work + " works-image-" + (index % 4)}
+                  loading="lazy"
                 />
               ))}
               {myMovies.map((myMovie, index) => (
@@ -156,6 +157,7 @@ const MyWorksSection = ({
                     " works-image-" +
                     ((myYoutubes.length + index) % 4)
                   }
+                  loading="lazy"
                 />
               ))}
             </div>
