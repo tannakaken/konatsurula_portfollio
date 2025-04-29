@@ -246,13 +246,11 @@ const Home = ({
                 className={styles.desktopHeader}
                 src={"./header.webp"}
                 alt=""
-                loading="lazy"
               />
               <img
                 className={styles.phoneHeader}
                 src={"./header_phone.webp"}
                 alt=""
-                loading="lazy"
               />
             </div>
           </div>

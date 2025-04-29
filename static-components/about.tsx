@@ -20,6 +20,7 @@ const About = ({ profile }: { profile: string }) => {
             alt={"粉鶴亀のアイコン"}
             width={"333px"}
             height={"333px"}
+            loading="lazy"
           />
         </div>
         <div className={styles.descriptionContainer + " right-about"}>
@@ -34,6 +35,7 @@ const About = ({ profile }: { profile: string }) => {
             alt={"粉鶴亀のアイコン"}
             width={"200px"}
             height={"200px"}
+            loading="lazy"
           />
         </div>
         <div className={styles.descriptionContainer}>{description}</div>

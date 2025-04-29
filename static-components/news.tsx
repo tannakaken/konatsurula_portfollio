@@ -48,6 +48,7 @@ const NewsSection = ({
                   src="/new.webp"
                   width={"36px"}
                   height={"13px"}
+                  loading="lazy"
                 />
                 {newsContent.title}
               </li>
@@ -81,6 +82,7 @@ const NewsSection = ({
                 } ${styles.desktopHeader}`}
                 src={"./header_nega.webp"}
                 alt={""}
+                loading="lazy"
               />
               <img
                 style={{
@@ -90,6 +92,7 @@ const NewsSection = ({
                 className={`${styles.newsBackgroundNormal} ${styles.phoneHeader}`}
                 src={"./header_nega_phone.webp"}
                 alt={""}
+                loading="lazy"
               />
             </div>
           </div>
