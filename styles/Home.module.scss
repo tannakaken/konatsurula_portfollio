@@ -43,10 +43,10 @@
   }
   @media (max-width: 768px) {
     .desktopHeader {
-      display: inline;
+      display: none;
     }
     .phoneHeader {
-      display: default;
+      display: inline;
     }
   }
 
