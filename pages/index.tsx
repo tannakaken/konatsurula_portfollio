@@ -239,18 +239,20 @@ const Home = ({
             headerOverflow ? styles.mainHeaderWide : styles.mainHeaderNormal
           }`}
         >
-          <div className={styles.mainHeaderPhone}>
+          <div className={styles.mainHeaderContainer}>
             {/*  ヘッダ画像はずっと画面の中で固定されている。その画像をスクロールの上部でのみ見えるようにするためのトリック */}
-            <div className={styles.mainHeaderPhoneClip}>
+            <div className={styles.mainHeaderContainerClip}>
               <img
                 className={styles.desktopHeader}
                 src={"./header.webp"}
                 alt=""
+                loading="lazy"
               />
               <img
                 className={styles.phoneHeader}
                 src={"./header_phone.webp"}
                 alt=""
+                loading="lazy"
               />
             </div>
           </div>

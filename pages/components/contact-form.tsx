@@ -369,6 +369,7 @@ const ContactForm = () => {
           width={"220px"}
           height={"345px"}
           alt={"お気楽にご相談ください。"}
+          loading="lazy"
         />
       </div>
       {sending && (

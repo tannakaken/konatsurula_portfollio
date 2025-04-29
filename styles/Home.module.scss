@@ -18,7 +18,7 @@
   .mainHeaderNormal {
     width: 100%;
     height: 52.5vw; // ヘッダの画像の実際のピクセル数から 543 / 1032と計算した。
-    .mainHeaderPhone {
+    .mainHeaderContainer {
       img {
         width: 100%;
         height: 52.5vw;
@@ -30,7 +30,7 @@
   .mainHeaderWide {
     height: calc( 100vh - 60px );
     width: 100%;
-    .mainHeaderPhone {
+    .mainHeaderContainer {
       img {
         height: calc( 100vh - 60px );
         width: 100vw;
@@ -53,7 +53,7 @@
   .mainHeader {
     margin-top: 60px; // ヘッダナビゲーションの高さ
     background-image: none;
-    .mainHeaderPhone {
+    .mainHeaderContainer {
       display: block;
       height: 100%;
       width: 100%;
@@ -62,7 +62,7 @@
       right: 0;
       z-index: -1;
       //  ヘッダ画像はずっと画面の中で固定されている。その画像をスクロールの上部でのみ見えるようにするためのトリック
-      .mainHeaderPhoneClip {
+      .mainHeaderContainerClip {
         position: relative;
         clip-path: inset(0 0 0 0);
         height: 100%;
