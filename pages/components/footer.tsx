@@ -37,7 +37,6 @@ const Footer = () => {
             width={32}
             height={32}
             style={{ animation }}
-            loading="lazy"
           />
         </span>
       </p>

@@ -52,7 +52,6 @@ const ContactForm = () => {
             data-tip={
               "<div><div><p>・用途<br />・予算<br />・納品希望日<br />・詳細…等を<br />ご入力ください。</p></div><div><img src='contact.webp' alt='お気楽にご相談ください。' /></div></div>"
             }
-            loading="lazy"
           />
           {isMounted && (
             <ReactTooltip
@@ -370,7 +369,6 @@ const ContactForm = () => {
           width={"220px"}
           height={"345px"}
           alt={"お気楽にご相談ください。"}
-          loading="lazy"
         />
       </div>
       {sending && (
