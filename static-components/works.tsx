@@ -22,6 +22,8 @@ const imageStyle = {
 
 /**
  * 仕事で関わった制作物のセクション
+ * 
+ * loading="lazy"にすると、自主制作セクションのアニメーションが動かなくなる。謎！
  */
 const WorksSection = ({
   works,
@@ -69,7 +71,6 @@ const WorksSection = ({
                   src={work.gifImage.url + "?w=300&fm=webp"}
                   key={work.id}
                   className={styles.work + " works-image-" + (index % 4)}
-                  loading="lazy"
                 />
               ) : (
                 <img
@@ -81,7 +82,6 @@ const WorksSection = ({
                   src={`https://img.youtube.com/vi_webp/${work.youtubeId}/mqdefault.webp`}
                   key={work.id}
                   className={styles.work + " works-image-" + (index % 4)}
-                  loading="lazy"
                 />
               )
             )}
@@ -144,7 +144,6 @@ const WorksSection = ({
                   src={work.gifImage.url + "?w=300&fm=webp"}
                   key={work.id}
                   className={styles.work + " works-image-" + (index % 4)}
-                  loading="lazy"
                 />
               ) : (
                 <img
@@ -156,7 +155,6 @@ const WorksSection = ({
                   src={`https://img.youtube.com/vi_webp/${work.youtubeId}/mqdefault.webp`}
                   key={work.id}
                   className={styles.work + " works-image-" + (index % 4)}
-                  loading="lazy"
                 />
               )
             )}
